@@ -2,9 +2,7 @@ import React from "react";
 
 const RecentBox = () => {
     return (
-        <div>
-            Recent Box
-        </div>
+        <h2>Recent Ascents</h2>
     )
 }
 

@@ -5,6 +5,9 @@ const TopNav = () => {
     return (
         <nav>
             <ul>
+                <Link to=''>
+                    <li>Home</li>
+                </Link>
                 <Link to='RecentAscents'>
                     <li>Recent Ascents</li>
                 </Link>
