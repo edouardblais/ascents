@@ -16,8 +16,9 @@ import Following from './components/profile/ProfileInfo/Following';
 import ToDo from './components/profile/ProfileInfo/ToDo';
 import AddAscent from './components/addascent/AddAscent';
 import CreateNew from './components/addascent/createnew/CreateNew';
-import SignIn from './components/signin/SignIn';
-import CreateUser from './components/signin/createuser/CreateUser';
+import SignIn from './components/authentication/SignIn';
+import CreateUser from './components/authentication/CreateUser';
+import Reset from './components/authentication/Reset';
 
 
 const App = () => {
@@ -41,7 +42,8 @@ const App = () => {
           <Route path='/AddAscent' element={<AddAscent/>}/>
             <Route path='/AddAscent/CreateNew' element={<CreateNew/>}/>
           <Route path='/SignIn' element={<SignIn/>}/>
-            <Route path='/SignIn/CreateUser' element={<CreateUser/>}/>
+          <Route path='/CreateUser' element={<CreateUser/>}/>
+          <Route path='/Reset' element={<Reset/>}/>
       </Routes>
     </BrowserRouter>
   );
