@@ -19,6 +19,8 @@ const CreateUser = () => {
 
     const createUser = () => {
 
+    //https://blog.logrocket.com/user-authentication-firebase-react-apps/
+
         if (password === repeatedpassword && password !== '') {
             const auth = getAuth();
             createUserWithEmailAndPassword(auth, email, password)
