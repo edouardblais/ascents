@@ -28,7 +28,7 @@ const App = () => {
       <UserBox/>
       <RecentBox/>
       <Routes>
-        <Route path='' element={<Home/>}/>
+        <Route path='/' element={<Home/>}/>
           <Route path='/RecentAscents' element={<RecentAscents/>}/>
           <Route path='/Areas' element={<Areas/>}/>
             <Route path='/Areas/:areaname' element={<Crags/>}/>

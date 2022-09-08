@@ -34,6 +34,7 @@ const signIn = async (email, password) => {
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
+    console.log(docs);
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
         uid: user.uid,
@@ -53,8 +54,8 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const user = res.user;
     await addDoc(collection(db, "users"), {
       uid: user.uid,
-      name,
-      email,
+      name: name,
+      email: email,
     });
   } catch (err) {
     console.error(err);
