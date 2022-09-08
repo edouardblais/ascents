@@ -13,9 +13,8 @@ const UserBox = () => {
       if (user) {
         const info = getUserInfo(user.uid);
         info.then((resolvedinfo) => {
-            const infotoset = resolvedinfo;
+            const infotoset = resolvedinfo[0];
             setUserInfo(infotoset);
-            console.log(infotoset)
         })
       }
   }, [user]);
@@ -40,7 +39,7 @@ const UserBox = () => {
         <div>
             <h2>User Profile</h2>
             <div>
-                <div>{}</div>
+                <div>{userInfo.name}</div>
                 <Link to ='/:profilename'>Go to Profile</Link>
                 <button onClick={logout}>Log Out</button>
             </div>

@@ -50,7 +50,8 @@ const signIn = async (email, password) => {
 const getUserInfo = async (userUID) => {
   const q = query(collection(db, "users"), where("uid", "==", userUID));
   const docs = await getDocs(q);
-  return docs;
+  const data = docs.docs.map((doc) => doc.data());
+  return data;
 }
 
 const registerWithEmailAndPassword = async (name, email, password) => {

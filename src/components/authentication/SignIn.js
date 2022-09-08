@@ -17,7 +17,6 @@ const SignIn = () => {
       return;
     }
     if (user) navigate('/');
-    console.log(user);
   }, [user, loading]);
 
   return (
