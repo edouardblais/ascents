@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { addNewClimb } from '../../firebase/Firebase';
+import React, { useEffect, useState } from 'react';
+import { addNewClimb, fetchCountry, fetchArea, fetchCrag, fetchClimb } from '../../firebase/Firebase';
 
 const CreateNew = () => {
     const [country, setCountry] = useState('');
@@ -8,6 +8,11 @@ const CreateNew = () => {
     const [climb, setClimb] = useState('');
     const [type, setType] = useState('');
     const [grade, setGrade] = useState('');
+
+    const [countriesDisplayed, setCountriesDisplayed] = useState([]);
+    const [areasDisplayed, setAreasDisplayed] = useState([]);
+    const [cragsDisplayed, setCragsDisplayed] = useState([]);
+    const [climbsDisplayed, setClimbsDisplayed] = useState([]);
 
     const defineCountry = (countryvalue) => {
         setCountry(countryvalue);
@@ -33,21 +38,69 @@ const CreateNew = () => {
         setType(typevalue);
     };
 
+    useEffect(() => {
+        const possibleCountries = fetchCountry(country)
+        possibleCountries.then((resolvedCountries) => {
+            setCountriesDisplayed(resolvedCountries);
+        })
+    }, [country]);
+
+    useEffect(() => {
+        const possibleAreas = fetchArea(area)
+        possibleAreas.then((resolvedAreas) => {
+            setAreasDisplayed(resolvedAreas);
+        })
+    }, [area]);
+
+    useEffect(() => {
+        const possibleCrags = fetchCrag(crag)
+        possibleCrags.then((resolvedCrags) => {
+            setCragsDisplayed(resolvedCrags);
+        })
+    }, [crag]);
+
+    useEffect(() => {
+        const possibleClimbs = fetchClimb(climb)
+        possibleClimbs.then((resolvedClimbs) => {
+            setClimbsDisplayed(resolvedClimbs);
+        })
+    }, [climb]);
+
     return (
         <div>
             <h1>Add New Climb</h1>
             <form>
                 <label htmlFor='country'>Country</label>
                 <input type='text' id='country' name='country' onChange={(e) => defineCountry(e.target.value)}/>
+                <div>
+                    {countriesDisplayed.map((country, index) => {
+                        return <div key={index}>{country}</div>
+                    })}
+                </div>
 
                 <label htmlFor='area'>Area</label>
                 <input type='text' id='area' name='area' onChange={(e) => defineArea(e.target.value)}/>
+                <div>
+                    {areasDisplayed.map((area, index) => {
+                        return <div key={index}>{area}</div>
+                    })}
+                </div>
 
                 <label htmlFor='crag'>Crag</label>
                 <input type='text' id='crag' name='crag' onChange={(e) => defineCrag(e.target.value)}/>
+                <div>
+                    {cragsDisplayed.map((crag, index) => {
+                        return <div key={index}>{crag}</div>
+                    })}
+                </div>
 
-                <label htmlFor='route'>Route</label>
-                <input type='text' id='route' name='route' onChange={(e) => defineClimb(e.target.value)}/>
+                <label htmlFor='climb'>Climb</label>
+                <input type='text' id='climb' name='climb' onChange={(e) => defineClimb(e.target.value)}/>
+                <div>
+                    {climbsDisplayed.map((climb, index) => {
+                        return <div key={index}>{climb}</div>
+                    })}
+                </div>
 
                 <select name='grade' id='grade' onChange={(e) => getSelectedGrade(e.target.value)}>
                     <option value='5'>5</option>

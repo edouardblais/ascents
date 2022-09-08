@@ -48,10 +48,14 @@ const signIn = async (email, password) => {
 };
 
 const getUserInfo = async (userUID) => {
-  const q = query(collection(db, "users"), where("uid", "==", userUID));
-  const docs = await getDocs(q);
-  const data = docs.docs.map((doc) => doc.data());
-  return data;
+  try {
+    const q = query(collection(db, "users"), where("uid", "==", userUID));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const registerWithEmailAndPassword = async (name, email, password) => {
@@ -100,6 +104,66 @@ const addNewClimb = async (country, area, crag, climb, grade, type) => {
   }
 }
 
+const fetchCountry = async (country) => {
+  try {
+    const q = query(collection(db, "climbs"), where("country", "==", country));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    const countriesList = [];
+    data.map((eachData) => {
+      countriesList.push(eachData.country);
+    });
+    return countriesList;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchArea = async (area) => {
+  try {
+    const q = query(collection(db, "climbs"), where("area", "==", area));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    const areasList = [];
+    data.map((eachData) => {
+      areasList.push(eachData.area);
+    });
+    return areasList;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchCrag = async (crag) => {
+  try {
+    const q = query(collection(db, "climbs"), where("crag", "==", crag));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    const cragsList = [];
+    data.map((eachData) => {
+      cragsList.push(eachData.crag);
+    });
+    return cragsList;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchClimb = async (climb) => {
+  try {
+    const q = query(collection(db, "climbs"), where("climb", "==", climb));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    const climbsList = [];
+    data.map((eachData) => {
+      climbsList.push(eachData.climb);
+    });
+    return climbsList;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export {
   auth,
   db,
@@ -109,6 +173,10 @@ export {
   logout,
   getUserInfo,
   addNewClimb,
+  fetchCountry,
+  fetchArea,
+  fetchCrag,
+  fetchClimb,
 };
 
 
