@@ -83,6 +83,23 @@ const logout = () => {
   signOut(auth);
 };
 
+const addNewClimb = async (country, area, crag, climb, grade, type) => {
+  try {
+    await addDoc(collection(db, 'climbs'), {
+      country: country,
+      area: area,
+      crag: crag,
+      climb: climb,
+      grade: grade,
+      type: type,
+    })
+    alert('New climb successfully added!');
+  } catch (err) {
+    console.log(err)
+    alert(err);
+  }
+}
+
 export {
   auth,
   db,
@@ -91,6 +108,7 @@ export {
   sendPasswordReset,
   logout,
   getUserInfo,
+  addNewClimb,
 };
 
 
