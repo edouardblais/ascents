@@ -15,6 +15,10 @@ const CreateNew = () => {
     const [cragsDisplayed, setCragsDisplayed] = useState([]);
     const [climbsDisplayed, setClimbsDisplayed] = useState([]);
 
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [errorStatus, setErrorStatus] = useState(true);
+
     const defineCountry = (countryvalue) => {
         const trimCountry = trimSentence(countryvalue)
         const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
@@ -44,6 +48,8 @@ const CreateNew = () => {
         const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
         if (trimAndCapClimb.length !== 0) {
             setClimb(trimAndCapClimb);
+        } else {
+            setClimb('');
         }
     };
 
@@ -82,6 +88,22 @@ const CreateNew = () => {
             setClimbsDisplayed(resolvedClimbs);
         })
     }, [climb]);
+
+    const submitForm = (country, area, crag, climb, grade, type) => {
+        if (country === '' || area === '' || crag === '' || climb === '' || grade === '' || type === '') {
+            setErrorStatus(true);
+            setErrorMessage('Please make sure no field is left empty');
+        } else {
+            setErrorStatus(false);
+            setErrorMessage('');
+        }
+    }
+    
+    useEffect(() => {
+        if (errorStatus === false) {
+            addNewClimb(country, area, crag, climb, grade, type);
+        }
+    }, [errorStatus]);
 
     return (
         <div>
@@ -155,7 +177,9 @@ const CreateNew = () => {
                     <option value='Trad Climbing'>Trad Climbing</option>
                 </select>
 
-                <button type='button' onClick={() => addNewClimb(country, area, crag, climb, grade, type)}>Add New Climb</button>
+                <button type='button' onClick={() => submitForm(country, area, crag, climb, grade, type)}>Add New Climb</button>
+
+                <div>{errorMessage}</div>
             </form>
         </div>
     )
