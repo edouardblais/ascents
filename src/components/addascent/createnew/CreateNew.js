@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { addNewClimb, fetchCountry, fetchArea, fetchCrag, fetchClimb } from '../../firebase/Firebase';
+import { capitalizeFirstLetter, trimSentence } from '../../operations/Operations';
 
 const CreateNew = () => {
     const [country, setCountry] = useState('');
@@ -15,19 +16,35 @@ const CreateNew = () => {
     const [climbsDisplayed, setClimbsDisplayed] = useState([]);
 
     const defineCountry = (countryvalue) => {
-        setCountry(countryvalue);
+        const trimCountry = trimSentence(countryvalue)
+        const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
+        if (trimAndCapCountry.length !== 0) {
+            setCountry(trimAndCapCountry);
+        }
     };
 
     const defineArea = (areavalue) => {
-        setArea(areavalue);
+        const trimArea = trimSentence(areavalue)
+        const trimAndCapArea = capitalizeFirstLetter(trimArea);
+        if (trimAndCapArea.length !== 0) {
+            setArea(trimAndCapArea);
+        }
     };
 
     const defineCrag = (cragvalue) => {
-        setCrag(cragvalue);
+        const trimCrag = trimSentence(cragvalue)
+        const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
+        if (trimAndCapCrag.length !== 0) {
+            setCrag(trimAndCapCrag);
+        }
     };
 
     const defineClimb = (climbvalue) => {
-        setClimb(climbvalue);
+        const trimClimb = trimSentence(climbvalue)
+        const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
+        if (trimAndCapClimb.length !== 0) {
+            setClimb(trimAndCapClimb);
+        }
     };
 
     const getSelectedGrade = (gradevalue) => {
@@ -103,6 +120,7 @@ const CreateNew = () => {
                 </div>
 
                 <select name='grade' id='grade' onChange={(e) => getSelectedGrade(e.target.value)}>
+                    <option value=''></option>
                     <option value='5'>5</option>
                     <option value='6a'>6a</option>
                     <option value='6a+'>6a+</option>
@@ -131,9 +149,10 @@ const CreateNew = () => {
                 </select>
 
                 <select name='type' id='type' onChange={(e) => getSelectedType(e.target.value)}>
-                    <option value='boulder'>Boulder Problem</option>
-                    <option value='sport'>Sport Climb</option>
-                    <option value='trad'>Trad Climb</option>
+                    <option value=''></option>
+                    <option value='Bouldering'>Bouldering</option>
+                    <option value='Sport Climbing'>Sport Climbing</option>
+                    <option value='Trad Climbing'>Trad Climbing</option>
                 </select>
 
                 <button type='button' onClick={() => addNewClimb(country, area, crag, climb, grade, type)}>Add New Climb</button>

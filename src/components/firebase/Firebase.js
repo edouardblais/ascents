@@ -12,6 +12,7 @@ import { getFirestore,
   where,
   addDoc, 
 } from "firebase/firestore";
+import { capitalizeFirstLetter } from '../operations/Operations';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBHlIY3djJMXF6A3ehQCCUb_vDfMa7Sd4U",
