@@ -112,7 +112,9 @@ const fetchCountry = async (country) => {
     const data = docs.docs.map((doc) => doc.data());
     const countriesList = [];
     data.map((eachData) => {
-      countriesList.push(eachData.country);
+      if (!countriesList.includes(eachData.country)) {
+        countriesList.push(eachData.country);
+      }
     });
     return countriesList;
   } catch (err) {
@@ -127,7 +129,9 @@ const fetchArea = async (area) => {
     const data = docs.docs.map((doc) => doc.data());
     const areasList = [];
     data.map((eachData) => {
-      areasList.push(eachData.area);
+      if (!areasList.includes(eachData.area)) {
+        areasList.push(eachData.area);
+      }
     });
     return areasList;
   } catch (err) {
@@ -142,7 +146,9 @@ const fetchCrag = async (crag) => {
     const data = docs.docs.map((doc) => doc.data());
     const cragsList = [];
     data.map((eachData) => {
-      cragsList.push(eachData.crag);
+      if (!cragsList.includes(eachData.crag)) {
+        cragsList.push(eachData.crag);
+      }
     });
     return cragsList;
   } catch (err) {
@@ -157,7 +163,9 @@ const fetchClimb = async (climb) => {
     const data = docs.docs.map((doc) => doc.data());
     const climbsList = [];
     data.map((eachData) => {
-      climbsList.push(eachData.climb);
+      if (!climbsList.includes(eachData.climb)) {
+        climbsList.push(eachData.climb);
+      }
     });
     return climbsList;
   } catch (err) {
