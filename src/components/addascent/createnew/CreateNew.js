@@ -102,6 +102,12 @@ const CreateNew = () => {
     useEffect(() => {
         if (errorStatus === false) {
             addNewClimb(country, area, crag, climb, grade, type);
+            setCountry('');
+            setArea('');
+            setCrag('');
+            setClimb('');
+            setGrade('');
+            setType('');
         }
     }, [errorStatus]);
 
@@ -110,7 +116,7 @@ const CreateNew = () => {
             <h1>Add New Climb</h1>
             <form>
                 <label htmlFor='country'>Country</label>
-                <input type='text' id='country' name='country' onChange={(e) => defineCountry(e.target.value)}/>
+                <input type='text' id='country' name='country' value={country} onChange={(e) => defineCountry(e.target.value)}/>
                 <div>
                     {countriesDisplayed.map((country, index) => {
                         return <div key={index}>{country}</div>
@@ -118,7 +124,7 @@ const CreateNew = () => {
                 </div>
 
                 <label htmlFor='area'>Area</label>
-                <input type='text' id='area' name='area' onChange={(e) => defineArea(e.target.value)}/>
+                <input type='text' id='area' name='area' value={area} onChange={(e) => defineArea(e.target.value)}/>
                 <div>
                     {areasDisplayed.map((area, index) => {
                         return <div key={index}>{area}</div>
@@ -126,7 +132,7 @@ const CreateNew = () => {
                 </div>
 
                 <label htmlFor='crag'>Crag</label>
-                <input type='text' id='crag' name='crag' onChange={(e) => defineCrag(e.target.value)}/>
+                <input type='text' id='crag' name='crag' value={crag} onChange={(e) => defineCrag(e.target.value)}/>
                 <div>
                     {cragsDisplayed.map((crag, index) => {
                         return <div key={index}>{crag}</div>
@@ -134,14 +140,14 @@ const CreateNew = () => {
                 </div>
 
                 <label htmlFor='climb'>Climb</label>
-                <input type='text' id='climb' name='climb' onChange={(e) => defineClimb(e.target.value)}/>
+                <input type='text' id='climb' name='climb' value={climb} onChange={(e) => defineClimb(e.target.value)}/>
                 <div>
                     {climbsDisplayed.map((climb, index) => {
                         return <div key={index}>{climb}</div>
                     })}
                 </div>
 
-                <select name='grade' id='grade' onChange={(e) => getSelectedGrade(e.target.value)}>
+                <select name='grade' id='grade' value={grade} onChange={(e) => getSelectedGrade(e.target.value)}>
                     <option value=''></option>
                     <option value='5'>5</option>
                     <option value='6a'>6a</option>
@@ -170,7 +176,7 @@ const CreateNew = () => {
                     <option value='9c+'>9c+</option>
                 </select>
 
-                <select name='type' id='type' onChange={(e) => getSelectedType(e.target.value)}>
+                <select name='type' id='type' value={type} onChange={(e) => getSelectedType(e.target.value)}>
                     <option value=''></option>
                     <option value='Bouldering'>Bouldering</option>
                     <option value='Sport Climbing'>Sport Climbing</option>
