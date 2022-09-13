@@ -103,7 +103,7 @@ const logout = () => {
 };
 
 const addAscentToLogbook = (ascent) => {
-
+  
 };
 
 const addClimbToTodoList = (ascent) => {
