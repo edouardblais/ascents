@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import { auth, logout } from '../firebase/Firebase';
+import { auth, logout, getUserInfo } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getUserInfo } from '../firebase/Firebase';
 
 const UserBox = () => {
 
@@ -34,6 +33,7 @@ const UserBox = () => {
       </div>
     );
   }
+  
   if (user) {
     return (
         <div>
