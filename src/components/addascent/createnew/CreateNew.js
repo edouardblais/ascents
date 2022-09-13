@@ -20,37 +20,19 @@ const CreateNew = () => {
     const [errorStatus, setErrorStatus] = useState(true);
 
     const defineCountry = (countryvalue) => {
-        const trimCountry = trimSentence(countryvalue)
-        const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
-        if (trimAndCapCountry.length !== 0) {
-            setCountry(trimAndCapCountry);
-        }
+        setCountry(countryvalue);
     };
 
     const defineArea = (areavalue) => {
-        const trimArea = trimSentence(areavalue)
-        const trimAndCapArea = capitalizeFirstLetter(trimArea);
-        if (trimAndCapArea.length !== 0) {
-            setArea(trimAndCapArea);
-        }
+        setArea(areavalue);
     };
 
     const defineCrag = (cragvalue) => {
-        const trimCrag = trimSentence(cragvalue)
-        const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
-        if (trimAndCapCrag.length !== 0) {
-            setCrag(trimAndCapCrag);
-        }
+        setCrag(cragvalue);
     };
 
     const defineClimb = (climbvalue) => {
-        const trimClimb = trimSentence(climbvalue)
-        const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
-        if (trimAndCapClimb.length !== 0) {
-            setClimb(trimAndCapClimb);
-        } else {
-            setClimb('');
-        }
+        setClimb(climbvalue);
     };
 
     const getSelectedGrade = (gradevalue) => {
@@ -62,28 +44,36 @@ const CreateNew = () => {
     };
 
     useEffect(() => {
-        const possibleCountries = fetchCountry(country)
+        const trimCountry = trimSentence(country)
+        const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
+        const possibleCountries = fetchCountry(trimAndCapCountry);
         possibleCountries.then((resolvedCountries) => {
             setCountriesDisplayed(resolvedCountries);
         })
     }, [country]);
 
     useEffect(() => {
-        const possibleAreas = fetchArea(area)
+        const trimArea = trimSentence(area)
+        const trimAndCapArea = capitalizeFirstLetter(trimArea);
+        const possibleAreas = fetchArea(trimAndCapArea);
         possibleAreas.then((resolvedAreas) => {
             setAreasDisplayed(resolvedAreas);
         })
     }, [area]);
 
     useEffect(() => {
-        const possibleCrags = fetchCrag(crag)
+        const trimCrag = trimSentence(crag)
+        const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
+        const possibleCrags = fetchCrag(trimAndCapCrag);
         possibleCrags.then((resolvedCrags) => {
             setCragsDisplayed(resolvedCrags);
         })
     }, [crag]);
 
     useEffect(() => {
-        const possibleClimbs = fetchClimb(climb)
+        const trimClimb = trimSentence(climb)
+        const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
+        const possibleClimbs = fetchClimb(trimAndCapClimb);
         possibleClimbs.then((resolvedClimbs) => {
             setClimbsDisplayed(resolvedClimbs);
         })
@@ -108,6 +98,7 @@ const CreateNew = () => {
             setClimb('');
             setGrade('');
             setType('');
+            setErrorStatus(true);
         }
     }, [errorStatus]);
 

@@ -12,7 +12,7 @@ import { getFirestore,
   where,
   addDoc, 
 } from "firebase/firestore";
-import { capitalizeFirstLetter } from '../operations/Operations';
+import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBHlIY3djJMXF6A3ehQCCUb_vDfMa7Sd4U",
@@ -89,12 +89,25 @@ const logout = () => {
 };
 
 const addNewClimb = async (country, area, crag, climb, grade, type) => {
+  
+  const trimCountry = trimSentence(country)
+  const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
+
+  const trimArea = trimSentence(area)
+  const trimAndCapArea = capitalizeFirstLetter(trimArea);
+
+  const trimCrag = trimSentence(crag)
+  const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
+
+  const trimClimb = trimSentence(climb)
+  const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
+
   try {
     await addDoc(collection(db, 'climbs'), {
-      country: country,
-      area: area,
-      crag: crag,
-      climb: climb,
+      country: trimAndCapCountry,
+      area: trimAndCapArea,
+      crag: trimAndCapCrag,
+      climb: trimAndCapClimb,
       grade: grade,
       type: type,
     })
