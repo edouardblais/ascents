@@ -234,7 +234,7 @@ const fetchClimbCragAreaCountry = async (input) => {
   allCountries.map((eachData) => {
     allDataList.push(eachData);
   });
-  console.log(allDataList)
+  
   return allDataList;
   
 }
