@@ -40,6 +40,20 @@ const signIn = async (email, password) => {
         uid: user.uid,
         name: user.displayName,
         email: user.email,
+        otherinfo: {
+          country:'',
+          age:'',
+          startedclimbing:'',
+          favoriteareas:'',
+          otherinterests:'',
+          },
+        following:'',
+        followers:'',
+        logbook: {
+          routes:[],
+          boulders:[],
+          },
+        todolist:[],
       });
     }
   } catch (err) {
@@ -86,6 +100,14 @@ const sendPasswordReset = async (email) => {
 
 const logout = () => {
   signOut(auth);
+};
+
+const addAscentToLogbook = (ascent) => {
+
+};
+
+const addClimbToTodoList = (ascent) => {
+
 };
 
 const addNewClimb = async (country, area, crag, climb, grade, type) => {
@@ -253,6 +275,8 @@ export {
   processCrag,
   processClimb,
   fetchClimbCragAreaCountry,
+  addAscentToLogbook,
+  addClimbToTodoList,
 };
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
-import { fetchClimbCragAreaCountry, auth, getUserInfo } from '../firebase/Firebase';
+import { fetchClimbCragAreaCountry, auth, getUserInfo, addAscentToLogbook, addClimbToTodoList } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const AddAscent = () => {
@@ -36,6 +36,22 @@ const AddAscent = () => {
         });
     }, [userInput]);
 
+    if (loading) {
+        return (
+          <div>
+            <p>Initialising User...</p>
+          </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error}</p>
+            </div>
+        );
+    }
+
     if (user) {
         return (
             <div>
@@ -44,9 +60,13 @@ const AddAscent = () => {
                 <input type='text' id='climb' name='climb' value={userInput} onChange={(e) => defineInput(e.target.value)}/>
                 <div>
                     {possibleClimbs.map((possibilities, index) => {
-                        return <div key={index}>
-                                    {possibilities.climb} {possibilities.crag} {possibilities.area} {possibilities.country} {possibilities.grade} {possibilities.type}
-                                </div>
+                        if (possibilities.climb!=='') {
+                            return <div key={index}>
+                                        <div>{possibilities.climb} {possibilities.crag} {possibilities.area} {possibilities.country} {possibilities.grade} {possibilities.type}</div>
+                                        <button onClick={addAscentToLogbook(possibilities)}>+Tick!</button>
+                                        <button onClick={addClimbToTodoList(possibilities)}>+To-do!</button>
+                                    </div>
+                        };
                     })}
                 </div>
 

@@ -102,6 +102,7 @@ const CreateNew = () => {
         }
     }, [errorStatus]);
 
+    
     return (
         <div>
             <h1>Add New Climb</h1>
