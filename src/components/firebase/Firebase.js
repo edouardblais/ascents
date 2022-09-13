@@ -123,16 +123,23 @@ const fetchCountry = async (country) => {
     const q = query(collection(db, "climbs"), where("country", "==", country));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
-    const countriesList = [];
-    data.map((eachData) => {
-      if (!countriesList.includes(eachData.country)) {
-        countriesList.push(eachData.country);
-      }
-    });
-    return countriesList;
+    return data;
   } catch (err) {
     console.log(err)
   }
+}
+
+const processCountry = async (country) => {
+  const countryInfo = await fetchCountry(country);
+  const countriesList = [];
+  const countriesDataList = [];
+  countryInfo.map((eachData) => {
+    if (!countriesList.includes(eachData.country)) {
+      countriesList.push(eachData.country);
+      countriesDataList.push(eachData);
+    }
+  });
+  return countriesDataList;
 }
 
 const fetchArea = async (area) => {
@@ -140,16 +147,23 @@ const fetchArea = async (area) => {
     const q = query(collection(db, "climbs"), where("area", "==", area));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
-    const areasList = [];
-    data.map((eachData) => {
-      if (!areasList.includes(eachData.area)) {
-        areasList.push(eachData.area);
-      }
-    });
-    return areasList;
+    return data;
   } catch (err) {
     console.log(err)
   }
+}
+
+const processArea = async (area) => {
+  const areaInfo = await fetchArea(area);
+  const areasList = [];
+    const areasDataList = [];
+    areaInfo.map((eachData) => {
+      if (!areasList.includes(eachData.area)) {
+        areasList.push(eachData.area);
+        areasDataList.push(eachData);
+      }
+    });
+    return areasDataList;
 }
 
 const fetchCrag = async (crag) => {
@@ -157,16 +171,23 @@ const fetchCrag = async (crag) => {
     const q = query(collection(db, "climbs"), where("crag", "==", crag));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
-    const cragsList = [];
-    data.map((eachData) => {
-      if (!cragsList.includes(eachData.crag)) {
-        cragsList.push(eachData.crag);
-      }
-    });
-    return cragsList;
+    return data;
   } catch (err) {
     console.log(err)
   }
+}
+
+const processCrag = async (crag) => {
+  const cragInfo = await fetchCrag(crag);
+  const cragsList = [];
+    const cragsDataList = [];
+    cragInfo.map((eachData) => {
+      if (!cragsList.includes(eachData.crag)) {
+        cragsList.push(eachData.crag);
+        cragsDataList.push(eachData);
+      }
+    });
+    return cragsDataList;
 }
 
 const fetchClimb = async (climb) => {
@@ -174,16 +195,48 @@ const fetchClimb = async (climb) => {
     const q = query(collection(db, "climbs"), where("climb", "==", climb));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
-    const climbsList = [];
-    data.map((eachData) => {
-      if (!climbsList.includes(eachData.climb)) {
-        climbsList.push(eachData.climb);
-      }
-    });
-    return climbsList;
+    return data;
   } catch (err) {
     console.log(err)
   }
+}
+
+const processClimb = async (climb) => {
+  const climbInfo = await fetchClimb(climb);
+  const climbsList = [];
+  const climbsDataList = [];
+  climbInfo.map((eachData) => {
+    if (!climbsList.includes(eachData.climb)) {
+      climbsList.push(eachData.climb);
+      climbsDataList.push(eachData);
+    }
+  });
+  return climbsDataList;
+}
+
+const fetchClimbCragAreaCountry = async (input) => {
+  const allDataList = [];
+
+  const allClimbs = await fetchClimb(input);
+  const allCrags = await fetchCrag(input);
+  const allAreas = await fetchArea(input);
+  const allCountries = await fetchCountry(input);
+
+  allClimbs.map((eachData) => {
+    allDataList.push(eachData);
+  });
+  allCrags.map((eachData) => {
+    allDataList.push(eachData);
+  });
+  allAreas.map((eachData) => {
+    allDataList.push(eachData);
+  });
+  allCountries.map((eachData) => {
+    allDataList.push(eachData);
+  });
+  console.log(allDataList)
+  return allDataList;
+  
 }
 
 export {
@@ -195,10 +248,11 @@ export {
   logout,
   getUserInfo,
   addNewClimb,
-  fetchCountry,
-  fetchArea,
-  fetchCrag,
-  fetchClimb,
+  processCountry,
+  processArea,
+  processCrag,
+  processClimb,
+  fetchClimbCragAreaCountry,
 };
 
 

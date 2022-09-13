@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addNewClimb, fetchCountry, fetchArea, fetchCrag, fetchClimb } from '../../firebase/Firebase';
+import { addNewClimb, processCountry, processArea, processCrag, processClimb } from '../../firebase/Firebase';
 import { capitalizeFirstLetter, trimSentence } from '../../operations/Operations';
 
 const CreateNew = () => {
@@ -46,7 +46,7 @@ const CreateNew = () => {
     useEffect(() => {
         const trimCountry = trimSentence(country)
         const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
-        const possibleCountries = fetchCountry(trimAndCapCountry);
+        const possibleCountries = processCountry(trimAndCapCountry);
         possibleCountries.then((resolvedCountries) => {
             setCountriesDisplayed(resolvedCountries);
         })
@@ -55,7 +55,7 @@ const CreateNew = () => {
     useEffect(() => {
         const trimArea = trimSentence(area)
         const trimAndCapArea = capitalizeFirstLetter(trimArea);
-        const possibleAreas = fetchArea(trimAndCapArea);
+        const possibleAreas = processArea(trimAndCapArea);
         possibleAreas.then((resolvedAreas) => {
             setAreasDisplayed(resolvedAreas);
         })
@@ -64,7 +64,7 @@ const CreateNew = () => {
     useEffect(() => {
         const trimCrag = trimSentence(crag)
         const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
-        const possibleCrags = fetchCrag(trimAndCapCrag);
+        const possibleCrags = processCrag(trimAndCapCrag);
         possibleCrags.then((resolvedCrags) => {
             setCragsDisplayed(resolvedCrags);
         })
@@ -73,7 +73,7 @@ const CreateNew = () => {
     useEffect(() => {
         const trimClimb = trimSentence(climb)
         const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
-        const possibleClimbs = fetchClimb(trimAndCapClimb);
+        const possibleClimbs = processClimb(trimAndCapClimb);
         possibleClimbs.then((resolvedClimbs) => {
             setClimbsDisplayed(resolvedClimbs);
         })
@@ -110,7 +110,7 @@ const CreateNew = () => {
                 <input type='text' id='country' name='country' value={country} onChange={(e) => defineCountry(e.target.value)}/>
                 <div>
                     {countriesDisplayed.map((country, index) => {
-                        return <div key={index}>{country}</div>
+                        return <div key={index}>{country.country}</div>
                     })}
                 </div>
 
@@ -118,7 +118,7 @@ const CreateNew = () => {
                 <input type='text' id='area' name='area' value={area} onChange={(e) => defineArea(e.target.value)}/>
                 <div>
                     {areasDisplayed.map((area, index) => {
-                        return <div key={index}>{area}</div>
+                        return <div key={index}>{area.area}</div>
                     })}
                 </div>
 
@@ -126,7 +126,7 @@ const CreateNew = () => {
                 <input type='text' id='crag' name='crag' value={crag} onChange={(e) => defineCrag(e.target.value)}/>
                 <div>
                     {cragsDisplayed.map((crag, index) => {
-                        return <div key={index}>{crag}</div>
+                        return <div key={index}>{crag.crag}</div>
                     })}
                 </div>
 
@@ -134,7 +134,7 @@ const CreateNew = () => {
                 <input type='text' id='climb' name='climb' value={climb} onChange={(e) => defineClimb(e.target.value)}/>
                 <div>
                     {climbsDisplayed.map((climb, index) => {
-                        return <div key={index}>{climb}</div>
+                        return <div key={index}>{climb.climb}</div>
                     })}
                 </div>
 
