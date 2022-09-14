@@ -138,7 +138,8 @@ const CreateNew = () => {
                         return <div key={index}>{climb.climb}</div>
                     })}
                 </div>
-
+                
+                <label htmlFor='grade'>Grade</label>
                 <select name='grade' id='grade' value={grade} onChange={(e) => getSelectedGrade(e.target.value)}>
                     <option value=''></option>
                     <option value='5'>5</option>
@@ -167,7 +168,8 @@ const CreateNew = () => {
                     <option value='9c'>9c+</option>
                     <option value='9c+'>9c+</option>
                 </select>
-
+                
+                <label htmlFor='type'>Type of climbing</label>
                 <select name='type' id='type' value={type} onChange={(e) => getSelectedType(e.target.value)}>
                     <option value=''></option>
                     <option value='Bouldering'>Bouldering</option>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
 import { fetchClimbCragAreaCountry, auth, getUserInfo, addAscentToLogbook, addClimbToTodoList } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import AddAscentModal from './AddAscentModal';
 
 const AddAscent = () => {
 
@@ -65,6 +66,7 @@ const AddAscent = () => {
                                         <div>{possibilities.climb} {possibilities.crag} {possibilities.area} {possibilities.country} {possibilities.grade} {possibilities.type}</div>
                                         <button onClick={addAscentToLogbook(possibilities)}>+Tick!</button>
                                         <button onClick={addClimbToTodoList(possibilities)}>+To-do!</button>
+                                        <AddAscentModal climb={possibilities}/>
                                     </div>
                         };
                     })}
