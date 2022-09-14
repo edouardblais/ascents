@@ -71,7 +71,7 @@ const AddAscent = () => {
                             return <div key={index}>
                                         <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
                                         <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
-                                        <button onClick={() => addClimbToTodoList(possibility)}>+To-do!</button>
+                                        <button onClick={() => addClimbToTodoList(possibility, user.email)}>+To-do!</button>
                                         {modalToDisplay===possibility? <AddAscentModal climb={possibility}/> : null}
                                     </div>
                         };
