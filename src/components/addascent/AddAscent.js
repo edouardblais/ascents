@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
-import { fetchClimbCragAreaCountry, auth, getUserInfo, addAscentToLogbook, addClimbToTodoList } from '../firebase/Firebase';
+import { fetchClimbCragAreaCountry, auth, getUserInfo, addClimbToTodoList } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import AddAscentModal from './AddAscentModal';
 
 const AddAscent = () => {
+
+    const modalRef = useRef(null);
 
     const [user, loading, error] = useAuthState(auth);
     const [userInfo, setUserInfo] = useState('');
@@ -37,6 +39,10 @@ const AddAscent = () => {
         });
     }, [userInput]);
 
+    const showAddAscentModal = () => {
+        modalRef.current.style.color = 'red';
+    }
+
     if (loading) {
         return (
           <div>
@@ -60,13 +66,13 @@ const AddAscent = () => {
 
                 <input type='text' id='climb' name='climb' value={userInput} onChange={(e) => defineInput(e.target.value)}/>
                 <div>
-                    {possibleClimbs.map((possibilities, index) => {
-                        if (possibilities.climb!=='') {
+                    {possibleClimbs.map((possibility, index) => {
+                        if (possibility.climb!=='') {
                             return <div key={index}>
-                                        <div>{possibilities.climb} {possibilities.crag} {possibilities.area} {possibilities.country} {possibilities.grade} {possibilities.type}</div>
-                                        <button onClick={addAscentToLogbook(possibilities)}>+Tick!</button>
-                                        <button onClick={addClimbToTodoList(possibilities)}>+To-do!</button>
-                                        <AddAscentModal climb={possibilities}/>
+                                        <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
+                                        <button onClick={showAddAscentModal}>+Tick!</button>
+                                        <button onClick={addClimbToTodoList(possibility)}>+To-do!</button>
+                                        <AddAscentModal climb={possibility} ref={modalRef}/>
                                     </div>
                         };
                     })}
