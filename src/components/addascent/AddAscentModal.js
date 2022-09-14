@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { addAscentToLogbook } from '../firebase/Firebase';
 
 const AddAscentModal = ({climb}) => {
     const today = new Date();
@@ -111,6 +112,8 @@ const AddAscentModal = ({climb}) => {
 
                 <label htmlFor='comment'>Comment:</label>
                 <input type='text' id='comment' name='comment' defaultValue={comment} onChange={(e) => getComment(e.target.value)}></input>
+
+                <button onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date)}>Add Ascent</button>
 
             </form>
         </div>

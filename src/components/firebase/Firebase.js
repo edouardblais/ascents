@@ -102,12 +102,12 @@ const logout = () => {
   signOut(auth);
 };
 
-const addAscentToLogbook = (ascent) => {
-  
+const addAscentToLogbook = (climb, grade, feel, rp, rating, recommendation, comment, date) => {
+  // add logic here
 };
 
 const addClimbToTodoList = (ascent) => {
-
+  // add logic here
 };
 
 const addNewClimb = async (country, area, crag, climb, grade, type) => {

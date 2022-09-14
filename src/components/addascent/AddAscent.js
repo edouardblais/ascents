@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
 import { fetchClimbCragAreaCountry, auth, getUserInfo, addClimbToTodoList } from '../firebase/Firebase';
@@ -7,10 +7,10 @@ import AddAscentModal from './AddAscentModal';
 
 const AddAscent = () => {
 
-    const modalRef = useRef(null);
-
     const [user, loading, error] = useAuthState(auth);
     const [userInfo, setUserInfo] = useState('');
+
+    const [modalToDisplay, setModalToDisplay] = useState('');
 
     useEffect(() => {
         if (user) {
@@ -39,9 +39,9 @@ const AddAscent = () => {
         });
     }, [userInput]);
 
-    const showAddAscentModal = () => {
-        modalRef.current.style.color = 'red';
-    }
+    const showAddAscentModal = (possibility) => {
+        setModalToDisplay(possibility)
+    };
 
     if (loading) {
         return (
@@ -70,9 +70,9 @@ const AddAscent = () => {
                         if (possibility.climb!=='') {
                             return <div key={index}>
                                         <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
-                                        <button onClick={showAddAscentModal}>+Tick!</button>
-                                        <button onClick={addClimbToTodoList(possibility)}>+To-do!</button>
-                                        <AddAscentModal climb={possibility} ref={modalRef}/>
+                                        <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
+                                        <button onClick={() => addClimbToTodoList(possibility)}>+To-do!</button>
+                                        {modalToDisplay===possibility? <AddAscentModal climb={possibility}/> : null}
                                     </div>
                         };
                     })}
