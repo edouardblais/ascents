@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addAscentToLogbook } from '../firebase/Firebase';
 
-const AddAscentModal = ({climb}) => {
+const AddAscentModal = ({climb, useremail}) => {
     const today = new Date();
     const formattedToday = today.toLocaleDateString();
 
@@ -108,12 +108,12 @@ const AddAscentModal = ({climb}) => {
                     <option value='3'>3</option>
                 </select>
 
-                <button onClick={isRecommended}>Recommended?</button>
+                <button type='button' onClick={isRecommended}>Recommended?</button>
 
                 <label htmlFor='comment'>Comment:</label>
                 <input type='text' id='comment' name='comment' defaultValue={comment} onChange={(e) => getComment(e.target.value)}></input>
 
-                <button onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date)}>Add Ascent</button>
+                <button type='button' onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date, useremail)}>Add Ascent</button>
 
             </form>
         </div>

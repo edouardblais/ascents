@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
-import { fetchClimbCragAreaCountry, auth, getUserInfo, addClimbToTodoList } from '../firebase/Firebase';
+import { fetchClimbCragAreaCountry, auth, addClimbToTodoList } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import AddAscentModal from './AddAscentModal';
 
 const AddAscent = () => {
 
     const [user, loading, error] = useAuthState(auth);
-    const [userInfo, setUserInfo] = useState('');
 
     const [modalToDisplay, setModalToDisplay] = useState('');
-
-    useEffect(() => {
-        if (user) {
-            const info = getUserInfo(user.uid);
-            info.then((resolvedinfo) => {
-                const infotoset = resolvedinfo[0];
-                setUserInfo(infotoset);
-            })
-        }
-    }, [user]);
 
     const [userInput, setUserInput] = useState('');
 
@@ -72,7 +61,7 @@ const AddAscent = () => {
                                         <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
                                         <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
                                         <button onClick={() => addClimbToTodoList(possibility, user.email)}>+To-do!</button>
-                                        {modalToDisplay===possibility? <AddAscentModal climb={possibility}/> : null}
+                                        {modalToDisplay===possibility? <AddAscentModal climb={possibility} useremail={user.email}/> : null}
                                     </div>
                         };
                     })}

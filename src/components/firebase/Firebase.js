@@ -70,12 +70,15 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         favoriteareas:'',
         otherinterests:'',
         },
-      following:'',
-      followers:'',
-      logbook: {
-        routes:[],
-        boulders:[],
-        },
+      following: {
+        names:[],
+        totalnumber:'',
+      },
+      followers: {
+        names:[],
+        totalnumber:'',
+      },
+      logbook:[],
       todolist:[],
       });
   } catch (err) {
@@ -98,16 +101,45 @@ const logout = () => {
   signOut(auth);
 };
 
-const addAscentToLogbook = (climb, grade, feel, rp, rating, recommendation, comment, date) => {
-  // add logic here
+const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, email) => {
+  try {
+    const usersRef = doc(db, "users", email );
+    const ascent = {
+      climb: climb.climb,
+      crag: climb.crag,
+      area: climb.area,
+      country: climb.country,
+      type: climb.type,
+      grade: grade,
+      feel: feel,
+      rp: rp,
+      rating: rating,
+      recommendation: recommendation,
+      comment: comment,
+      date: date,
+    };
+
+    await updateDoc(usersRef, {
+      logbook: arrayUnion(ascent)
+    });
+    alert(`${ascent.climb} was added to your logbook!`)
+  } catch (err){
+    alert(err)
+    console.log(err)
+  }
 };
 
-const addClimbToTodoList = async (climb, email) => { 
-  const usersRef = doc(db, "users", email );
+const addClimbToTodoList = async (climb, email) => {
+  try { 
+    const usersRef = doc(db, "users", email );
 
-  await updateDoc(usersRef, {
-    todolist: arrayUnion(climb)
-  })
+    await updateDoc(usersRef, {
+      todolist: arrayUnion(climb)
+    });
+    alert(`${climb.climb} was added to your to-do list!`)
+  } catch (err) {
+    alert(err)
+  }
 };
 
 const addNewClimb = async (country, area, crag, climb, grade, type) => {
