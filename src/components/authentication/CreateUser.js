@@ -15,7 +15,7 @@ const CreateUser = () => {
   const navigate = useNavigate();
 
   const register = () => {
-    if (!name) alert('Please enter name');
+    if (!name) alert('Please enter your name');
     registerWithEmailAndPassword(name, email, password);
   };
 
@@ -27,17 +27,22 @@ const CreateUser = () => {
 
   return (
     <div className='register'>
-      <div className='register-container'>
+      <form className='register-container'>
+        <label htmlFor='name'>Full Name</label>
         <input
           type='text'
           className='register-textbox'
+          id='name'
+          name='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder='Full Name'
         />
+        <label>Email</label>
         <input
-          type='text'
+          type='email'
           className='register-textbox'
+          name='email'
+          id='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder='Email Address'
@@ -45,16 +50,18 @@ const CreateUser = () => {
         <input
           type='password'
           className='register-textbox'
+          name='password'
+          id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder='Password'
         />
-        <button className='register-btn' onClick={register}>
+        <button type='button' className='register-btn' onClick={register}>
           Register
         </button>
-        <div>
-          Already have an account? <Link to="/SignIn">Login</Link> now.
-        </div>
+      </form>
+      <div>
+        Already have an account? <Link to="/SignIn">Login</Link> now.
       </div>
     </div>
   );
