@@ -12,43 +12,52 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen component
-      return;
-    }
+    if (loading) return;
+    if (error) {
+      alert(error, error.message)
+    };
     if (user) navigate('/');
-  }, [user, loading]);
+  }, [user]);
 
   return (
     <div className="signin">
-      <div className="signin-container">
+      <form className="signin-container">
+        <label htmlFor='email'>Enter Email</label>
         <input
           type="text"
+          id='email'
+          name='email'
           className="signin-textbox"
+          autoComplete='on'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email Address"
         />
+        <label htmlFor='password'>Enter Password</label>
         <input
           type="password"
+          id='password'
+          name='password'
           className="signin-textbox"
+          autoComplete='on'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button
+        <button 
+          type='button'
           className="signin-btn"
           onClick={() => signIn(email, password)}
         >
           Sign In
         </button>
-        <div>
-          <Link to="/Reset">Forgot Password</Link>
+      </form>
+      <div>
+          Forgot Password? Reset your password <Link to="/Reset">here</Link>
         </div>
         <div>
-          Don't have an account? <Link to="/CreateUser">Register</Link> now.
+          Don't have an account? Register <Link to="/CreateUser">here</Link>
         </div>
-      </div>
     </div>
   );
 }

@@ -21,6 +21,7 @@ const CreateUser = () => {
 
   useEffect(() => {
     if (loading) return;
+    if (error) alert(error, error.message);
     if (user) navigate('/');
   }, [user, loading]);
 

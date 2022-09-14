@@ -33,29 +33,7 @@ const signIn = async (email, password) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, password)
     const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-        otherinfo: {
-          country:'',
-          age:'',
-          startedclimbing:'',
-          favoriteareas:'',
-          otherinterests:'',
-          },
-        following:'',
-        followers:'',
-        logbook: {
-          routes:[],
-          boulders:[],
-          },
-        todolist:[],
-      });
-    }
+    return user;
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -81,6 +59,20 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       uid: user.uid,
       name: name,
       email: email,
+      otherinfo: {
+        country:'',
+        age:'',
+        startedclimbing:'',
+        favoriteareas:'',
+        otherinterests:'',
+        },
+      following:'',
+      followers:'',
+      logbook: {
+        routes:[],
+        boulders:[],
+        },
+      todolist:[],
     });
   } catch (err) {
     console.error(err);
