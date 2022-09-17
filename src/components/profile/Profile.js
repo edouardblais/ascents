@@ -39,16 +39,16 @@ const Profile = () => {
             <div>
                 <h1>{userInfo.name}</h1>
                 <ul>
-                    <Link to='Routes'>
+                    <Link to='Routes' state={userInfo}>
                         <li>Routes Logged</li>
                     </Link>
-                    <Link to='Boulders'>
+                    <Link to='Boulders' state={userInfo}>
                         <li>Boulders Logged</li>
                     </Link>
-                    <Link to='Following'>
+                    <Link to='Following' state={userInfo}>
                         <li>Following</li>
                     </Link>
-                    <Link to='ToDo'>
+                    <Link to='ToDo' state={userInfo}>
                         <li>To Do List</li>
                     </Link>
                 </ul>

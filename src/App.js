@@ -36,7 +36,7 @@ const App = () => {
                 <Route path='/Areas/:areaname/:cragname/:routename' element={<Climb/>}/>
           <Route path='/Profile' element={<Profile/>}/>
             <Route path='/Profile/Boulders' element={<BouldersLogged/>}/>
-            <Route path='/Profile//Routes' element={<RoutesLogged/>}/>
+            <Route path='/Profile/Routes' element={<RoutesLogged/>}/>
             <Route path='/Profile/Following' element={<Following/>}/>
             <Route path='/Profile/ToDo' element={<ToDo/>}/>
           <Route path='/AddAscent' element={<AddAscent/>}/>
