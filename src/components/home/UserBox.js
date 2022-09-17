@@ -40,7 +40,7 @@ const UserBox = () => {
             <h2>User Profile</h2>
             <div>
                 <div>{userInfo.name}</div>
-                <Link to ='/:profilename'>Go to Profile</Link>
+                <Link to ='/Profile'>Go to Profile</Link>
                 <button onClick={logout}>Log Out</button>
             </div>
         </div>

@@ -34,11 +34,11 @@ const App = () => {
             <Route path='/Areas/:areaname' element={<Crags/>}/>
               <Route path='/Areas/:areaname/:cragname' element={<Crag/>}/>
                 <Route path='/Areas/:areaname/:cragname/:routename' element={<Climb/>}/>
-          <Route path='/:profilename' element={<Profile/>}/>
-            <Route path='/:profilename/Boulders' element={<BouldersLogged/>}/>
-            <Route path='/:profilename/Routes' element={<RoutesLogged/>}/>
-            <Route path='/:profilename/Following' element={<Following/>}/>
-            <Route path='/:profilename/ToDo' element={<ToDo/>}/>
+          <Route path='/Profile' element={<Profile/>}/>
+            <Route path='/Profile/Boulders' element={<BouldersLogged/>}/>
+            <Route path='/Profile//Routes' element={<RoutesLogged/>}/>
+            <Route path='/Profile/Following' element={<Following/>}/>
+            <Route path='/Profile/ToDo' element={<ToDo/>}/>
           <Route path='/AddAscent' element={<AddAscent/>}/>
             <Route path='/AddAscent/CreateNew' element={<CreateNew/>}/>
           <Route path='/SignIn' element={<SignIn/>}/>
