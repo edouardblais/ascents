@@ -55,6 +55,17 @@ const getUserInfo = async (userUID) => {
   }
 }
 
+const fetchAllUsers = async () => {
+  try {
+    const q = query(collection(db, "users"));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -121,7 +132,7 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
   }
 }
 
-const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, email) => {
+const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, email, name) => {
   try {
     const usersRef = doc(db, "users", email );
     const ascent = {
@@ -137,6 +148,7 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
       recommendation: recommendation,
       comment: comment,
       date: date,
+      name: name,
     };
 
     await updateDoc(usersRef, {
@@ -330,6 +342,7 @@ export {
   addAscentToLogbook,
   addClimbToTodoList,
   updateProfile,
+  fetchAllUsers,
 };
 
 
