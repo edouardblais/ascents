@@ -101,6 +101,26 @@ const logout = () => {
   signOut(auth);
 };
 
+const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfavareas, newotherint, email) => {
+  try {
+    const usersRef = doc(db, "users", email );
+    await updateDoc(usersRef, {
+      name: newname,
+      otherinfo: {
+        age: newage,
+        country: newcountry,
+        startedclimbing: newstartedclimb,
+        favoriteareas: newfavareas,
+        otherinterests: newotherint,
+      }
+    });
+    alert('Profile updated!');
+  } catch (err){
+    alert(err)
+    console.log(err)
+  }
+}
+
 const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, email) => {
   try {
     const usersRef = doc(db, "users", email );
@@ -309,6 +329,7 @@ export {
   fetchClimbCragAreaCountry,
   addAscentToLogbook,
   addClimbToTodoList,
+  updateProfile,
 };
 
 
