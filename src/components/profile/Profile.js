@@ -77,7 +77,7 @@ const Profile = () => {
                     <p>Started climbing in: {startedClimbing}</p>
                     <p>Favorite areas: {favoriteAreas}</p>
                     <p>Other interests: {otherInterests}</p>
-                    <button type='button' onClick={editInfo}>Edit</button>
+                    <button type='button' onClick={() => editInfo()}>Edit</button>
                 </div>
                 <ul>
                     <Link to='Routes' state={userInfo}>
@@ -103,24 +103,24 @@ const Profile = () => {
                 <div className='profile box'>
                     <form>
                         <label htmlFor='name'>Name</label>
-                        <input name='name' type='text' onChange={(e) => setName(e.target.value)}/>
+                        <input name='name' type='text' onChange={(e) => setName(e.target.value)} value={name}/>
 
                         <label htmlFor='age'>Age</label>
-                        <input name='age' type='number' onChange={(e) => setAge(e.target.value)}/>
+                        <input name='age' type='number' onChange={(e) => setAge(e.target.value)} value={age}/>
 
                         <label htmlFor='country'>Country</label>
-                        <input name='country' type='text' onChange={(e) => setCountry(e.target.value)}/>
+                        <input name='country' type='text' onChange={(e) => setCountry(e.target.value)} value={country}/>
 
                         <label htmlFor='started'>Started climbing in:</label>
-                        <input name='started' type='date' onChange={(e) => setStartedClimbing(e.target.value)}/>
+                        <input name='started' type='year' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
                         
                         <label htmlFor='favorite'>Favorite areas</label>
-                        <input name='favorite' type='text' onChange={(e) => setFavoriteAreas(e.target.value)}/>
+                        <input name='favorite' type='text' onChange={(e) => setFavoriteAreas(e.target.value)} value={favoriteAreas}/>
 
                         <label htmlFor='other'>Other interests</label>
-                        <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)}/>
+                        <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)} value={otherInterests}/>
                     </form>
-                    <button type='button' onClick={saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save Edits</button>
+                    <button type='button' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save Edits</button>
                 </div>
                 <ul>
                     <Link to='Routes' state={userInfo}>

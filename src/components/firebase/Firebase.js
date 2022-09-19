@@ -148,7 +148,7 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
       recommendation: recommendation,
       comment: comment,
       date: date,
-      name: name,
+      email: email,
     };
 
     await updateDoc(usersRef, {

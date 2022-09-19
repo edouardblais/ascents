@@ -18,15 +18,19 @@ const RecentAscents = () => {
             const usersdata = resolveddata;
             usersdata.map((user) => {
                 setUsersAscents((prevstate) => 
-                    [...prevstate, ...user.logbook])
+                    [prevstate, ...user.logbook])
             })
         })
-    }, [])
+        console.log(usersAscents)
+    }, [user])
 
     useEffect(() => {
         const today = new Date();
-        const filteredAscents = usersAscents.filter((ascent) => (ascent.date === today));
+        const formattedToday = today.toISOString().split('T')[0];
+        console.log(formattedToday)
+        const filteredAscents = usersAscents.filter((ascent) => (ascent.date === formattedToday));
         setRecentAscents(filteredAscents);
+        console.log(recentAscents);
     }, [usersAscents])
 
     const seeFollowedAscents = () => {
@@ -63,8 +67,8 @@ const RecentAscents = () => {
                 <h1>Recent Ascents</h1>
                 <button onClick={seeAllAscents}>See All Climbers</button>
                 <div>
-                    {recentFriendsAscents.map((ascent) => {
-                        return <div>{ascent.climb} {ascent.name}</div>
+                    {recentFriendsAscents.map((ascent, index) => {
+                        return <div key={index}>{ascent.climb} {ascent.email}</div>
                     })}
                 </div>
             </div>
@@ -76,8 +80,8 @@ const RecentAscents = () => {
             <h1>Recent Ascents</h1>
             <button onClick={seeFollowedAscents}>See Followed Climbers Only</button>
             <div>
-                {recentAscents.map((ascent) => {
-                    return <div>{ascent.climb} {ascent.name}</div>
+                {recentAscents.map((ascent, index) => {
+                    return <div key={index}>{ascent.climb} {ascent.email}</div>
                 })}
             </div>
         </div>
