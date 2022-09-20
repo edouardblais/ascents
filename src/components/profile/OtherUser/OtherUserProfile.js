@@ -1,34 +1,59 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { auth, addToFollowing, addToFollower } from '../../firebase/Firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const OtherUserProfile = ({otheruser}) => {
+const OtherUserProfile = ({otherUser}) => {
+
+    const [user, loading, error] = useAuthState(auth);
 
     const followUser = () => {
+        if (user) {
+            addToFollowing(user, otherUser);
+            addToFollower(user, otherUser);
+        } else {
+            alert('Please sign in or register to follow climbers!')
+        }
+    }
 
+    if (loading) {
+        return (
+          <div>
+            <p>Initialising User...</p>
+          </div>
+        );
+      }
+    
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error}</p>
+            </div>
+        );
     }
 
     return (
         <div>
             <div className='profile box'>
-                <h3>{otheruser.name}</h3>
-                <p>Age: {otheruser.age}</p>
-                <p>Country: {otheruser.country}</p>
-                <p>Started climbing in: {otheruser.startedClimbing}</p>
-                <p>Favorite areas: {otheruser.favoriteAreas}</p>
-                <p>Other interests: {otheruser.otherInterests}</p>
+                <h3>{otherUser.name}</h3>
+                <p>Age: {otherUser.age}</p>
+                <p>Country: {otherUser.country}</p>
+                <p>Started climbing in: {otherUser.startedClimbing}</p>
+                <p>Favorite areas: {otherUser.favoriteAreas}</p>
+                <p>Other interests: {otherUser.otherInterests}</p>
                 <button type='button' onClick={followUser}>Follow</button>
             </div>
             <ul>
-                <Link to='Routes' state={otheruser}>
+                <Link to='Routes' state={otherUser}>
                     <li>Routes Logged</li>
                 </Link>
-                <Link to='Boulders' state={otheruser}>
+                <Link to='Boulders' state={otherUser}>
                     <li>Boulders Logged</li>
                 </Link>
-                <Link to='Following' state={otheruser}>
+                <Link to='Following' state={otherUser}>
                     <li>Following</li>
                 </Link>
-                <Link to='ToDo' state={otheruser}>
+                <Link to='ToDo' state={otherUser}>
                     <li>To Do List</li>
                 </Link>
             </ul>

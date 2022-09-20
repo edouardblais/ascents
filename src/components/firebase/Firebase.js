@@ -14,6 +14,7 @@ import { getFirestore,
   doc, 
   updateDoc,
   arrayUnion,
+  increment,
   setDoc,
 } from "firebase/firestore";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
@@ -47,6 +48,17 @@ const signIn = async (email, password) => {
 const getUserInfo = async (userUID) => {
   try {
     const q = query(collection(db, "users"), where("uid", "==", userUID));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const getUserInfoByEmail = async (userEmail) => {
+  try {
+    const q = query(collection(db, "users"), where("uid", "==", userEmail));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;
@@ -325,6 +337,34 @@ const fetchClimbCragAreaCountry = async (input) => {
   
 }
 
+const addToFollowing = async (user, otherUser) => {
+  try {
+    const usersRef = doc(db, "users", user.email );
+    await updateDoc(usersRef, {
+      following: {
+        names: arrayUnion(otherUser),
+        totalnumber: increment(1),
+        }
+      });
+    } catch (err) {
+      console.log(err)
+    }
+}
+
+const addToFollower = async (user, otherUser) => {
+  try {
+    const usersRef = doc(db, "users", otherUser.email );
+    await updateDoc(usersRef, {
+      followers: {
+        names: arrayUnion(user),
+        totalnumber: increment(1),
+        }
+      });
+    } catch (err) {
+      console.log(err)
+    }
+}
+
 export {
   auth,
   db,
@@ -333,6 +373,7 @@ export {
   sendPasswordReset,
   logout,
   getUserInfo,
+  getUserInfoByEmail,
   addNewClimb,
   processCountry,
   processArea,
@@ -343,6 +384,8 @@ export {
   addClimbToTodoList,
   updateProfile,
   fetchAllUsers,
+  addToFollowing,
+  addToFollower,
 };
 
 

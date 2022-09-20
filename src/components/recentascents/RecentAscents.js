@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAllUsers, auth } from '../firebase/Firebase';
+import { fetchAllUsers, auth, getUserInfoByEmail } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import OtherUserProfile from '../profile/OtherUser/OtherUserProfile';
 
 const RecentAscents = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -43,6 +44,14 @@ const RecentAscents = () => {
         setFriendsOnly(false);
     }
 
+    const seeProfile = (email) => {
+        const user = getUserInfoByEmail(email);
+        user.then((resolvedUser) => {
+            const userinfo = resolvedUser[0];
+            return <OtherUserProfile otherUser={userinfo}/>
+        })
+    }
+
     if (loading) {
         return (
           <div>
@@ -66,7 +75,10 @@ const RecentAscents = () => {
                 <button onClick={seeAllAscents}>See All Climbers</button>
                 <div>
                     {recentFriendsAscents.map((ascent, index) => {
-                        return <div key={index}>{ascent.climb} {ascent.email}</div>
+                        return  <div key={index}>
+                                    <div>{ascent.climb} {ascent.date}</div> 
+                                    <button onClick={() => seeProfile(ascent.email)}>{ascent.email}</button>
+                                </div>
                     })}
                 </div>
             </div>
@@ -79,7 +91,10 @@ const RecentAscents = () => {
             <button onClick={seeFollowedAscents}>See Followed Climbers Only</button>
             <div>
                 {recentAscents.map((ascent, index) => {
-                    return <div key={index}>{ascent.climb} {ascent.email} {ascent.date}</div>
+                    return  <div key={index}>
+                                <div>{ascent.climb} {ascent.date}</div> 
+                                <button onClick={() => seeProfile(ascent.email)}>{ascent.email}</button>
+                            </div>
                 })}
             </div>
         </div>

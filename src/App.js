@@ -19,6 +19,7 @@ import CreateNew from './components/addascent/createnew/CreateNew';
 import SignIn from './components/authentication/SignIn';
 import CreateUser from './components/authentication/CreateUser';
 import Reset from './components/authentication/Reset';
+import OtherUserProfile from './components/profile/OtherUser/OtherUserProfile';
 
 
 const App = () => {
@@ -39,6 +40,11 @@ const App = () => {
             <Route path='/Profile/Routes' element={<RoutesLogged/>}/>
             <Route path='/Profile/Following' element={<Following/>}/>
             <Route path='/Profile/ToDo' element={<ToDo/>}/>
+          <Route path='/visitUser' element={<OtherUserProfile/>}/>
+            <Route path='/visitUser/Boulders' element={<BouldersLogged/>}/>
+            <Route path='/visitUser/Routes' element={<RoutesLogged/>}/>
+            <Route path='/visitUser/Following' element={<Following/>}/>
+            <Route path='/Visit/ToDo' element={<ToDo/>}/>
           <Route path='/AddAscent' element={<AddAscent/>}/>
             <Route path='/AddAscent/CreateNew' element={<CreateNew/>}/>
           <Route path='/SignIn' element={<SignIn/>}/>
