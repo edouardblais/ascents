@@ -58,7 +58,7 @@ const getUserInfo = async (userUID) => {
 
 const getUserInfoByEmail = async (userEmail) => {
   try {
-    const q = query(collection(db, "users"), where("uid", "==", userEmail));
+    const q = query(collection(db, "users"), where("email", "==", userEmail));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;

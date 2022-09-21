@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllUsers, auth, getUserInfoByEmail } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import OtherUserProfile from '../profile/OtherUser/OtherUserProfile';
+import { useNavigate } from 'react-router-dom';
 
 const RecentAscents = () => {
+    let navigate = useNavigate();
+
     const [user, loading, error] = useAuthState(auth);
 
     const [friendsOnly, setFriendsOnly] = useState(false);
@@ -48,7 +50,11 @@ const RecentAscents = () => {
         const user = getUserInfoByEmail(email);
         user.then((resolvedUser) => {
             const userinfo = resolvedUser[0];
-            return <OtherUserProfile otherUser={userinfo}/>
+            navigate('/visitUser', {
+                state: {
+                    otherUserInfo: userinfo,
+                }
+            })
         })
     }
 

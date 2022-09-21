@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { auth, addToFollowing, addToFollower } from '../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-const OtherUserProfile = ({otherUser}) => {
+const OtherUserProfile = () => {
+    const location = useLocation();
+    const otherUser = location.state.otherUserInfo;
 
     const [user, loading, error] = useAuthState(auth);
 
@@ -36,11 +38,11 @@ const OtherUserProfile = ({otherUser}) => {
         <div>
             <div className='profile box'>
                 <h3>{otherUser.name}</h3>
-                <p>Age: {otherUser.age}</p>
-                <p>Country: {otherUser.country}</p>
-                <p>Started climbing in: {otherUser.startedClimbing}</p>
-                <p>Favorite areas: {otherUser.favoriteAreas}</p>
-                <p>Other interests: {otherUser.otherInterests}</p>
+                <p>Age: {otherUser.otherinfo.age}</p>
+                <p>Country: {otherUser.otherinfo.country}</p>
+                <p>Started climbing in: {otherUser.otherinfo.startedclimbing}</p>
+                <p>Favorite areas: {otherUser.otherinfo.favoriteareas}</p>
+                <p>Other interests: {otherUser.otherinfo.otherinterests}</p>
                 <button type='button' onClick={followUser}>Follow</button>
             </div>
             <ul>
