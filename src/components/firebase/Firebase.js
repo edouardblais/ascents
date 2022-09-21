@@ -144,9 +144,9 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
   }
 }
 
-const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, email, name) => {
+const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, userinfo) => {
   try {
-    const usersRef = doc(db, "users", email );
+    const usersRef = doc(db, "users", userinfo.email );
     const ascent = {
       climb: climb.climb,
       crag: climb.crag,
@@ -160,7 +160,8 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
       recommendation: recommendation,
       comment: comment,
       date: date,
-      email: email,
+      email: userinfo.email,
+      name: userinfo.name,
     };
 
     await updateDoc(usersRef, {

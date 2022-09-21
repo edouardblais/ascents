@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { addAscentToLogbook } from '../firebase/Firebase';
+import React, { useEffect, useState } from 'react';
+import { addAscentToLogbook, getUserInfoByEmail } from '../firebase/Firebase';
 
 const AddAscentModal = ({climb, useremail}) => {
     const today = new Date();
@@ -12,6 +12,15 @@ const AddAscentModal = ({climb, useremail}) => {
     const [recommendation, setRecommendation] = useState(false);
     const [comment, setComment] = useState('');
     const [date, setDate] = useState(formattedToday);
+
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        const user = getUserInfoByEmail(useremail);
+        user.then((resolvedUser) => {
+            setUserInfo(resolvedUser[0]);
+        })
+    }, [])
 
     const getSelectedGrade = (gradevalue) => {
         setGrade(gradevalue);
@@ -113,7 +122,7 @@ const AddAscentModal = ({climb, useremail}) => {
                 <label htmlFor='comment'>Comment:</label>
                 <input type='text' id='comment' name='comment' defaultValue={comment} onChange={(e) => getComment(e.target.value)}></input>
 
-                <button type='button' onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date, useremail)}>Add Ascent</button>
+                <button type='button' onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date, userInfo)}>Add Ascent</button>
 
             </form>
         </div>

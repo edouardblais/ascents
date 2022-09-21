@@ -83,7 +83,7 @@ const RecentAscents = () => {
                     {recentFriendsAscents.map((ascent, index) => {
                         return  <div key={index}>
                                     <div>{ascent.climb} {ascent.date}</div> 
-                                    <button onClick={() => seeProfile(ascent.email)}>{ascent.email}</button>
+                                    <button onClick={() => seeProfile(ascent.email)}>{ascent.name}</button>
                                 </div>
                     })}
                 </div>
@@ -99,7 +99,7 @@ const RecentAscents = () => {
                 {recentAscents.map((ascent, index) => {
                     return  <div key={index}>
                                 <div>{ascent.climb} {ascent.date}</div> 
-                                <button onClick={() => seeProfile(ascent.email)}>{ascent.email}</button>
+                                <button onClick={() => seeProfile(ascent.email)}>{ascent.name}</button>
                             </div>
                 })}
             </div>
