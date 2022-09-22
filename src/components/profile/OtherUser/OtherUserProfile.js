@@ -44,6 +44,8 @@ const OtherUserProfile = () => {
                 <p>Started climbing in: {otherUser.otherinfo.startedclimbing}</p>
                 <p>Favorite areas: {otherUser.otherinfo.favoriteareas}</p>
                 <p>Other interests: {otherUser.otherinfo.otherinterests}</p>
+                <p>Following: {otherUser.totalfollowing}</p>
+                <p>Followers: {otherUser.totalfollowers}</p>
                 <button type='button' onClick={followUser}>Follow</button>
             </div>
             <ul>

@@ -77,6 +77,8 @@ const Profile = () => {
                     <p>Started climbing in: {startedClimbing}</p>
                     <p>Favorite areas: {favoriteAreas}</p>
                     <p>Other interests: {otherInterests}</p>
+                    <p>Following: {userInfo.totalfollowing}</p>
+                <p>Followers: {userInfo.totalfollowers}</p>
                     <button type='button' onClick={() => editInfo()}>Edit</button>
                 </div>
                 <ul>
