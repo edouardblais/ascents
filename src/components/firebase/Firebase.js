@@ -93,14 +93,10 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         favoriteareas:'',
         otherinterests:'',
         },
-      following: {
-        names:[],
-        totalnumber:0,
-      },
-      followers: {
-        names:[],
-        totalnumber:0,
-      },
+      following: [],
+      totalfollowing: 0,
+      followers: [],
+      totalfollowers: 0,
       logbook:[],
       todolist:[],
       });
@@ -340,11 +336,14 @@ const fetchClimbCragAreaCountry = async (input) => {
 
 const addToFollowing = async (user, otherUser) => {
   try {
-    const usersRef = doc(db, "users", user.email );
-    await updateDoc(usersRef, {
-        'following.names': arrayUnion(otherUser.name),
-        'following.totalnumber': increment(1),
-        });
+    const userInfo = await getUserInfoByEmail(user.email);
+    const usersRef = doc(db, "users", user.email);
+    if (!otherUser.following.includes(userInfo[0].name)) {
+      await updateDoc(usersRef, {
+          'following': arrayUnion(otherUser.name),
+          'totalfollowing': increment(1),
+          });
+      } 
     } catch (err) {
       console.log(err)
     }
@@ -354,10 +353,12 @@ const addToFollower = async (user, otherUser) => {
   try {
     const userInfo = await getUserInfoByEmail(user.email);
     const usersRef = doc(db, "users", otherUser.email );
-    await updateDoc(usersRef, {
-        'followers.names': arrayUnion(userInfo[0].name),
-        'followers.totalnumber': increment(1),
-        });
+    if (!userInfo[0].followers.includes(userInfo[0].name)) {
+      await updateDoc(usersRef, {
+          'followers': arrayUnion(userInfo[0].name),
+          'totalfollowers': increment(1),
+          });
+      }
     } catch (err) {
       console.log(err)
     }
