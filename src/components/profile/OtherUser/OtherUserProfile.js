@@ -13,6 +13,7 @@ const OtherUserProfile = () => {
         if (user) {
             addToFollowing(user, otherUser);
             addToFollower(user, otherUser);
+            alert('Added to your following!')
         } else {
             alert('Please sign in or register to follow climbers!')
         }

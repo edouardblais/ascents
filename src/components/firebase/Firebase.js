@@ -95,11 +95,11 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         },
       following: {
         names:[],
-        totalnumber:'',
+        totalnumber:0,
       },
       followers: {
         names:[],
-        totalnumber:'',
+        totalnumber:0,
       },
       logbook:[],
       todolist:[],
@@ -342,11 +342,9 @@ const addToFollowing = async (user, otherUser) => {
   try {
     const usersRef = doc(db, "users", user.email );
     await updateDoc(usersRef, {
-      following: {
-        names: arrayUnion(otherUser),
-        totalnumber: increment(1),
-        }
-      });
+        'following.names': arrayUnion(otherUser.name),
+        'following.totalnumber': increment(1),
+        });
     } catch (err) {
       console.log(err)
     }
@@ -354,13 +352,12 @@ const addToFollowing = async (user, otherUser) => {
 
 const addToFollower = async (user, otherUser) => {
   try {
+    const userInfo = await getUserInfoByEmail(user.email);
     const usersRef = doc(db, "users", otherUser.email );
     await updateDoc(usersRef, {
-      followers: {
-        names: arrayUnion(user),
-        totalnumber: increment(1),
-        }
-      });
+        'followers.names': arrayUnion(userInfo[0].name),
+        'followers.totalnumber': increment(1),
+        });
     } catch (err) {
       console.log(err)
     }
