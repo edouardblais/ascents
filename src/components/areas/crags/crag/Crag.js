@@ -29,7 +29,8 @@ const Crag = () => {
         const trimAndCapClimbs = capitalizeFirstLetter(trimClimbs);
         const possibleClimbs = processClimb(trimAndCapClimbs);
         possibleClimbs.then((resolvedClimbs) => {
-            setPossibleClimbs(resolvedClimbs);
+            const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === chosenCrag.crag))
+            setPossibleClimbs(filteredClimbs);
         });
     }, [climbsToSearch]);
 

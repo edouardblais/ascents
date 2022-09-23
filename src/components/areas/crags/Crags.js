@@ -29,7 +29,8 @@ const Crags = () => {
         const trimAndCapCrags = capitalizeFirstLetter(trimCrags);
         const possibleCrags = processCrag(trimAndCapCrags);
         possibleCrags.then((resolvedCrags) => {
-            setPossibleCrags(resolvedCrags);
+            const filteredCrags = resolvedCrags.filter((crag) => (crag.area === chosenArea.area))
+            setPossibleCrags(filteredCrags);
         });
     }, [cragsToSearch]);
 
