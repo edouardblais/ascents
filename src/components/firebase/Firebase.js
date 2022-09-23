@@ -78,6 +78,21 @@ const fetchAllUsers = async () => {
   }
 }
 
+const fetchFollowingUsers = (followingArray) => {
+  const followedUsersInfo = []
+  followingArray.map(async (followedUser) => {
+    try {
+      const q = query(collection(db, "users"), where("name", "==", followedUser));
+      const docs = await getDocs(q);
+      const data = docs.docs.map((doc) => doc.data());
+      followedUsersInfo.push(data);
+    } catch (err) {
+      console.log(err)
+    }
+  })
+  return followedUsersInfo;
+}
+
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -385,6 +400,7 @@ export {
   fetchAllUsers,
   addToFollowing,
   addToFollower,
+  fetchFollowingUsers,
 };
 
 

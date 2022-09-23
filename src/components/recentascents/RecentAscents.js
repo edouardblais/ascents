@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAllUsers, auth, getUserInfoByEmail } from '../firebase/Firebase';
+import { fetchAllUsers, auth, getUserInfoByEmail, fetchFollowingUsers } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,18 +13,32 @@ const RecentAscents = () => {
     const [usersAscents, setUsersAscents] = useState([]);
     const [recentAscents, setRecentAscents] = useState([]);
 
-    const [recentFriendsAscents, setRecentFriendsAscents] = useState([]);
+    const [followingAscents, setFollowingAscents] = useState([]);
+    const [recentFollowingAscents, setRecentFollowingAscents] = useState([]);
 
     useEffect(() => {
         const alluserdataarray = [];
         const allusersdata = fetchAllUsers();
         allusersdata.then((resolveddata) => {
             const usersdata = resolveddata;
-            usersdata.map((user) => {
-                alluserdataarray.push(...user.logbook);
+            usersdata.map((eachuser) => {
+                alluserdataarray.push(...eachuser.logbook);
             });
             setUsersAscents(alluserdataarray);
         })
+    }, [])
+
+    useEffect(() => {
+        const followeduserslogbookarray = [];
+        const userInfo = getUserInfoByEmail(user.email);
+        userInfo.then((resolvedInfo) => {
+            const resolveduserinfo = resolvedInfo[0];
+            const followedUserInfo = fetchFollowingUsers(resolveduserinfo.following);
+            followedUserInfo.map((followeduser) => {
+                    followeduserslogbookarray.push(followeduser.logbook);
+                })
+            setFollowingAscents(followeduserslogbookarray);
+            })
     }, [user])
 
     useEffect(() => {
@@ -33,6 +47,13 @@ const RecentAscents = () => {
         });
         setRecentAscents(sortedAscentsByDate);
     }, [usersAscents])
+
+    useEffect(() => {
+        const sortedFollowingAscentsByDate = followingAscents.sort((ascent1 ,ascent2) => {
+            return new Date(ascent2.date) - new Date(ascent1.date);
+        });
+        setRecentFollowingAscents(sortedFollowingAscentsByDate);
+    }, [followingAscents])
 
     const seeFollowedAscents = () => {
         if (user) {
@@ -80,7 +101,7 @@ const RecentAscents = () => {
                 <h1>Recent Ascents</h1>
                 <button onClick={seeAllAscents}>See All Climbers</button>
                 <div>
-                    {recentFriendsAscents.map((ascent, index) => {
+                    {recentFollowingAscents.map((ascent, index) => {
                         return  <div key={index}>
                                     <div>{ascent.climb} {ascent.date}</div> 
                                     <button onClick={() => seeProfile(ascent.email)}>{ascent.name}</button>
