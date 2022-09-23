@@ -31,10 +31,10 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home/>}/>
           <Route path='/RecentAscents' element={<RecentAscents/>}/>
-          <Route path='/Areas' element={<Areas/>}/>
-            <Route path='/Areas/:areaname' element={<Crags/>}/>
-              <Route path='/Areas/:areaname/:cragname' element={<Crag/>}/>
-                <Route path='/Areas/:areaname/:cragname/:routename' element={<Climb/>}/>
+          <Route path='/SearchAreas' element={<Areas/>}/>
+            <Route path='/SearchAreas/SearchCrags' element={<Crags/>}/>
+              <Route path='/SearchAreas/SearchCrags/SearchClimbs' element={<Crag/>}/>
+                <Route path='/SearchAreas/SearchCrags/SearchClimbs/Climb' element={<Climb/>}/>
           <Route path='/Profile' element={<Profile/>}/>
             <Route path='/Profile/Boulders' element={<BouldersLogged/>}/>
             <Route path='/Profile/Routes' element={<RoutesLogged/>}/>

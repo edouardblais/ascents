@@ -11,7 +11,7 @@ const TopNav = () => {
                 <Link to='RecentAscents'>
                     <li>Recent Ascents</li>
                 </Link>
-                <Link to='Areas'>
+                <Link to='SearchAreas'>
                     <li>Areas</li>
                 </Link>
                 <Link to='Profile'>

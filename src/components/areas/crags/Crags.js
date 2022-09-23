@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Crags = () => {
+    const location = useLocation();
+    const chosenArea = location.state.chosenArea;
+
     return (
         <div>
-            <h1>Area</h1>
+            <h2>{chosenArea.area}</h2>
             <Link to='SomeCrag'>Crag</Link>
         </div>
     )
