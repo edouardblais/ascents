@@ -1,9 +1,13 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 
 const Climb = () => {
+    const location = useLocation();
+    const chosenClimb = location.state.chosenClimb;
+
     return (
         <div>
-            <h1>Climb</h1>
+            <h2>{chosenClimb.climb}</h2>
         </div>
     )
 }
