@@ -33,10 +33,12 @@ const RecentAscents = () => {
         const userInfo = getUserInfoByEmail(user.email);
         userInfo.then((resolvedInfo) => {
             const resolveduserinfo = resolvedInfo[0];
+            console.log(resolveduserinfo)
             const followedUserInfo = fetchFollowingUsers(resolveduserinfo.following);
             followedUserInfo.map((followeduser) => {
                     followeduserslogbookarray.push(followeduser.logbook);
                 })
+            console.log(followeduserslogbookarray)
             setFollowingAscents(followeduserslogbookarray);
             })
     }, [user])

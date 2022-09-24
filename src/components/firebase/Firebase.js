@@ -353,7 +353,7 @@ const addToFollowing = async (user, otherUser) => {
   try {
     const userInfo = await getUserInfoByEmail(user.email);
     const usersRef = doc(db, "users", user.email);
-    if (!otherUser.following.includes(userInfo[0].name)) {
+    if (!userInfo[0].following.includes(otherUser.name)) {
       await updateDoc(usersRef, {
           'following': arrayUnion(otherUser.name),
           'totalfollowing': increment(1),
@@ -368,7 +368,7 @@ const addToFollower = async (user, otherUser) => {
   try {
     const userInfo = await getUserInfoByEmail(user.email);
     const usersRef = doc(db, "users", otherUser.email );
-    if (!userInfo[0].followers.includes(userInfo[0].name)) {
+    if (!otherUser.followers.includes(userInfo[0].name)) {
       await updateDoc(usersRef, {
           'followers': arrayUnion(userInfo[0].name),
           'totalfollowers': increment(1),
