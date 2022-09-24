@@ -13,6 +13,8 @@ const RecentAscents = () => {
     const [usersAscents, setUsersAscents] = useState([]);
     const [recentAscents, setRecentAscents] = useState([]);
 
+    const [userInfo, setUserInfo] = useState(null);
+    const [followedInfo, setFollowedInfo] = useState([]);
     const [followingAscents, setFollowingAscents] = useState([]);
     const [recentFollowingAscents, setRecentFollowingAscents] = useState([]);
 
@@ -29,21 +31,6 @@ const RecentAscents = () => {
     }, [])
 
     useEffect(() => {
-        const followeduserslogbookarray = [];
-        const userInfo = getUserInfoByEmail(user.email);
-        userInfo.then((resolvedInfo) => {
-            const resolveduserinfo = resolvedInfo[0];
-            console.log(resolveduserinfo)
-            const followedUserInfo = fetchFollowingUsers(resolveduserinfo.following);
-            followedUserInfo.map((followeduser) => {
-                    followeduserslogbookarray.push(followeduser.logbook);
-                })
-            console.log(followeduserslogbookarray)
-            setFollowingAscents(followeduserslogbookarray);
-            })
-    }, [user])
-
-    useEffect(() => {
         const sortedAscentsByDate = usersAscents.sort((ascent1 ,ascent2) => {
             return new Date(ascent2.date) - new Date(ascent1.date);
         });
@@ -51,10 +38,37 @@ const RecentAscents = () => {
     }, [usersAscents])
 
     useEffect(() => {
-        const sortedFollowingAscentsByDate = followingAscents.sort((ascent1 ,ascent2) => {
-            return new Date(ascent2.date) - new Date(ascent1.date);
-        });
-        setRecentFollowingAscents(sortedFollowingAscentsByDate);
+        if (user) {
+            const userInfo = getUserInfoByEmail(user.email);
+            userInfo.then((resolvedInfo) => {
+                const resolveduserinfo = resolvedInfo[0];
+                setUserInfo(resolveduserinfo);
+                });
+        }
+    }, [user])
+
+    useEffect(() => {
+        if (user) {
+            const followedUserInfo = fetchFollowingUsers(userInfo.following);
+            setFollowedInfo(followedUserInfo);
+        }
+    }, [userInfo])
+
+    useEffect(() => {
+        if (user) {
+            followedInfo.forEach((followeduser) => {
+                setFollowingAscents((prevState) => [...prevState, ...followeduser.logbook])
+            })
+        }
+    }, [followedInfo])
+
+    useEffect(() => {
+        if (user) {
+            const sortedFollowingAscentsByDate = followingAscents.sort((ascent1 ,ascent2) => {
+                return new Date(ascent2.date) - new Date(ascent1.date);
+            });
+            setRecentFollowingAscents(sortedFollowingAscentsByDate);
+        }   
     }, [followingAscents])
 
     const seeFollowedAscents = () => {

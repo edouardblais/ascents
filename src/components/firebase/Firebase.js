@@ -85,7 +85,7 @@ const fetchFollowingUsers = (followingArray) => {
       const q = query(collection(db, "users"), where("name", "==", followedUser));
       const docs = await getDocs(q);
       const data = docs.docs.map((doc) => doc.data());
-      followedUsersInfo.push(data);
+      followedUsersInfo.push(...data);
     } catch (err) {
       console.log(err)
     }
