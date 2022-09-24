@@ -49,8 +49,10 @@ const RecentAscents = () => {
 
     useEffect(() => {
         if (user) {
-            const followedUserInfo = fetchFollowingUsers(userInfo.following);
-            setFollowedInfo(followedUserInfo);
+            const followedUserInfo = fetchFollowingUsers(userInfo.following)
+            followedUserInfo.then((resolvedInfo)=> {
+                setFollowedInfo(resolvedInfo);
+            })
         }
     }, [userInfo])
 

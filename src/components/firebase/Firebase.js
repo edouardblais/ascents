@@ -78,19 +78,17 @@ const fetchAllUsers = async () => {
   }
 }
 
-const fetchFollowingUsers = (followingArray) => {
-  const followedUsersInfo = []
-  followingArray.map(async (followedUser) => {
+const fetchFollowingUsers = async (followingArray) => {
+  for (let followedUser of followingArray) {
     try {
       const q = query(collection(db, "users"), where("name", "==", followedUser));
       const docs = await getDocs(q);
       const data = docs.docs.map((doc) => doc.data());
-      followedUsersInfo.push(...data);
+      return [...data]
     } catch (err) {
       console.log(err)
     }
-  })
-  return followedUsersInfo;
+  }
 }
 
 const registerWithEmailAndPassword = async (name, email, password) => {
