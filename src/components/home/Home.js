@@ -33,6 +33,7 @@ const Home = () => {
     }, []);
 
     const searchAll = (input) => {
+        console.log(input)
         const trimInput = trimSentence(input)
         const trimAndCapInput = capitalizeFirstLetter(trimInput);
 
@@ -53,7 +54,12 @@ const Home = () => {
                 resultsOfInterestsArray.push(data.crag);
             }
         }
-        setSearchResult(resultsOfInterestsArray);
+        
+        if (input !== '') {
+            setSearchResult(resultsOfInterestsArray);
+        } else if (input === '') {
+            setSearchResult([]);
+        }
     }
 
     return (
