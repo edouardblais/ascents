@@ -10,12 +10,7 @@ const RecentAscents = () => {
 
     const [friendsOnly, setFriendsOnly] = useState(false);
 
-    const [usersAscents, setUsersAscents] = useState([]);
     const [recentAscents, setRecentAscents] = useState([]);
-
-    const [userInfo, setUserInfo] = useState(null);
-    const [followedInfo, setFollowedInfo] = useState([]);
-    const [followingAscents, setFollowingAscents] = useState([]);
     const [recentFollowingAscents, setRecentFollowingAscents] = useState([]);
 
     useEffect(() => {
@@ -26,16 +21,12 @@ const RecentAscents = () => {
             usersdata.map((eachuser) => {
                 alluserdataarray.push(...eachuser.logbook);
             });
-            setUsersAscents(alluserdataarray);
+            const sortedAscentsByDate = alluserdataarray.sort((ascent1 ,ascent2) => {
+                return new Date(ascent2.date) - new Date(ascent1.date);
+            });
+            setRecentAscents(sortedAscentsByDate);
         })
     }, [])
-
-    useEffect(() => {
-        const sortedAscentsByDate = usersAscents.sort((ascent1 ,ascent2) => {
-            return new Date(ascent2.date) - new Date(ascent1.date);
-        });
-        setRecentAscents(sortedAscentsByDate);
-    }, [usersAscents])
 
     useEffect(() => {
         if (user) {

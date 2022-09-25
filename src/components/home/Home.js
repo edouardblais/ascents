@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllClimbs, fetchAllUsers } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    let navigate = useNavigate();
+
     const [allData, setAllData] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
 
@@ -33,7 +36,6 @@ const Home = () => {
     }, []);
 
     const searchAll = (input) => {
-        console.log(input)
         const trimInput = trimSentence(input)
         const trimAndCapInput = capitalizeFirstLetter(trimInput);
 
@@ -43,15 +45,23 @@ const Home = () => {
 
         for (let data of allData) {
             if (data.name && (data.name.startsWith(input) || data.name.startsWith(trimAndCapInput))) {
-                resultsOfInterestsArray.push(data.name);
+                resultsOfInterestsArray.push({name: data.name,
+                                              data: data,
+                                            });
             } else if (data.climb && (data.climb.startsWith(input) || data.climb.startsWith(trimAndCapInput))) {
-                resultsOfInterestsArray.push(data.climb);
+                resultsOfInterestsArray.push({climb: data.climb,
+                                              data: data,
+                                            });
             } else if (data.area && (data.area.startsWith(input) || data.area.startsWith(trimAndCapInput)) && !avoidAreaDuplicatesArray.includes(data.area)) {
                 avoidAreaDuplicatesArray.push(data.area);
-                resultsOfInterestsArray.push(data.area);
+                resultsOfInterestsArray.push({area: data.area,
+                                              data: data,
+                                            });
             } else if (data.crag && (data.crag.startsWith(input) || data.crag.startsWith(trimAndCapInput)) && !avoidCragDuplicatesArray.includes(data.crag)) {
                 avoidCragDuplicatesArray.push(data.crag);
-                resultsOfInterestsArray.push(data.crag);
+                resultsOfInterestsArray.push({crag: data.crag,
+                                              data: data,
+                                            });
             }
         }
         
@@ -62,13 +72,30 @@ const Home = () => {
         }
     }
 
+    const goToChosenData = (result) => {
+        if (result.name) {
+            navigate('/visitUser', {
+                state: {
+                    otherUserInfo: result.data,
+                }
+            })
+        } else if (result.area) {
+
+        } else if (result.crag) {
+
+        } else if (result.climb) {
+
+        }
+    }
+
     return (
         <div>
             <h2>Search for routes, crags, areas or users!</h2>
             <input type='text' onChange={(e) => searchAll(e.target.value)}/>
             <div>
                 {searchResult.map((result, index) => {
-                   return <div key={index}>{result}</div>
+
+                   return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.climb? result.climb : result.crag? result.crag : result.area? result.area : "Oops! Can't display result"}</div>
                 })}
             </div>
         </div>
