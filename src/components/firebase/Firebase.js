@@ -379,6 +379,17 @@ const addToFollower = async (user, otherUser) => {
     }
 }
 
+const fetchAllClimbs = async () => {
+  try {
+    const q = query(collection(db, "climbs"));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export {
   auth,
   db,
@@ -401,6 +412,7 @@ export {
   addToFollowing,
   addToFollower,
   fetchFollowingUsers,
+  fetchAllClimbs,
 };
 
 

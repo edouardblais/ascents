@@ -44,7 +44,6 @@ const RecentAscents = () => {
                     return resolvedInfo 
                 })
                 .then((resolvedInfo) => {
-                    console.log(resolvedInfo)
                     return fetchFollowingUsers(resolvedInfo[0].following);
                 })
                 .then((resolvedInfo)=> {

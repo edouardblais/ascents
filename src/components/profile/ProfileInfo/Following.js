@@ -10,8 +10,8 @@ const Following = () => {
         <div>
             <h1>Following</h1>
             <div>
-                {userInfo.following.names.length > 0 ? 
-                userInfo.following.names.map((name, index) => {
+                {userInfo.following.length > 0 ? 
+                userInfo.following.map((name, index) => {
                         return <div key={index}>{name}</div>
                 })
                 :
