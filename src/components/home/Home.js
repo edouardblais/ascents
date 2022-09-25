@@ -32,16 +32,17 @@ const Home = () => {
     }, []);
 
     const searchAll = (input) => {
+        console.log(allData);
         const resultsOfInterestsArray = [];
         for (let data of allData) {
-            if (data.name.startsWith(input)) {
+            if (data.name && data.name.startsWith(input)) {
                 resultsOfInterestsArray.push(data.name)
-            } else if (data.climb.startsWith(input)) {
+            } else if (data.climb && data.climb.startsWith(input)) {
                 resultsOfInterestsArray.push(data.climb)
-            } else if (data.area.startsWith(input)) {
+            } else if (data.area && data.area.startsWith(input)) {
                 resultsOfInterestsArray.push(data.area)
-            } else if (data.crags.startsWith(input)) {
-                resultsOfInterestsArray.push(data.crags)
+            } else if (data.crag && data.crag.startsWith(input)) {
+                resultsOfInterestsArray.push(data.crag)
             }
         }
         setSearchResult(resultsOfInterestsArray);
