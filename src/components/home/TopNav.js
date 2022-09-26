@@ -9,6 +9,8 @@ const TopNav = () => {
     const [allData, setAllData] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
 
+    const [numberOfResults, setNumberOfResults] = useState(0);
+
     useEffect(() => {
         const totalDataArray = [];
 
@@ -123,7 +125,10 @@ const TopNav = () => {
                     <input type='text' onChange={(e) => searchAll(e.target.value)}/>
                     <div>
                         {searchResult.map((result, index) => {
-                        return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.climb? result.climb : result.crag? result.crag : result.area? result.area : "Oops! Can't display result"}</div>
+                            if (numberOfResults<=10) {
+                                return  <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.climb? result.climb : result.crag? result.crag : result.area? result.area : "Oops! Can't display result"}</div>
+                            }
+                            setNumberOfResults(numberOfResults+1);  
                         })}
                     </div>
                 </div>
