@@ -80,11 +80,23 @@ const Home = () => {
                 }
             })
         } else if (result.area) {
-
+            navigate('/SearchAreas/SearchCrags', {
+                state: {
+                    chosenArea: result.data,
+                }
+            })
         } else if (result.crag) {
-
+            navigate('/SearchAreas/SearchCrags/SearchClimbs', {
+                state: {
+                    chosenCrag: result.data,
+                }
+            })
         } else if (result.climb) {
-
+            navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+                state: {
+                    chosenClimb: result.data,
+                }
+            })
         }
     }
 

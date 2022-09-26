@@ -37,7 +37,6 @@ const OtherUserProfile = () => {
 
     return (
         <div>
-            {console.log(otherUser)}
             <div className='profile box'>
                 <h3>{otherUser.name}</h3>
                 <p>Age: {otherUser.otherinfo.age}</p>
