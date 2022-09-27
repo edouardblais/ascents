@@ -67,17 +67,6 @@ const getUserInfoByEmail = async (userEmail) => {
   }
 }
 
-const fetchAllUsers = async () => {
-  try {
-    const q = query(collection(db, "users"));
-    const docs = await getDocs(q);
-    const data = docs.docs.map((doc) => doc.data());
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 const fetchFollowingUsers = async (followingArray) => {
   const followingUsers = [];
   for (let followedUser of followingArray) {
@@ -229,8 +218,9 @@ const addNewClimb = async (country, area, crag, climb, grade, type) => {
 }
 
 const fetchCountry = async (country) => {
+  const end = country.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
   try {
-    const q = query(collection(db, "climbs"), where("country", "==", country));
+    const q = query(collection(db, "climbs"), where("country", ">=", country), where("country", "<=", end));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;
@@ -253,8 +243,9 @@ const processCountry = async (country) => {
 }
 
 const fetchArea = async (area) => {
+  const end = area.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
   try {
-    const q = query(collection(db, "climbs"), where("area", "==", area));
+    const q = query(collection(db, "climbs"), where("area", ">=", area), where("area", "<=", end));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;
@@ -277,8 +268,9 @@ const processArea = async (area) => {
 }
 
 const fetchCrag = async (crag) => {
+  const end = crag.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
   try {
-    const q = query(collection(db, "climbs"), where("crag", "==", crag));
+    const q = query(collection(db, "climbs"), where("crag", ">=", crag), where("crag", "<=", end));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;
@@ -301,8 +293,9 @@ const processCrag = async (crag) => {
 }
 
 const fetchClimb = async (climb) => {
+  const end = climb.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
   try {
-    const q = query(collection(db, "climbs"), where("climb", "==", climb));
+    const q = query(collection(db, "climbs"), where("climb", ">=", climb), where("climb", "<=", end));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;
@@ -390,6 +383,29 @@ const fetchAllClimbs = async () => {
   }
 }
 
+const fetchAllConcernedUsers = async (input) => {
+  const end = input.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+  try {
+    const q = query(collection(db, "users"), where("name", ">=", input), where("name", "<=", end));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const fetchAllUsers = async () => {
+  try {
+    const q = query(collection(db, "users"));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export {
   auth,
   db,
@@ -408,11 +424,12 @@ export {
   addAscentToLogbook,
   addClimbToTodoList,
   updateProfile,
-  fetchAllUsers,
+  fetchAllConcernedUsers,
   addToFollowing,
   addToFollower,
   fetchFollowingUsers,
   fetchAllClimbs,
+  fetchAllUsers,
 };
 
 
