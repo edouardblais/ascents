@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchAllConcernedUsers, fetchClimbCragAreaCountry } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
@@ -6,17 +6,22 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     let navigate = useNavigate();
 
+    const [input, setInput] = useState('');
     const [allData, setAllData] = useState([]);
 
-    const searchAll = (input) => {
-        setAllData([]);
+    useEffect(() => {
         if (input !== '') {
             const trimInput = trimSentence(input)
             const trimAndCapInput = capitalizeFirstLetter(trimInput);
 
+            const combinedDataArray = [];
+
             fetchAllConcernedUsers(input)
                 .then((usersdata) => {
-                        setAllData([...allData, ...usersdata])
+                        for (let userdata of usersdata) {
+                            combinedDataArray.push(userdata);
+                        }
+                        setAllData(combinedDataArray);
                 })
                 .catch ((err) => {
                     console.log(err)
@@ -24,7 +29,10 @@ const Home = () => {
             
             fetchAllConcernedUsers(trimAndCapInput)
                 .then((usersdata) => {
-                        setAllData([...allData, ...usersdata])
+                    for (let userdata of usersdata) {
+                        combinedDataArray.push(userdata);
+                    }
+                    setAllData(combinedDataArray);
                 })
                 .catch ((err) => {
                     console.log(err)
@@ -32,13 +40,21 @@ const Home = () => {
 
             fetchClimbCragAreaCountry(trimAndCapInput)
                 .then((climbsdata) => {
-                    setAllData([...allData, ...climbsdata])
-                    console.log(allData)
+                    for (let climbdata of climbsdata) {
+                        combinedDataArray.push(climbdata);
+                    }
+                    setAllData(combinedDataArray)
                 })
                 .catch((err) => {
                     console.log(err)
                 });
+        } else {
+            setInput('');
         }
+    }, [input])
+
+    const searchAll = (input) => {
+        setInput(input);
     }
 
     const goToChosenData = (result) => {
@@ -74,7 +90,7 @@ const Home = () => {
             <h2>Search for routes, crags, areas or users!</h2>
             <input type='text' onChange={(e) => searchAll(e.target.value)}/>
             <div>
-                {allData?.map((result, index) => {
+                {allData.map((result, index) => {
                    return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.climb? result.climb : result.crag? result.crag : result.area? result.area : "Oops! Can't display result"}</div>
                 })}
             </div>
