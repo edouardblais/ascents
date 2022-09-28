@@ -1,107 +1,74 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllClimbs, fetchAllUsers } from '../firebase/Firebase';
+import { fetchClimbInfo, fetchAllConcernedUsers } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate, Link } from 'react-router-dom';
 
 const TopNav = () => {
     let navigate = useNavigate();
 
+    const [input, setInput] = useState('');
     const [allData, setAllData] = useState([]);
-    const [searchResult, setSearchResult] = useState([]);
-
-    const [numberOfResults, setNumberOfResults] = useState(0);
+    
+    let counter = 0;
 
     useEffect(() => {
-        const totalDataArray = [];
+        if (input !== '') {
+            const trimInput = trimSentence(input)
+            const trimAndCapInput = capitalizeFirstLetter(trimInput);
 
-        fetchAllUsers()
-            .then((usersdata) => {
-                for (let userdata of usersdata) {
-                    totalDataArray.push(userdata);
-                }
-                setAllData(totalDataArray);
-            })
-            .catch ((err) => {
-                console.log(err)
-            });
+            const combinedDataArray = [];
 
-        fetchAllClimbs()
-            .then((climbsdata) => {
-                for (let climbdata of climbsdata) {
-                    totalDataArray.push(climbdata);
-                }
-                setAllData(totalDataArray)
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-    }, []);
+            Promise.all([fetchAllConcernedUsers(input), fetchAllConcernedUsers(trimAndCapInput), fetchClimbInfo(trimAndCapInput)])
+                .then((alldata) => {
+                    for (let data of alldata) {
+                        combinedDataArray.push(...data);
+                    }
+                    setAllData(combinedDataArray)
+                })
+                .catch ((err) => {
+                    console.log(err)
+                })
+        } else {
+            setAllData([]);
+        }
+    }, [input])
 
     const searchAll = (input) => {
-        const trimInput = trimSentence(input)
-        const trimAndCapInput = capitalizeFirstLetter(trimInput);
-
-        const resultsOfInterestsArray = [];
-        const avoidAreaDuplicatesArray = [];
-        const avoidCragDuplicatesArray = [];
-
-        for (let data of allData) {
-            if (data.name && (data.name.startsWith(input) || data.name.startsWith(trimAndCapInput))) {
-                resultsOfInterestsArray.push({name: data.name,
-                                              data: data,
-                                            });
-            } else if (data.climb && (data.climb.startsWith(input) || data.climb.startsWith(trimAndCapInput))) {
-                resultsOfInterestsArray.push({climb: data.climb,
-                                              data: data,
-                                            });
-            } else if (data.area && (data.area.startsWith(input) || data.area.startsWith(trimAndCapInput)) && !avoidAreaDuplicatesArray.includes(data.area)) {
-                avoidAreaDuplicatesArray.push(data.area);
-                resultsOfInterestsArray.push({area: data.area,
-                                              data: data,
-                                            });
-            } else if (data.crag && (data.crag.startsWith(input) || data.crag.startsWith(trimAndCapInput)) && !avoidCragDuplicatesArray.includes(data.crag)) {
-                avoidCragDuplicatesArray.push(data.crag);
-                resultsOfInterestsArray.push({crag: data.crag,
-                                              data: data,
-                                            });
-            }
-        }
-        
-        if (input !== '') {
-            setSearchResult(resultsOfInterestsArray);
-        } else if (input === '') {
-            setSearchResult([]);
-        }
+        setInput(input);
+        counter = 0;
     }
 
     const goToChosenData = (result) => {
         if (result.name) {
             navigate('/visitUser', {
                 state: {
-                    otherUserInfo: result.data,
+                    otherUserInfo: result,
                 }
             })
         } else if (result.area) {
             navigate('/SearchAreas/SearchCrags', {
                 state: {
-                    chosenArea: result.data,
+                    chosenArea: result,
                 }
             })
         } else if (result.crag) {
             navigate('/SearchAreas/SearchCrags/SearchClimbs', {
                 state: {
-                    chosenCrag: result.data,
+                    chosenCrag: result,
                 }
             })
         } else if (result.climb) {
             navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
                 state: {
-                    chosenClimb: result.data,
+                    chosenClimb: result,
                 }
             })
         }
     }
 
+    const increment = () => {
+        counter += 1;
+    }
 
     return (
         <nav>
@@ -124,11 +91,11 @@ const TopNav = () => {
                 <div>
                     <input type='text' onChange={(e) => searchAll(e.target.value)}/>
                     <div>
-                        {searchResult.map((result, index) => {
-                            if (numberOfResults<=10) {
-                                return  <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.climb? result.climb : result.crag? result.crag : result.area? result.area : "Oops! Can't display result"}</div>
-                            }
-                            setNumberOfResults(numberOfResults+1);  
+                        {allData.map((result, index) => { 
+                            increment();
+                            if (counter<=10) { 
+                                return  <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
+                            } 
                         })}
                     </div>
                 </div>

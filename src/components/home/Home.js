@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllConcernedUsers, fetchClimbCragAreaCountry } from '../firebase/Firebase';
+import { fetchAllConcernedUsers, fetchClimbInfo } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
 
@@ -16,13 +16,11 @@ const Home = () => {
 
             const combinedDataArray = [];
 
-            Promise.all([fetchAllConcernedUsers(input), fetchAllConcernedUsers(trimAndCapInput), fetchClimbCragAreaCountry(trimAndCapInput)])
+            Promise.all([fetchAllConcernedUsers(input), fetchAllConcernedUsers(trimAndCapInput), fetchClimbInfo(trimAndCapInput)])
                 .then((alldata) => {
-                    console.log(allData)
                     for (let data of alldata) {
                         combinedDataArray.push(...data);
                     }
-                    console.log(combinedDataArray)
                     setAllData(combinedDataArray)
                 })
                 .catch ((err) => {
@@ -41,25 +39,25 @@ const Home = () => {
         if (result.name) {
             navigate('/visitUser', {
                 state: {
-                    otherUserInfo: result.data,
+                    otherUserInfo: result,
                 }
             })
         } else if (result.area) {
             navigate('/SearchAreas/SearchCrags', {
                 state: {
-                    chosenArea: result.data,
+                    chosenArea: result,
                 }
             })
         } else if (result.crag) {
             navigate('/SearchAreas/SearchCrags/SearchClimbs', {
                 state: {
-                    chosenCrag: result.data,
+                    chosenCrag: result,
                 }
             })
         } else if (result.climb) {
             navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
                 state: {
-                    chosenClimb: result.data,
+                    chosenClimb: result,
                 }
             })
         }
@@ -71,7 +69,7 @@ const Home = () => {
             <input type='text' onChange={(e) => searchAll(e.target.value)}/>
             <div>
                 {allData.map((result, index) => {
-                   return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.climb? result.climb : result.crag? result.crag : result.area? result.area : "Oops! Can't display result"}</div>
+                   return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
                 })}
             </div>
         </div>

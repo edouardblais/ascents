@@ -337,9 +337,38 @@ const fetchClimbCragAreaCountry = async (input) => {
   allCountries.map((eachData) => {
     allDataList.push(eachData);
   });
-  
   return allDataList;
+}
+
+const fetchClimbInfo = async (input) => {
+  const allInfo = [];
   
+  const allClimbs = await fetchClimb(input);
+  const allCrags = await fetchCrag(input);
+  const allAreas = await fetchArea(input);
+
+  const avoidAreaDuplicates = [];
+  const avoidCragDuplicates = [];
+
+  allClimbs.map((eachData) => {
+    allInfo.push({data: eachData,
+                  climb: eachData.climb})
+  });
+  allCrags.map((eachData) => {
+    if (!avoidCragDuplicates.includes(eachData.crag)) {
+      avoidCragDuplicates.push(eachData.crag)
+      allInfo.push({data: eachData,
+                    crag: eachData.crag})
+    }
+  });
+  allAreas.map((eachData) => {
+    if (!avoidAreaDuplicates.includes(eachData.area)) {
+      avoidAreaDuplicates.push(eachData.area)
+      allInfo.push({data: eachData,
+                    area: eachData.area})
+    }
+  });
+  return allInfo;
 }
 
 const addToFollowing = async (user, otherUser) => {
@@ -430,6 +459,7 @@ export {
   fetchFollowingUsers,
   fetchAllClimbs,
   fetchAllUsers,
+  fetchClimbInfo,
 };
 
 
