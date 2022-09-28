@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { processClimb } from '../../../firebase/Firebase';
+import { processClimb, displayClimbsforChosenCrag } from '../../../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from '../../../operations/Operations';
 
 const Crag = () => {
@@ -8,6 +8,8 @@ const Crag = () => {
     const chosenCrag = location.state.chosenCrag;
 
     let navigate = useNavigate();
+
+    const [climbs, setClimbs] = useState([]);
 
     const [climbsToSearch, setClimbsToSearch] = useState('');
     const [possibleClimbs, setPossibleClimbs] = useState([]);
@@ -25,6 +27,17 @@ const Crag = () => {
     }
 
     useEffect(() => {
+        const climbsToDisplay = [];
+        displayClimbsforChosenCrag(chosenCrag.crag)
+            .then((resolvedClimbs) => {
+                for (let climb of resolvedClimbs) {
+                        climbsToDisplay.push(climb)
+                    }
+                setClimbs(climbsToDisplay);
+            })
+    }, [])
+
+    useEffect(() => {
         const trimClimbs = trimSentence(climbsToSearch)
         const trimAndCapClimbs = capitalizeFirstLetter(trimClimbs);
         const possibleClimbs = processClimb(trimAndCapClimbs);
@@ -37,6 +50,12 @@ const Crag = () => {
     return (
         <div>
             <h2>{chosenCrag.crag}</h2>
+            <h3>Climbs</h3>
+            <ul>
+                {climbs.map((climb, index) => {
+                    return <li key={index} onClick={() => linkToClimb(climb)}>{climb.climb}</li>
+                })}
+            </ul>
             <div>Search Climbs</div>
             <input type='text' onChange={(e) => searchClimb(e.target.value)}></input>
             <div>

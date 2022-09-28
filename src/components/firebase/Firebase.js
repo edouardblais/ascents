@@ -303,6 +303,17 @@ const processCrag = async (crag) => {
     return cragsDataList;
 }
 
+const displayClimbsforChosenCrag = async (crag) => {
+  try {
+    const q = query(collection(db, "climbs"), where("crag", "==", crag));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const fetchClimb = async (climb) => {
   const end = climb.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
   try {
@@ -472,6 +483,7 @@ export {
   fetchAllUsers,
   fetchClimbInfo,
   displayCragsforChosenArea,
+  displayClimbsforChosenCrag,
 };
 
 

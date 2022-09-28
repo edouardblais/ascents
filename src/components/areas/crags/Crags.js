@@ -31,7 +31,6 @@ const Crags = () => {
         const avoidCragDuplicates = [];
         displayCragsforChosenArea(chosenArea.area)
             .then((resolvedCrags) => {
-                console.log(resolvedCrags)
                 for (let crag of resolvedCrags) {
                     if (!avoidCragDuplicates.includes(crag.crag)) {
                         avoidCragDuplicates.push(crag.crag)
@@ -55,12 +54,13 @@ const Crags = () => {
     return (
         <div>
             <h2>{chosenArea.area}</h2>
-            <div>Search Crags</div>
-            <div>
+            <h3>Crags</h3>
+            <ul>
                 {crags.map((crag, index) => {
-                    return <div key={index} onClick={() => linkToCrag(crag)}>{crag.crag}</div>
+                    return <li key={index} onClick={() => linkToCrag(crag)}>{crag.crag}</li>
                 })}
-            </div>
+            </ul>
+            <div>Search Crags</div>
             <input type='text' onChange={(e) => searchCrag(e.target.value)}></input>
             <div>
                 {possibleCrags.map((crag, index) => {
