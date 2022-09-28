@@ -16,40 +16,20 @@ const Home = () => {
 
             const combinedDataArray = [];
 
-            fetchAllConcernedUsers(input)
-                .then((usersdata) => {
-                        for (let userdata of usersdata) {
-                            combinedDataArray.push(userdata);
-                        }
-                        setAllData(combinedDataArray);
-                })
-                .catch ((err) => {
-                    console.log(err)
-                });
-            
-            fetchAllConcernedUsers(trimAndCapInput)
-                .then((usersdata) => {
-                    for (let userdata of usersdata) {
-                        combinedDataArray.push(userdata);
+            Promise.all([fetchAllConcernedUsers(input), fetchAllConcernedUsers(trimAndCapInput), fetchClimbCragAreaCountry(trimAndCapInput)])
+                .then((alldata) => {
+                    console.log(allData)
+                    for (let data of alldata) {
+                        combinedDataArray.push(...data);
                     }
-                    setAllData(combinedDataArray);
-                })
-                .catch ((err) => {
-                    console.log(err)
-                });
-
-            fetchClimbCragAreaCountry(trimAndCapInput)
-                .then((climbsdata) => {
-                    for (let climbdata of climbsdata) {
-                        combinedDataArray.push(climbdata);
-                    }
+                    console.log(combinedDataArray)
                     setAllData(combinedDataArray)
                 })
-                .catch((err) => {
+                .catch ((err) => {
                     console.log(err)
-                });
+                })
         } else {
-            setInput('');
+            setAllData([]);
         }
     }, [input])
 
