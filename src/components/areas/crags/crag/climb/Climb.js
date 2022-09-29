@@ -35,6 +35,8 @@ const Climb = () => {
         return (
             <div>
                 <h2>{chosenClimb.climb}</h2>
+                <p>{chosenClimb.crag}, {chosenClimb.area}, {chosenClimb.country}</p>
+                <p>{chosenClimb.grade}, {chosenClimb.type}</p>
                 <button onClick={() => showAddAscentModal()}>+Tick!</button>
                 <button onClick={() => addClimbToTodoList(chosenClimb, user.email)}>+To-do!</button>
                 {displayModal? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
