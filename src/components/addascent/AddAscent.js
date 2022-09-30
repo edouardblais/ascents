@@ -52,7 +52,7 @@ const AddAscent = () => {
         return (
             <div>
                 <h1>Add Ascent</h1>
-
+                <p>Search for a climb by it's name, crag, area or country:</p> 
                 <input type='text' id='climb' name='climb' value={userInput} onChange={(e) => defineInput(e.target.value)}/>
                 <div>
                     {possibleClimbs.map((possibility, index) => {

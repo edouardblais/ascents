@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { addAscentToLogbook, getUserInfoByEmail } from '../firebase/Firebase';
+import './Modal.css';
 
 const AddAscentModal = ({climb, useremail}) => {
     const today = new Date();
@@ -14,6 +15,8 @@ const AddAscentModal = ({climb, useremail}) => {
     const [date, setDate] = useState(formattedToday);
 
     const [userInfo, setUserInfo] = useState(null);
+
+    const [closeModal, setCloseModal] = useState(false);
 
     useEffect(() => {
         const user = getUserInfoByEmail(useremail);
@@ -54,8 +57,12 @@ const AddAscentModal = ({climb, useremail}) => {
         setDate(datevalue);
     };
 
+    const hideModal = () => {
+        setCloseModal(true)
+    }
+
     return (
-        <div>
+        <div className={closeModal?'display-none':'modal'}>
             <div>
                 <p>{climb.climb}</p>
                 <p>{climb.crag} {climb.area} {climb.country}</p>
@@ -125,6 +132,7 @@ const AddAscentModal = ({climb, useremail}) => {
                 <button type='button' onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date, userInfo)}>Add Ascent</button>
 
             </form>
+            <button onClick={hideModal}>Close</button>
         </div>
     )
 }
