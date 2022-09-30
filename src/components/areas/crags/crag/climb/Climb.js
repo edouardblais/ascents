@@ -12,8 +12,20 @@ const Climb = () => {
     const [displayModal, setDisplayModal] = useState(false)
 
     const showAddAscentModal = () => {
-        setDisplayModal(true)
+        if (user) {
+            setDisplayModal(true)
+        } else {
+            alert('Please sign in or register to tick a climb!')
+        }
     };
+
+    const addToToDo = () => {
+        if (user) {
+            addClimbToTodoList(chosenClimb, user.email)
+        } else {
+            alert('Please sign in or register to add a climb to your to-do list!')
+        }
+    }
 
     if (loading) {
         return (
@@ -30,19 +42,17 @@ const Climb = () => {
             </div>
         );
     }
-
-    if (user) {
-        return (
-            <div>
-                <h2>{chosenClimb.climb}</h2>
-                <p>{chosenClimb.crag}, {chosenClimb.area}, {chosenClimb.country}</p>
-                <p>{chosenClimb.grade}, {chosenClimb.type}</p>
-                <button onClick={() => showAddAscentModal()}>+Tick!</button>
-                <button onClick={() => addClimbToTodoList(chosenClimb, user.email)}>+To-do!</button>
-                {displayModal? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
-            </div>
-        )
-    }
+    
+    return (
+        <div>
+            <h2>{chosenClimb.climb}</h2>
+            <p>{chosenClimb.crag}, {chosenClimb.area}, {chosenClimb.country}</p>
+            <p>{chosenClimb.grade}, {chosenClimb.type}</p>
+            <button onClick={showAddAscentModal}>+Tick!</button>
+            <button onClick={addToToDo}>+To-do!</button>
+            {displayModal? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
+        </div>
+    )
 }
 
 export default Climb;
