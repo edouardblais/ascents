@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const Climb = () => {
     const location = useLocation();
     const chosenClimb = location.state.chosenClimb;
+    console.log(chosenClimb)
 
     const [user, loading, error] = useAuthState(auth);
     const [displayModal, setDisplayModal] = useState(false)
@@ -46,8 +47,8 @@ const Climb = () => {
     return (
         <div>
             <h2>{chosenClimb.climb}</h2>
-            <p>{chosenClimb.crag}, {chosenClimb.area}, {chosenClimb.country}</p>
-            <p>{chosenClimb.grade}, {chosenClimb.type}</p>
+            <p>{chosenClimb.data.crag}, {chosenClimb.data.area}, {chosenClimb.data.country}</p>
+            <p>{chosenClimb.data.grade}, {chosenClimb.data.type}</p>
             <button onClick={showAddAscentModal}>+Tick!</button>
             <button onClick={addToToDo}>+To-do!</button>
             {displayModal? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
