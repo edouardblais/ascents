@@ -61,6 +61,11 @@ const AddAscentModal = ({climb, useremail}) => {
         setCloseModal(true)
     }
 
+    const addAscent = () => {
+        addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date, userInfo);
+        setCloseModal(true);
+    }
+
     return (
         <div className={closeModal?'display-none':'modal'}>
             <div>
@@ -129,7 +134,7 @@ const AddAscentModal = ({climb, useremail}) => {
                 <label htmlFor='comment'>Comment:</label>
                 <input type='text' id='comment' name='comment' defaultValue={comment} onChange={(e) => getComment(e.target.value)}></input>
 
-                <button type='button' onClick={() => addAscentToLogbook(climb, grade, feel, rp, rating, recommendation, comment, date, userInfo)}>Add Ascent</button>
+                <button type='button' onClick={addAscent}>Add Ascent</button>
 
             </form>
             <button onClick={hideModal}>Close</button>
