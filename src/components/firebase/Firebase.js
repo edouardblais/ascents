@@ -10,7 +10,6 @@ import { getFirestore,
   getDocs,
   collection,
   where,
-  addDoc, 
   doc, 
   updateDoc,
   arrayUnion,
@@ -148,25 +147,30 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
   try {
     const usersRef = doc(db, "users", userinfo.email );
     const ascent = {
-      climb: climb.climb,
-      crag: climb.crag,
-      area: climb.area,
-      country: climb.country,
-      type: climb.type,
-      grade: grade,
-      feel: feel,
-      rp: rp,
-      rating: rating,
-      recommendation: recommendation,
-      comment: comment,
-      date: date,
-      email: userinfo.email,
-      name: userinfo.name,
+      climb: climb.climb || null,
+      crag: climb.crag || null,
+      area: climb.area || null,
+      country: climb.country || null,
+      type: climb.type || null,
+      grade: grade || null,
+      feel: feel || null,
+      rp: rp || null,
+      rating: rating || null,
+      recommendation: recommendation || null,
+      comment: comment | null,
+      date: date || null,
+      email: userinfo.email || null,
+      name: userinfo.name || null,
     };
-
     await updateDoc(usersRef, {
       logbook: arrayUnion(ascent)
     });
+
+    const climbRef = doc(db, "climbs", `${climb.climb}, ${climb.crag}, ${climb.area}`)
+    await updateDoc(climbRef, {
+      logs: arrayUnion(ascent)
+    });
+
     alert(`${ascent.climb} was added to your logbook!`)
   } catch (err){
     alert(err)
@@ -201,14 +205,17 @@ const addNewClimb = async (country, area, crag, climb, grade, type) => {
   const trimClimb = trimSentence(climb)
   const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
 
+  const climbID = `${trimAndCapClimb}, ${trimAndCapCrag}, ${trimAndCapArea}`;
+
   try {
-    await addDoc(collection(db, 'climbs'), {
+    await setDoc(doc(db, 'climbs', climbID), {
       country: trimAndCapCountry,
       area: trimAndCapArea,
       crag: trimAndCapCrag,
       climb: trimAndCapClimb,
       grade: grade,
       type: type,
+      logs: [],
     })
     alert('New climb successfully added!');
   } catch (err) {

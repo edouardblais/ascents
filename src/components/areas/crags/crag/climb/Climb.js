@@ -7,7 +7,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const Climb = () => {
     const location = useLocation();
     const chosenClimb = location.state.chosenClimb;
-    console.log(chosenClimb)
 
     const [user, loading, error] = useAuthState(auth);
     const [displayModal, setDisplayModal] = useState(false)
