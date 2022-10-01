@@ -157,7 +157,7 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
       rp: rp || null,
       rating: rating || null,
       recommendation: recommendation || null,
-      comment: comment | null,
+      comment: comment || null,
       date: date || null,
       email: userinfo.email || null,
       name: userinfo.name || null,

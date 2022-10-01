@@ -46,10 +46,23 @@ const Climb = () => {
     return (
         <div>
             <h2>{chosenClimb.climb}</h2>
-            <p>{chosenClimb.data.crag}, {chosenClimb.data.area}, {chosenClimb.data.country}</p>
-            <p>{chosenClimb.data.grade}, {chosenClimb.data.type}</p>
+            <p>{chosenClimb.crag}, {chosenClimb.area}, {chosenClimb.country}</p>
+            <p>{chosenClimb.grade}, {chosenClimb.type}</p>
             <button onClick={showAddAscentModal}>+Tick!</button>
             <button onClick={addToToDo}>+To-do!</button>
+            {chosenClimb.logs? 
+                chosenClimb.logs.map((ascent, index) => {
+                    return <div key={index}>
+                            <p>{ascent.name}</p>
+                            <p>{ascent.date}</p>
+                            <p>{ascent.rp}</p> 
+                            <p>{ascent.grade}, {ascent.feel}</p>
+                            <p>{ascent.rating} stars</p>
+                            <p>{ascent.recommendation? 'Recommended':''}</p>
+                            <p>{ascent.comment}</p>
+                           </div>
+                }):
+                null}
             {displayModal? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
         </div>
     )
