@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const Climb = () => {
     const location = useLocation();
     const chosenClimb = location.state.chosenClimb;
+    console.log(chosenClimb)
 
     const [user, loading, error] = useAuthState(auth);
     const [displayModal, setDisplayModal] = useState(false)
@@ -46,23 +47,40 @@ const Climb = () => {
     return (
         <div>
             <h2>{chosenClimb.climb}</h2>
-            <p>{chosenClimb.crag}, {chosenClimb.area}, {chosenClimb.country}</p>
-            <p>{chosenClimb.grade}, {chosenClimb.type}</p>
+            <p>{chosenClimb.crag || chosenClimb.data.crag }, {chosenClimb.area || chosenClimb.data.area }, {chosenClimb.country || chosenClimb.data.country }</p>
+            <p>{chosenClimb.grade || chosenClimb.data.grade }, {chosenClimb.type || chosenClimb.data.type }</p>
             <button onClick={showAddAscentModal}>+Tick!</button>
             <button onClick={addToToDo}>+To-do!</button>
-            {chosenClimb.logs? 
-                chosenClimb.logs.map((ascent, index) => {
-                    return <div key={index}>
-                            <p>{ascent.name}</p>
-                            <p>{ascent.date}</p>
-                            <p>{ascent.rp}</p> 
-                            <p>{ascent.grade}, {ascent.feel}</p>
-                            <p>{ascent.rating} stars</p>
-                            <p>{ascent.recommendation? 'Recommended':''}</p>
-                            <p>{ascent.comment}</p>
-                           </div>
+            <div>
+                {chosenClimb.logs? 
+                    chosenClimb.logs.map((ascent, index) => {
+                        return <div key={index}>
+                                <p>{ascent.name}</p>
+                                <p>{ascent.date}</p>
+                                <p>{ascent.rp}</p> 
+                                <p>{ascent.grade}, {ascent.feel}</p>
+                                <p>{ascent.rating} stars</p>
+                                <p>{ascent.recommendation? 'Recommended':''}</p>
+                                <p>{ascent.comment}</p>
+                            </div>
+                    }):
+                    null}
+            </div>
+            <div>
+                {chosenClimb.data? 
+                    chosenClimb.data.logs.map((ascent, index) => {
+                        return <div key={index}>
+                                <p>{ascent.name}</p>
+                                <p>{ascent.date}</p>
+                                <p>{ascent.rp}</p> 
+                                <p>{ascent.grade}, {ascent.feel}</p>
+                                <p>{ascent.rating} stars</p>
+                                <p>{ascent.recommendation? 'Recommended':''}</p>
+                                <p>{ascent.comment}</p>
+                                </div>
                 }):
                 null}
+            </div>
             {displayModal? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
         </div>
     )
