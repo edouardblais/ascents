@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAllUsers, auth, getUserInfoByEmail, fetchFollowingUsers } from '../firebase/Firebase';
+import { fetchAllUsers, auth, getUserInfoByEmail, fetchFollowingUsers, fetchExactClimb } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -65,6 +65,18 @@ const RecentAscents = () => {
         setFriendsOnly(false);
     }
 
+    const seeClimb = (climb) => {
+        const climbinfoarray = fetchExactClimb(climb.climb);
+        climbinfoarray.then((resolvedClimbInfo) => {
+            const climbinfo = resolvedClimbInfo[0];
+            navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+                state: {
+                    chosenClimb:climbinfo
+                }
+            }) 
+        }) 
+    }
+
     const seeProfile = (email) => {
         const user = getUserInfoByEmail(email);
         user.then((resolvedUser) => {
@@ -101,8 +113,8 @@ const RecentAscents = () => {
                 <div>
                     {recentFollowingAscents.map((ascent, index) => {
                         return  <div key={index}>
-                                    <div>{ascent.climb} {ascent.date}</div> 
-                                    <button onClick={() => seeProfile(ascent.email)}>{ascent.name}</button>
+                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
+                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
                                 </div>
                     })}
                 </div>
@@ -117,8 +129,8 @@ const RecentAscents = () => {
             <div>
                 {recentAscents.map((ascent, index) => {
                     return  <div key={index}>
-                                <div>{ascent.climb} {ascent.date}</div> 
-                                <button onClick={() => seeProfile(ascent.email)}>{ascent.name}</button>
+                                <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
+                                <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
                             </div>
                 })}
             </div>

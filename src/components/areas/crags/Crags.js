@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { processCrag, displayCragsforChosenArea } from '../../firebase/Firebase';
+import { processCrag, getAreaInfo } from '../../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from '../../operations/Operations';
 
 const Crags = () => {
@@ -29,7 +29,7 @@ const Crags = () => {
     useEffect(() => {
         const cragsToDisplay = [];
         const avoidCragDuplicates = [];
-        displayCragsforChosenArea(chosenArea.area)
+        getAreaInfo(chosenArea.area)
             .then((resolvedCrags) => {
                 for (let crag of resolvedCrags) {
                     if (!avoidCragDuplicates.includes(crag.crag)) {

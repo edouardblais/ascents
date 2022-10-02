@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchClimbInfo, fetchAllConcernedUsers } from '../firebase/Firebase';
+import { fetchClimbInfo, fetchAllConcernedUsers, getCragInfo, getAreaInfo, fetchExactClimb } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -46,25 +46,51 @@ const TopNav = () => {
                 }
             })
         } else if (result.area) {
-            navigate('/SearchAreas/SearchCrags', {
-                state: {
-                    chosenArea: result,
-                }
-            })
+            getAreaInfo(result.area)
+                .then((resolvedareas) => {
+                    const areasList = [];
+                    const areasDataList = [];
+                    resolvedareas.map((eachData) => {
+                        if (!areasList.includes(eachData.area)) {
+                            areasList.push(eachData.area);
+                            areasDataList.push(eachData);
+                        }
+                        })
+                    navigate('/SearchAreas/SearchCrags', {
+                        state: {
+                            chosenArea: areasDataList[0],
+                        }
+                    })
+                })
         } else if (result.crag) {
-            navigate('/SearchAreas/SearchCrags/SearchClimbs', {
-                state: {
-                    chosenCrag: result,
-                }
-            })
+            getCragInfo(result.crag)
+                .then((resolvedcrags) => {
+                    const cragsList = [];
+                    const cragsDataList = [];
+                    resolvedcrags.map((eachData) => {
+                        if (!cragsList.includes(eachData.crag)) {
+                            cragsList.push(eachData.crag);
+                            cragsDataList.push(eachData);
+                        }
+                        })
+                    navigate('/SearchAreas/SearchCrags/SearchClimbs', {
+                        state: {
+                            chosenArea: cragsDataList[0],
+                        }
+                    })
+                })
         } else if (result.climb) {
-            navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
-                state: {
-                    chosenClimb: result,
-                }
-            })
+            fetchExactClimb(result.climb)
+                .then((resolvedclimb) => {
+                    navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+                        state: {
+                            chosenClimb: resolvedclimb[0],
+                        }
+                    })
+                })
         }
     }
+
 
     const increment = () => {
         counter += 1;

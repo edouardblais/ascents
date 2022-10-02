@@ -274,7 +274,7 @@ const processArea = async (area) => {
     return areasDataList;
 }
 
-const displayCragsforChosenArea = async (area) => {
+const getAreaInfo = async (area) => {
   try {
     const q = query(collection(db, "climbs"), where("area", "==", area));
     const docs = await getDocs(q);
@@ -310,7 +310,7 @@ const processCrag = async (crag) => {
     return cragsDataList;
 }
 
-const displayClimbsforChosenCrag = async (crag) => {
+const getCragInfo = async (crag) => {
   try {
     const q = query(collection(db, "climbs"), where("crag", "==", crag));
     const docs = await getDocs(q);
@@ -344,6 +344,25 @@ const processClimb = async (climb) => {
     }
   });
   return climbsDataList;
+}
+
+const fetchExactClimb = async (climb) => {
+  try {
+    const q = query(collection(db, "climbs"), where("climb", "==", climb));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    const climbsList = [];
+    const climbsDataList = [];
+    data.map((eachData) => {
+      if (!climbsList.includes(eachData.climb)) {
+        climbsList.push(eachData.climb);
+        climbsDataList.push(eachData);
+      }
+    });
+    return climbsDataList;
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const fetchClimbCragAreaCountry = async (input) => {
@@ -489,8 +508,9 @@ export {
   fetchAllClimbs,
   fetchAllUsers,
   fetchClimbInfo,
-  displayCragsforChosenArea,
-  displayClimbsforChosenCrag,
+  getAreaInfo,
+  getCragInfo,
+  fetchExactClimb, 
 };
 
 

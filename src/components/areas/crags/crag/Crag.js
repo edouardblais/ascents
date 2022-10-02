@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { processClimb, displayClimbsforChosenCrag } from '../../../firebase/Firebase';
+import { processClimb, getCragInfo } from '../../../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from '../../../operations/Operations';
 
 const Crag = () => {
@@ -28,7 +28,7 @@ const Crag = () => {
 
     useEffect(() => {
         const climbsToDisplay = [];
-        displayClimbsforChosenCrag(chosenCrag.crag)
+        getCragInfo(chosenCrag.crag)
             .then((resolvedClimbs) => {
                 for (let climb of resolvedClimbs) {
                         climbsToDisplay.push(climb)
