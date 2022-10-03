@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
-import { fetchClimbCragAreaCountry, auth, addClimbToTodoList } from '../firebase/Firebase';
+import { fetchClimbCragAreaCountry, auth, addClimbToTodoList, fetchExactClimb } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import AddAscentModal from './AddAscentModal';
 
 const AddAscent = () => {
+
+    const navigate = useNavigate();
 
     const [user, loading, error] = useAuthState(auth);
 
@@ -31,6 +33,17 @@ const AddAscent = () => {
     const showAddAscentModal = (possibility) => {
         setModalToDisplay(possibility)
     };
+
+    const goToChosenClimb = (climb) => {
+        fetchExactClimb(climb)
+                .then((resolvedclimb) => {
+                    navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+                        state: {
+                            chosenClimb: resolvedclimb[0],
+                        }
+                    })
+                })
+    }
 
     if (loading) {
         return (
@@ -58,7 +71,8 @@ const AddAscent = () => {
                     {possibleClimbs?.map((possibility, index) => {
                             if (possibility.climb!=='') {
                                 return <div key={index}>
-                                            <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
+                                            <div onClick={() => goToChosenClimb(possibility.climb)}>{possibility.climb}</div>
+                                            <div>{possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
                                             <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
                                             <button onClick={() => addClimbToTodoList(possibility, user.email)}>+To-do!</button>
                                             {modalToDisplay===possibility? <AddAscentModal climb={possibility} useremail={user.email}/> : null}
