@@ -42,13 +42,15 @@ const Crags = () => {
     }, [])
 
     useEffect(() => {
-        const trimCrags = trimSentence(cragsToSearch)
-        const trimAndCapCrags = capitalizeFirstLetter(trimCrags);
-        processCrag(trimAndCapCrags)
-            .then((resolvedCrags) => {
-                const filteredCrags = resolvedCrags.filter((crag) => (crag.area === chosenArea.area))
-                setPossibleCrags(filteredCrags);
-        });
+        if (cragsToSearch !== '') {
+            const trimCrags = trimSentence(cragsToSearch)
+            const trimAndCapCrags = capitalizeFirstLetter(trimCrags);
+            processCrag(trimAndCapCrags)
+                .then((resolvedCrags) => {
+                    const filteredCrags = resolvedCrags.filter((crag) => (crag.area === chosenArea.area))
+                    setPossibleCrags(filteredCrags);
+            });
+        }
     }, [cragsToSearch]);
 
     return (

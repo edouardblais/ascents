@@ -38,13 +38,15 @@ const Crag = () => {
     }, [])
 
     useEffect(() => {
-        const trimClimbs = trimSentence(climbsToSearch)
-        const trimAndCapClimbs = capitalizeFirstLetter(trimClimbs);
-        const possibleClimbs = processClimb(trimAndCapClimbs);
-        possibleClimbs.then((resolvedClimbs) => {
-            const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === chosenCrag.crag))
-            setPossibleClimbs(filteredClimbs);
-        });
+        if (climbsToSearch !== '') {
+            const trimClimbs = trimSentence(climbsToSearch)
+            const trimAndCapClimbs = capitalizeFirstLetter(trimClimbs);
+            const possibleClimbs = processClimb(trimAndCapClimbs);
+            possibleClimbs.then((resolvedClimbs) => {
+                const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === chosenCrag.crag))
+                setPossibleClimbs(filteredClimbs);
+            });
+        }
     }, [climbsToSearch]);
 
     return (

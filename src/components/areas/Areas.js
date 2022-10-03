@@ -58,7 +58,7 @@ const Areas = () => {
             <div>Search Area</div>
             <input type='text' onChange={(e) => searchArea(e.target.value)}></input>
             <div>
-                {possibleAreas.map((area, index) => {
+                {possibleAreas?.map((area, index) => {
                     return <div key={index} onClick={() => linkToArea(area)}>{area.area}</div>
                 })}
             </div>

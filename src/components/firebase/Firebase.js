@@ -239,16 +239,18 @@ const fetchCountry = async (country) => {
 }
 
 const processCountry = async (country) => {
-  const countryInfo = await fetchCountry(country);
-  const countriesList = [];
-  const countriesDataList = [];
-  countryInfo.map((eachData) => {
-    if (!countriesList.includes(eachData.country)) {
-      countriesList.push(eachData.country);
-      countriesDataList.push(eachData);
-    }
-  });
-  return countriesDataList;
+  if (country !== '') {
+    const countryInfo = await fetchCountry(country);
+    const countriesList = [];
+    const countriesDataList = [];
+    countryInfo.map((eachData) => {
+      if (!countriesList.includes(eachData.country)) {
+        countriesList.push(eachData.country);
+        countriesDataList.push(eachData);
+      }
+    });
+    return countriesDataList;
+  }
 }
 
 const fetchArea = async (area) => {
@@ -266,16 +268,18 @@ const fetchArea = async (area) => {
 }
 
 const processArea = async (area) => {
-  const areaInfo = await fetchArea(area);
-  const areasList = [];
-    const areasDataList = [];
-    areaInfo.map((eachData) => {
-      if (!areasList.includes(eachData.area)) {
-        areasList.push(eachData.area);
-        areasDataList.push(eachData);
-      }
-    });
-    return areasDataList;
+  if (area !== '') {
+    const areaInfo = await fetchArea(area);
+    const areasList = [];
+      const areasDataList = [];
+      areaInfo.map((eachData) => {
+        if (!areasList.includes(eachData.area)) {
+          areasList.push(eachData.area);
+          areasDataList.push(eachData);
+        }
+      });
+      return areasDataList;
+  }
 }
 
 const getAreaInfo = async (area) => {
@@ -304,16 +308,18 @@ const fetchCrag = async (crag) => {
 }
 
 const processCrag = async (crag) => {
-  const cragInfo = await fetchCrag(crag);
-  const cragsList = [];
-    const cragsDataList = [];
-    cragInfo.map((eachData) => {
-      if (!cragsList.includes(eachData.crag)) {
-        cragsList.push(eachData.crag);
-        cragsDataList.push(eachData);
-      }
-    });
-    return cragsDataList;
+  if (crag !== '') {
+    const cragInfo = await fetchCrag(crag);
+    const cragsList = [];
+      const cragsDataList = [];
+      cragInfo.map((eachData) => {
+        if (!cragsList.includes(eachData.crag)) {
+          cragsList.push(eachData.crag);
+          cragsDataList.push(eachData);
+        }
+      });
+      return cragsDataList;
+  }
 }
 
 const getCragInfo = async (crag) => {
@@ -342,16 +348,18 @@ const fetchClimb = async (climb) => {
 }
 
 const processClimb = async (climb) => {
-  const climbInfo = await fetchClimb(climb);
-  const climbsList = [];
-  const climbsDataList = [];
-  climbInfo.map((eachData) => {
-    if (!climbsList.includes(eachData.climb)) {
-      climbsList.push(eachData.climb);
-      climbsDataList.push(eachData);
-    }
-  });
-  return climbsDataList;
+  if (climb !== '') {
+    const climbInfo = await fetchClimb(climb);
+    const climbsList = [];
+    const climbsDataList = [];
+    climbInfo.map((eachData) => {
+      if (!climbsList.includes(eachData.climb)) {
+        climbsList.push(eachData.climb);
+        climbsDataList.push(eachData);
+      }
+    });
+    return climbsDataList;
+  }
 }
 
 const fetchExactClimb = async (climb) => {
