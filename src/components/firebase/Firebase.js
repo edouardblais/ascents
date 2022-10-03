@@ -225,14 +225,16 @@ const addNewClimb = async (country, area, crag, climb, grade, type) => {
 }
 
 const fetchCountry = async (country) => {
-  const end = country.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
-  try {
-    const q = query(collection(db, "climbs"), where("country", ">=", country), where("country", "<=", end));
-    const docs = await getDocs(q);
-    const data = docs.docs.map((doc) => doc.data());
-    return data;
-  } catch (err) {
-    console.log(err)
+  if (country !== '') {
+    const end = country.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+    try {
+      const q = query(collection(db, "climbs"), where("country", ">=", country), where("country", "<=", end));
+      const docs = await getDocs(q);
+      const data = docs.docs.map((doc) => doc.data());
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -250,14 +252,16 @@ const processCountry = async (country) => {
 }
 
 const fetchArea = async (area) => {
-  const end = area.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
-  try {
-    const q = query(collection(db, "climbs"), where("area", ">=", area), where("area", "<=", end));
-    const docs = await getDocs(q);
-    const data = docs.docs.map((doc) => doc.data());
-    return data;
-  } catch (err) {
-    console.log(err)
+  if (area !== '') {
+    const end = area.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+    try {
+      const q = query(collection(db, "climbs"), where("area", ">=", area), where("area", "<=", end));
+      const docs = await getDocs(q);
+      const data = docs.docs.map((doc) => doc.data());
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -286,14 +290,16 @@ const getAreaInfo = async (area) => {
 }
 
 const fetchCrag = async (crag) => {
-  const end = crag.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
-  try {
-    const q = query(collection(db, "climbs"), where("crag", ">=", crag), where("crag", "<=", end));
-    const docs = await getDocs(q);
-    const data = docs.docs.map((doc) => doc.data());
-    return data;
-  } catch (err) {
-    console.log(err)
+  if (crag !== '') {
+    const end = crag.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+    try {
+      const q = query(collection(db, "climbs"), where("crag", ">=", crag), where("crag", "<=", end));
+      const docs = await getDocs(q);
+      const data = docs.docs.map((doc) => doc.data());
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -322,14 +328,16 @@ const getCragInfo = async (crag) => {
 }
 
 const fetchClimb = async (climb) => {
-  const end = climb.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
-  try {
-    const q = query(collection(db, "climbs"), where("climb", ">=", climb), where("climb", "<=", end));
-    const docs = await getDocs(q);
-    const data = docs.docs.map((doc) => doc.data());
-    return data;
-  } catch (err) {
-    console.log(err)
+  if (climb !== '') {
+    const end = climb.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+    try {
+      const q = query(collection(db, "climbs"), where("climb", ">=", climb), where("climb", "<=", end));
+      const docs = await getDocs(q);
+      const data = docs.docs.map((doc) => doc.data());
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -366,26 +374,28 @@ const fetchExactClimb = async (climb) => {
 }
 
 const fetchClimbCragAreaCountry = async (input) => {
-  const allDataList = [];
+  if (input !== ''){
+    const allDataList = [];
 
-  const allClimbs = await fetchClimb(input);
-  const allCrags = await fetchCrag(input);
-  const allAreas = await fetchArea(input);
-  const allCountries = await fetchCountry(input);
+    const allClimbs = await fetchClimb(input);
+    const allCrags = await fetchCrag(input);
+    const allAreas = await fetchArea(input);
+    const allCountries = await fetchCountry(input);
 
-  allClimbs.map((eachData) => {
-    allDataList.push(eachData);
-  });
-  allCrags.map((eachData) => {
-    allDataList.push(eachData);
-  });
-  allAreas.map((eachData) => {
-    allDataList.push(eachData);
-  });
-  allCountries.map((eachData) => {
-    allDataList.push(eachData);
-  });
-  return allDataList;
+    allClimbs.map((eachData) => {
+      allDataList.push(eachData);
+    });
+    allCrags.map((eachData) => {
+      allDataList.push(eachData);
+    });
+    allAreas.map((eachData) => {
+      allDataList.push(eachData);
+    });
+    allCountries.map((eachData) => {
+      allDataList.push(eachData);
+    });
+    return allDataList;
+  }
 }
 
 const fetchClimbInfo = async (input) => {

@@ -20,12 +20,12 @@ const AddAscent = () => {
     };
 
     useEffect(() => {
-        const trimInput = trimSentence(userInput)
-        const trimAndCapInput = capitalizeFirstLetter(trimInput);
-        const possibleClimbs = fetchClimbCragAreaCountry(trimAndCapInput);
-        possibleClimbs.then((resolvedClimbs) => {
-            setPossibleClimbs(resolvedClimbs);
-        });
+            const trimInput = trimSentence(userInput)
+            const trimAndCapInput = capitalizeFirstLetter(trimInput);
+            const possibleClimbs = fetchClimbCragAreaCountry(trimAndCapInput);
+            possibleClimbs.then((resolvedClimbs) => {
+                setPossibleClimbs(resolvedClimbs);
+            });
     }, [userInput]);
 
     const showAddAscentModal = (possibility) => {
@@ -55,15 +55,15 @@ const AddAscent = () => {
                 <p>Search for a climb by it's name, crag, area or country:</p> 
                 <input type='text' id='climb' name='climb' value={userInput} onChange={(e) => defineInput(e.target.value)}/>
                 <div>
-                    {possibleClimbs.map((possibility, index) => {
-                        if (possibility.climb!=='') {
-                            return <div key={index}>
-                                        <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
-                                        <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
-                                        <button onClick={() => addClimbToTodoList(possibility, user.email)}>+To-do!</button>
-                                        {modalToDisplay===possibility? <AddAscentModal climb={possibility} useremail={user.email}/> : null}
-                                    </div>
-                        };
+                    {possibleClimbs?.map((possibility, index) => {
+                            if (possibility.climb!=='') {
+                                return <div key={index}>
+                                            <div>{possibility.climb} {possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
+                                            <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
+                                            <button onClick={() => addClimbToTodoList(possibility, user.email)}>+To-do!</button>
+                                            {modalToDisplay===possibility? <AddAscentModal climb={possibility} useremail={user.email}/> : null}
+                                        </div>
+                            };
                     })}
                 </div>
 
