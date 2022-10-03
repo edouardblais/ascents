@@ -101,7 +101,6 @@ const CreateNew = () => {
             setErrorStatus(true);
         }
     }, [errorStatus]);
-
     
     return (
         <div>
@@ -111,7 +110,7 @@ const CreateNew = () => {
                 <input type='text' id='country' name='country' value={country} onChange={(e) => defineCountry(e.target.value)}/>
                 <div>
                     {countriesDisplayed?.map((country, index) => {
-                        return <div key={index}>{country.country}</div>
+                        return <div key={index} onClick={() => defineCountry(country.country)}>{country.country}</div>
                     })}
                 </div>
 
@@ -119,7 +118,7 @@ const CreateNew = () => {
                 <input type='text' id='area' name='area' value={area} onChange={(e) => defineArea(e.target.value)}/>
                 <div>
                     {areasDisplayed?.map((area, index) => {
-                        return <div key={index}>{area.area}</div>
+                        return <div key={index} onClick={() => defineArea(area.area)}>{area.area}</div>
                     })}
                 </div>
 
@@ -127,7 +126,7 @@ const CreateNew = () => {
                 <input type='text' id='crag' name='crag' value={crag} onChange={(e) => defineCrag(e.target.value)}/>
                 <div>
                     {cragsDisplayed?.map((crag, index) => {
-                        return <div key={index}>{crag.crag}</div>
+                        return <div key={index} onClick={() => defineCrag(crag.crag)}>{crag.crag}</div>
                     })}
                 </div>
 
@@ -135,7 +134,7 @@ const CreateNew = () => {
                 <input type='text' id='climb' name='climb' value={climb} onChange={(e) => defineClimb(e.target.value)}/>
                 <div>
                     {climbsDisplayed?.map((climb, index) => {
-                        return <div key={index}>{climb.climb}</div>
+                        return <div key={index} onClick={() => defineClimb(climb.climb)}>{climb.climb}</div>
                     })}
                 </div>
                 
