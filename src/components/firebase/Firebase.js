@@ -143,6 +143,19 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
   }
 }
 
+const updateAverageRating = async (climb, rating, climbRef) => {
+  try {
+    const newnumberoflogs = climb.newnumberoflogs + 1
+    const newaveragerating = ((climb.numberoflogs * climb.averagerating) + rating ) / newnumberoflogs
+    await updateDoc(climbRef, {
+      averagerating: newaveragerating,
+      numberoflogs: newnumberoflogs,
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation, comment, date, userinfo) => {
   try {
     const usersRef = doc(db, "users", userinfo.email );
@@ -170,6 +183,8 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
     await updateDoc(climbRef, {
       logs: arrayUnion(ascent)
     });
+
+    updateAverageRating(climb, rating, climbRef);
 
     alert(`${ascent.climb} was added to your logbook!`)
   } catch (err){
@@ -216,6 +231,8 @@ const addNewClimb = async (country, area, crag, climb, grade, type) => {
       grade: grade,
       type: type,
       logs: [],
+      averagerating: 0,
+      numberoflogs: 0,
     })
     alert('New climb successfully added!');
   } catch (err) {
@@ -381,6 +398,17 @@ const fetchExactClimb = async (climb) => {
   }
 }
 
+const fetchGoodClimbs = async () => {
+  try {
+    const q = query(collection(db, "climbs"), where("averagerating", ">=", "2"));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const fetchClimbCragAreaCountry = async (input) => {
   if (input !== ''){
     const allDataList = [];
@@ -529,6 +557,7 @@ export {
   getAreaInfo,
   getCragInfo,
   fetchExactClimb, 
+  fetchGoodClimbs,
 };
 
 

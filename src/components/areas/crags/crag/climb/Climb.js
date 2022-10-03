@@ -48,6 +48,8 @@ const Climb = () => {
             <h2>{chosenClimb.climb}</h2>
             <p>{chosenClimb.crag? chosenClimb.crag : 'Crag Unknown' }, {chosenClimb.area? chosenClimb.area : 'Area Unknown' }, {chosenClimb.country? chosenClimb.country : 'Country Unknown' }</p>
             <p>{chosenClimb.grade? chosenClimb.grade : 'Grade Unknown' }, {chosenClimb.type? chosenClimb.type : 'Type Unknown'}</p>
+            <p>Number of ascents: {chosenClimb.numberoflogs? chosenClimb.numberoflogs : 0}</p>
+            <p>Average rating: {chosenClimb.averagerating? chosenClimb.averagerating : 'No rating recorded'}</p>
             <button onClick={showAddAscentModal}>+Tick!</button>
             <button onClick={addToToDo}>+To-do!</button>
             <div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo } from '../firebase/Firebase';
+import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo, fetchGoodClimbs } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,15 @@ const Home = () => {
 
     const [input, setInput] = useState('');
     const [allData, setAllData] = useState([]);
+    const [goodClimbs, setGoodClimbs] = useState([]);
+
+    useEffect(() => {
+        fetchGoodClimbs()
+            .then((resolvedgoodclimbs) => {
+                console.log(resolvedgoodclimbs)
+                setGoodClimbs(resolvedgoodclimbs)
+            })
+    }, [])
 
     useEffect(() => {
         if (input !== '') {
@@ -95,6 +104,12 @@ const Home = () => {
             <div>
                 {allData.map((result, index) => {
                    return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
+                })}
+            </div>
+            <h2>Featured Awesome Climbs</h2>
+            <div>
+                {goodClimbs.map((result, index) => {
+                    return <div key={index}>{result.climb}</div>
                 })}
             </div>
         </div>
