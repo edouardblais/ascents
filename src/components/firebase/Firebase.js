@@ -145,8 +145,8 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
 
 const updateAverageRating = async (climb, rating, climbRef) => {
   try {
-    const newnumberoflogs = climb.newnumberoflogs + 1
-    const newaveragerating = ((climb.numberoflogs * climb.averagerating) + rating ) / newnumberoflogs
+    const newnumberoflogs = Number(climb.numberoflogs) + 1
+    const newaveragerating = ((Number(climb.numberoflogs) * Number(climb.averagerating)) + Number(rating) ) / newnumberoflogs
     await updateDoc(climbRef, {
       averagerating: newaveragerating,
       numberoflogs: newnumberoflogs,
@@ -184,7 +184,7 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
       logs: arrayUnion(ascent)
     });
 
-    updateAverageRating(climb, rating, climbRef);
+    await updateAverageRating(climb, rating, climbRef);
 
     alert(`${ascent.climb} was added to your logbook!`)
   } catch (err){
@@ -400,7 +400,7 @@ const fetchExactClimb = async (climb) => {
 
 const fetchGoodClimbs = async () => {
   try {
-    const q = query(collection(db, "climbs"), where("averagerating", ">=", "2"));
+    const q = query(collection(db, "climbs"), where("averagerating", ">=", 2));
     const docs = await getDocs(q);
     const data = docs.docs.map((doc) => doc.data());
     return data;
