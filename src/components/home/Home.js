@@ -13,7 +13,6 @@ const Home = () => {
     useEffect(() => {
         fetchGoodClimbs()
             .then((resolvedgoodclimbs) => {
-                console.log(resolvedgoodclimbs)
                 setGoodClimbs(resolvedgoodclimbs)
             })
     }, [])

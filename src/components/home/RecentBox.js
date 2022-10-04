@@ -8,8 +8,6 @@ const RecentBox = () => {
 
     const [user, loading, error] = useAuthState(auth);
 
-    const [friendsOnly, setFriendsOnly] = useState(false);
-
     const [recentAscents, setRecentAscents] = useState([]);
     const [recentFollowingAscents, setRecentFollowingAscents] = useState([]);
 
