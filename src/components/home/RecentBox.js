@@ -53,18 +53,6 @@ const RecentBox = () => {
         }
     }, [user])
 
-    const seeFollowedAscents = () => {
-        if (user) {
-            setFriendsOnly(true);
-        } else {
-            alert('Please sign in or register to follow climbers!')
-        }
-    }
-
-    const seeAllAscents = () => {
-        setFriendsOnly(false);
-    }
-
     const seeClimb = (climb) => {
         const climbinfoarray = fetchExactClimb(climb.climb);
         climbinfoarray.then((resolvedClimbInfo) => {
@@ -134,9 +122,6 @@ const RecentBox = () => {
     return (
         <div>
             <h1>Recent Ascents</h1>
-            <h3>Friends</h3>
-            
-            <h3>Global</h3>
             <div>
                 {recentAscents.map((ascent, index) => {
                     return  <div key={index}>
