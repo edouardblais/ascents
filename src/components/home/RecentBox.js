@@ -11,6 +11,9 @@ const RecentBox = () => {
     const [recentAscents, setRecentAscents] = useState([]);
     const [recentFollowingAscents, setRecentFollowingAscents] = useState([]);
 
+    let counter = 0;
+    let friendsCounter = 0;
+
     useEffect(() => {
         const alluserdataarray = [];
         const allusersdata = fetchAllUsers();
@@ -28,6 +31,8 @@ const RecentBox = () => {
 
     useEffect(() => {
         if (user) {
+            counter = 0;
+            friendsCounter = 0;
             getUserInfoByEmail(user.email)
                 .then((resolvedInfo) => {
                     return resolvedInfo 
@@ -43,12 +48,13 @@ const RecentBox = () => {
                     const sortedFollowingAscentsByDate = followingAscents.sort((ascent1 ,ascent2) => {
                         return new Date(ascent2.date) - new Date(ascent1.date);
                     });
+                    console.log(sortedFollowingAscentsByDate)
                     setRecentFollowingAscents(sortedFollowingAscentsByDate);
                 })
                 .catch((err) => {
                     console.log(err)
                 })
-        }
+            }
     }, [user])
 
     const seeClimb = (climb) => {
@@ -98,19 +104,28 @@ const RecentBox = () => {
                 <h3>Friends</h3>
                 <div>
                     {recentFollowingAscents.map((ascent, index) => {
-                        return  <div key={index}>
-                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
-                                </div>
-                    })}
+                        friendsCounter += 1;
+                        if (friendsCounter <= 5 && friendsCounter !== 0) {
+                            return  <div key={index}>
+                                        <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
+                                        <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                                    </div>
+                        }
+                        if (friendsCounter === 0) {
+                            return <p>No recent ascents by friends</p>
+                        }
+                    })}                    
                 </div>
                 <h3>Global</h3>
                 <div>
                 {recentAscents.map((ascent, index) => {
-                    return  <div key={index}>
-                                <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
-                            </div>
+                    counter += 1;
+                    if (counter <= 5) {
+                        return  <div key={index}>
+                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
+                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                                </div>
+                    }
                 })}
             </div>
             </div>
@@ -122,10 +137,13 @@ const RecentBox = () => {
             <h1>Recent Ascents</h1>
             <div>
                 {recentAscents.map((ascent, index) => {
-                    return  <div key={index}>
-                                <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
-                            </div>
+                    counter += 1;
+                    if (counter <= 5) {
+                        return  <div key={index}>
+                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
+                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                                </div>
+                     }
                 })}
             </div>
         </div>

@@ -44,7 +44,10 @@ const Crag = () => {
             const possibleClimbs = processClimb(trimAndCapClimbs);
             possibleClimbs.then((resolvedClimbs) => {
                 const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === chosenCrag.crag))
-                setPossibleClimbs(filteredClimbs);
+                const sortedClimbsByAscents = filteredClimbs.sort((ascent1 ,ascent2) => {
+                    return ((ascent2.numberoflogs) - (ascent1.numberoflogs));
+                });
+                setPossibleClimbs(sortedClimbsByAscents);
             });
         }
     }, [climbsToSearch]);
