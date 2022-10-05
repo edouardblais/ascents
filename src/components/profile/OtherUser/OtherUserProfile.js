@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { auth, addToFollowing, addToFollower, getUserInfo } from '../../firebase/Firebase';
+import { auth, addToFollowing, addToFollower, getUserInfo, removeFromFollowers, removeFromFollowing } from '../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const OtherUserProfile = () => {
@@ -33,7 +33,7 @@ const OtherUserProfile = () => {
     const followUser = () => {
         if (user) {
             addToFollowing(userInfo.following, userInfo.email, otherUser.name);
-            addToFollower(userInfo.name, userInfo.email, otherUser.followers);
+            addToFollower(userInfo.name, otherUser.email, otherUser.followers);
             setFollowed(true)
             alert(`You are now following ${otherUser.name}!`)
         } else {
@@ -42,7 +42,12 @@ const OtherUserProfile = () => {
     }
 
     const unfollowUser = () => {
-        
+        const newFollowingArray = userInfo.following.filter((otherusername) => (otherusername !== otherUser.name));
+        const newFollowersArray = otherUser.followers.filter((otherusername) => (otherusername !== userInfo.name));
+        removeFromFollowing(otherUser.name, userInfo.email, newFollowingArray, userInfo.following);
+        removeFromFollowers(userInfo.name, otherUser.email, newFollowersArray, otherUser.followers);
+        setFollowed(false);
+        alert(`You have unfollowed ${otherUser.name}!`)
     }
 
     if (loading) {

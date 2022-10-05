@@ -157,9 +157,9 @@ const addToFollowing = async (userfollowing, useremail, otherusername) => {
     }
 }
 
-const addToFollower = async (username, useremail, otheruserfollowers) => {
+const addToFollower = async (username, otheruseremail, otheruserfollowers) => {
   try {
-    const usersRef = doc(db, "users", useremail );
+    const usersRef = doc(db, "users", otheruseremail );
     if (!otheruserfollowers.includes(username)) {
       await updateDoc(usersRef, {
           'followers': arrayUnion(username),
@@ -171,13 +171,28 @@ const addToFollower = async (username, useremail, otheruserfollowers) => {
     }
 }
 
-const removeFromFollowing = async (username, useremail, newfollowingarray) => {
+const removeFromFollowing = async (otherusername, useremail, newfollowingarray, userfollowing) => {
   try {
     const usersRef = doc(db, "users", useremail );
-    await updateDoc(usersRef, {
-      following: newfollowingarray
-      });
-    alert(`${username, Unfollowed`);
+    if (!userfollowing.includes(otherusername)) {
+      await updateDoc(usersRef, {
+        following: newfollowingarray
+        });
+    }
+  } catch (err){
+    alert(err)
+    console.log(err)
+  }
+}
+
+const removeFromFollowers = async (username, otheruseremail, newfollowersarray, otheruserfollowers) => {
+  try {
+    const usersRef = doc(db, "users", otheruseremail );
+    if (!otheruserfollowers.includes(username)) {
+      await updateDoc(usersRef, {
+        following: newfollowersarray
+        });
+    }
   } catch (err){
     alert(err)
     console.log(err)
@@ -569,6 +584,8 @@ export {
   getCragInfo,
   fetchExactClimb, 
   fetchGoodClimbs,
+  removeFromFollowers,
+  removeFromFollowing,
 };
 
 
