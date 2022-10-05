@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { auth, addToFollowing, addToFollower } from '../../firebase/Firebase';
+import { auth, addToFollowing, addToFollower, getUserInfo } from '../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const OtherUserProfile = () => {
@@ -8,15 +8,41 @@ const OtherUserProfile = () => {
     const otherUser = location.state.otherUserInfo;
 
     const [user, loading, error] = useAuthState(auth);
+    const [userInfo, setUserInfo] = useState('');
+
+    const [followed, setFollowed] = useState(false);
+
+    useEffect(() => {
+        if (user) {
+            getUserInfo(user.uid)
+                .then((resolvedinfo) => {
+                const infotoset = resolvedinfo[0];
+                setUserInfo(infotoset);
+            })
+        }
+    }, [user]);
+
+    useEffect(() => {
+        otherUser.followers.forEach((follower) => {
+            if (follower === userInfo.name) {
+                setFollowed(true)
+            }
+        })
+    }, [userInfo, otherUser])
 
     const followUser = () => {
         if (user) {
-            addToFollowing(user, otherUser);
-            addToFollower(user, otherUser);
-            alert('Added to your following!')
+            addToFollowing(userInfo.following, userInfo.email, otherUser.name);
+            addToFollower(userInfo.name, userInfo.email, otherUser.followers);
+            setFollowed(true)
+            alert(`You are now following ${otherUser.name}!`)
         } else {
             alert('Please sign in or register to follow climbers!')
         }
+    }
+
+    const unfollowUser = () => {
+        
     }
 
     if (loading) {
@@ -46,7 +72,7 @@ const OtherUserProfile = () => {
                 <p>Other interests: {otherUser.otherinfo.otherinterests}</p>
                 <p>Following: {otherUser.totalfollowing}</p>
                 <p>Followers: {otherUser.totalfollowers}</p>
-                <button type='button' onClick={followUser}>Follow</button>
+                {followed? <button type='button' onClick={unfollowUser}>Unfollow</button> : <button type='button' onClick={followUser}>Follow</button>}
             </div>
             <ul>
                 <Link to='Routes' state={otherUser}>

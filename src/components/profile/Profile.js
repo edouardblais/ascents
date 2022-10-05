@@ -19,8 +19,8 @@ const Profile = () => {
 
     useEffect(() => {
         if (user) {
-            const info = getUserInfo(user.uid);
-            info.then((resolvedinfo) => {
+            getUserInfo(user.uid)
+                .then((resolvedinfo) => {
                 const infotoset = resolvedinfo[0];
                 setUserInfo(infotoset);
             })

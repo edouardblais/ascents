@@ -143,6 +143,47 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
   }
 }
 
+const addToFollowing = async (userfollowing, useremail, otherusername) => {
+  try {
+    const usersRef = doc(db, "users", useremail);
+    if (!userfollowing.includes(otherusername)) {
+      await updateDoc(usersRef, {
+          'following': arrayUnion(otherusername),
+          'totalfollowing': increment(1),
+          });
+      } 
+    } catch (err) {
+      console.log(err)
+    }
+}
+
+const addToFollower = async (username, useremail, otheruserfollowers) => {
+  try {
+    const usersRef = doc(db, "users", useremail );
+    if (!otheruserfollowers.includes(username)) {
+      await updateDoc(usersRef, {
+          'followers': arrayUnion(username),
+          'totalfollowers': increment(1),
+          });
+      }
+    } catch (err) {
+      console.log(err)
+    }
+}
+
+const removeFromFollowing = async (username, useremail, newfollowingarray) => {
+  try {
+    const usersRef = doc(db, "users", useremail );
+    await updateDoc(usersRef, {
+      following: newfollowingarray
+      });
+    alert(`${username, Unfollowed`);
+  } catch (err){
+    alert(err)
+    console.log(err)
+  }
+}
+
 const updateAverageRating = async (climb, rating, climbRef) => {
   try {
     const newnumberoflogs = Number(climb.numberoflogs) + 1
@@ -463,36 +504,6 @@ const fetchClimbInfo = async (input) => {
     }
   });
   return allInfo;
-}
-
-const addToFollowing = async (user, otherUser) => {
-  try {
-    const userInfo = await getUserInfoByEmail(user.email);
-    const usersRef = doc(db, "users", user.email);
-    if (!userInfo[0].following.includes(otherUser.name)) {
-      await updateDoc(usersRef, {
-          'following': arrayUnion(otherUser.name),
-          'totalfollowing': increment(1),
-          });
-      } 
-    } catch (err) {
-      console.log(err)
-    }
-}
-
-const addToFollower = async (user, otherUser) => {
-  try {
-    const userInfo = await getUserInfoByEmail(user.email);
-    const usersRef = doc(db, "users", otherUser.email );
-    if (!otherUser.followers.includes(userInfo[0].name)) {
-      await updateDoc(usersRef, {
-          'followers': arrayUnion(userInfo[0].name),
-          'totalfollowers': increment(1),
-          });
-      }
-    } catch (err) {
-      console.log(err)
-    }
 }
 
 const fetchAllClimbs = async () => {
