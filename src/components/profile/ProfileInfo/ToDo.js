@@ -36,8 +36,8 @@ const ToDo = () => {
             <h1>To Do list</h1>
             <div>
                 {userToDos.map((climb, index) => {
-                    return  <div>
-                                <p key={index} onClick={() => seeClimb(climb)}>{climb.climb}</p>
+                    return  <div key={index}>
+                                <p onClick={() => seeClimb(climb)}>{climb.climb}</p>
                                 <button onClick={showAddAscentModal}>+Tick!</button>
                                 <button onClick={() => removeFromToDo(climb)}>Remove</button>
                                 {displayModal? <AddAscentModal climb={climb} useremail={userInfo.email}/> : null}

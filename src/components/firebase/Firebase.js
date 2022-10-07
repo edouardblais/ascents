@@ -143,12 +143,12 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
   }
 }
 
-const addToFollowing = async (userfollowing, useremail, otherusername) => {
+const addToFollowing = async (user, otheruser) => {
   try {
-    const usersRef = doc(db, "users", useremail);
-    if (!userfollowing.includes(otherusername)) {
+    const usersRef = doc(db, "users", user.email);
+    if (!user.following.includes(otheruser.name)) {
       await updateDoc(usersRef, {
-          'following': arrayUnion(otherusername),
+          'following': arrayUnion(otheruser.name),
           'totalfollowing': increment(1),
           });
       } 
@@ -157,12 +157,12 @@ const addToFollowing = async (userfollowing, useremail, otherusername) => {
     }
 }
 
-const addToFollower = async (username, otheruseremail, otheruserfollowers) => {
+const addToFollower = async (user, otheruser) => {
   try {
-    const usersRef = doc(db, "users", otheruseremail );
-    if (!otheruserfollowers.includes(username)) {
+    const usersRef = doc(db, "users", otheruser.email );
+    if (!otheruser.followers.includes(user.name)) {
       await updateDoc(usersRef, {
-          'followers': arrayUnion(username),
+          'followers': arrayUnion(user.name),
           'totalfollowers': increment(1),
           });
       }
@@ -171,10 +171,10 @@ const addToFollower = async (username, otheruseremail, otheruserfollowers) => {
     }
 }
 
-const removeFromFollowing = async (otherusername, useremail, newfollowingarray, userfollowing) => {
+const removeFromFollowing = async (user, otheruser, newfollowingarray) => {
   try {
-    const usersRef = doc(db, "users", useremail );
-    if (!userfollowing.includes(otherusername)) {
+    const usersRef = doc(db, "users", user.email );
+    if (!user.following.includes(otheruser.name)) {
       await updateDoc(usersRef, {
         following: newfollowingarray
         });
@@ -185,10 +185,10 @@ const removeFromFollowing = async (otherusername, useremail, newfollowingarray, 
   }
 }
 
-const removeFromFollowers = async (username, otheruseremail, newfollowersarray, otheruserfollowers) => {
+const removeFromFollowers = async (user, otheruser, newfollowersarray) => {
   try {
-    const usersRef = doc(db, "users", otheruseremail );
-    if (!otheruserfollowers.includes(username)) {
+    const usersRef = doc(db, "users", otheruser.email );
+    if (!otheruser.followers.includes(user.name)) {
       await updateDoc(usersRef, {
         following: newfollowersarray
         });

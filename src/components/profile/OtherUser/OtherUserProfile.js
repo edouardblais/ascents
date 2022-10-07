@@ -23,8 +23,8 @@ const OtherUserProfile = () => {
     }, [user]);
 
     useEffect(() => {
-        otherUser.followers.forEach((follower) => {
-            if (follower === userInfo.name) {
+        userInfo.following.forEach((followed) => {
+            if (followed.email === otherUser.email) {
                 setFollowed(true)
             }
         })
@@ -32,8 +32,8 @@ const OtherUserProfile = () => {
 
     const followUser = () => {
         if (user) {
-            addToFollowing(userInfo.following, userInfo.email, otherUser.name);
-            addToFollower(userInfo.name, otherUser.email, otherUser.followers);
+            addToFollowing(userInfo, otherUser);
+            addToFollower(userInfo, otherUser);
             setFollowed(true)
             alert(`You are now following ${otherUser.name}!`)
         } else {
@@ -44,8 +44,8 @@ const OtherUserProfile = () => {
     const unfollowUser = () => {
         const newFollowingArray = userInfo.following.filter((otherusername) => (otherusername !== otherUser.name));
         const newFollowersArray = otherUser.followers.filter((otherusername) => (otherusername !== userInfo.name));
-        removeFromFollowing(otherUser.name, userInfo.email, newFollowingArray, userInfo.following);
-        removeFromFollowers(userInfo.name, otherUser.email, newFollowersArray, otherUser.followers);
+        removeFromFollowing(userInfo, otherUser, newFollowingArray);
+        removeFromFollowers(userInfo, otherUser, newFollowersArray);
         setFollowed(false);
         alert(`You have unfollowed ${otherUser.name}!`)
     }

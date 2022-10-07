@@ -29,8 +29,8 @@ const BouldersLogged = () => {
             <div>
                 {bouldersLogged.map((climb, index) => {
                     if (climb.type === 'Bouldering') {
-                        return  <div>
-                                  <p key={index} onClick={() => seeClimb(climb)}>{climb.climb}</p>
+                        return  <div key={index}>
+                                  <p onClick={() => seeClimb(climb)}>{climb.climb}</p>
                                   <button onClick={() => removeFromLogbook(climb)}>Remove</button>
                                 </div>
                     }
