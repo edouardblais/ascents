@@ -48,7 +48,6 @@ const RecentBox = () => {
                     const sortedFollowingAscentsByDate = followingAscents.sort((ascent1 ,ascent2) => {
                         return new Date(ascent2.date) - new Date(ascent1.date);
                     });
-                    console.log(sortedFollowingAscentsByDate)
                     setRecentFollowingAscents(sortedFollowingAscentsByDate);
                 })
                 .catch((err) => {
