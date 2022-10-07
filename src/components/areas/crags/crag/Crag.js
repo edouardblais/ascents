@@ -60,7 +60,6 @@ const Crag = () => {
             return ((ascent2.numberoflogs) - (ascent1.numberoflogs));
         });
         setClimbs([...sortedClimbsByAscents])
-        console.log(climbs)
     }
 
     const sortByAscentsIncreasing = () => {
@@ -68,7 +67,6 @@ const Crag = () => {
             return ((ascent1.numberoflogs) - (ascent2.numberoflogs));
         });
         setClimbs([...sortedClimbsByAscents])
-        console.log(climbs)
     }
 
     const sortByRatingDecreasing = () => {
@@ -76,7 +74,6 @@ const Crag = () => {
             return ((ascent2.averagerating) - (ascent1.averagerating));
         });
         setClimbs([...sortedClimbsByRating])
-        console.log(climbs)
     }
 
     const sortByRatingIncreasing = () => {
@@ -84,23 +81,49 @@ const Crag = () => {
             return ((ascent1.averagerating) - (ascent2.averagerating));
         });
         setClimbs([...sortedClimbsByRating])
-        console.log(climbs)
     }
 
     const sortByGradeIncreasing = () => {
         const sortedClimbsByGrade = climbs.sort((ascent1 ,ascent2) => {
-            return ((ascent2.grade) - (ascent1.grade));
+            const splitAscent1 = ascent1.grade.split('');
+            const splitAscent2 = ascent2.grade.split('');
+            for (let i = 1; i <= 3; i++) {
+                if (splitAscent1[i] > splitAscent2[i]) {
+                    return 1
+                } else if (splitAscent1[i] < splitAscent2[i]) {
+                    return -1
+                } else {
+                    return 0
+                }
+            }
         });
         setClimbs([...sortedClimbsByGrade])
-        console.log(climbs)
     }
 
     const sortByGradeDecreasing = () => {
         const sortedClimbsByGrade = climbs.sort((ascent1 ,ascent2) => {
-            return ((ascent1.grade) - (ascent2.grade));
+            const splitAscent1 = ascent1.grade.split('');
+            const splitAscent2 = ascent2.grade.split('');
+            for (let i = 1; i <= 3; i++) {
+                if (splitAscent1[i] > splitAscent2[i]) {
+                    console.log('a')
+                    return -1
+                } else if (splitAscent1[i] < splitAscent2[i]) {
+                    console.log('b')
+                    return 1
+                } else if (splitAscent1[i] === '+') {
+                    console.log('c')
+                    return 1
+                } else if (splitAscent2[i] === '+') {
+                    console.log('d')
+                    return -1
+                } else {
+                    console.log('e')
+                    return 0
+                }
+            }
         });
         setClimbs([...sortedClimbsByGrade])
-        console.log(climbs)
     }
 
     return (

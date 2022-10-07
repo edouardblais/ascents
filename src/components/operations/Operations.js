@@ -15,4 +15,10 @@ const trimSentence = (sentence) => {
     return trimmedSentence;
 }
 
-export { capitalizeFirstLetter, trimSentence }
+const sortByGrade = (a, b) => {
+    const splittedA = a.split('');
+    const splittedB = b.split('');
+    return splittedA - splittedB
+}
+
+export { capitalizeFirstLetter, trimSentence, sortByGrade }
