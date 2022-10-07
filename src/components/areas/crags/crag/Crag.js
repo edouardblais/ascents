@@ -104,7 +104,7 @@ const Crag = () => {
         const sortedClimbsByGrade = climbs.sort((ascent1 ,ascent2) => {
             const splitAscent1 = ascent1.grade.split('');
             const splitAscent2 = ascent2.grade.split('');
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 0; i <= 2; i++) {
                 if (splitAscent1[i] > splitAscent2[i]) {
                     console.log('a')
                     return -1
