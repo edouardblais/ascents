@@ -252,15 +252,26 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
 const addClimbToTodoList = async (climb, email) => {
   try { 
     const usersRef = doc(db, "users", email );
-
     await updateDoc(usersRef, {
       todolist: arrayUnion(climb)
     });
     alert(`${climb.climb} was added to your to-do list!`)
   } catch (err) {
-    alert(err)
+    console.log(err)
   }
 };
+
+const updateToDoList = async (newtodos, email) => {
+  try {
+    const usersRef = doc(db, "user", email)
+    await updateDoc(usersRef, {
+      todolist: newtodos
+    });
+    alert('ToDos updated!')
+  } catch (err) {
+    console.log(err)
+  }
+} 
 
 const addNewClimb = async (country, area, crag, climb, grade, type) => {
   
@@ -572,6 +583,7 @@ export {
   fetchClimbCragAreaCountry,
   addAscentToLogbook,
   addClimbToTodoList,
+  updateToDoList,
   updateProfile,
   fetchAllConcernedUsers,
   addToFollowing,
