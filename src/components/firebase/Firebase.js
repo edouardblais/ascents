@@ -249,6 +249,18 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
   }
 };
 
+const updateLogbook = async (newlogbook, email) => {
+  try {
+    const usersRef = doc(db, "user", email)
+    await updateDoc(usersRef, {
+      logbook: newlogbook
+    });
+    alert('Logbook updated!')
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const addClimbToTodoList = async (climb, email) => {
   try { 
     const usersRef = doc(db, "users", email );
@@ -582,6 +594,7 @@ export {
   processClimb,
   fetchClimbCragAreaCountry,
   addAscentToLogbook,
+  updateLogbook,
   addClimbToTodoList,
   updateToDoList,
   updateProfile,
