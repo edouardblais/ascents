@@ -146,9 +146,9 @@ const updateProfile = async (newname, newage, newcountry, newstartedclimb, newfa
 const addToFollowing = async (user, otheruser) => {
   try {
     const usersRef = doc(db, "users", user.email);
-    if (!user.following.includes(otheruser.name)) {
+    if (!user.following.includes(otheruser)) {
       await updateDoc(usersRef, {
-          'following': arrayUnion(otheruser.name),
+          'following': arrayUnion(otheruser),
           'totalfollowing': increment(1),
           });
       } 
@@ -160,9 +160,9 @@ const addToFollowing = async (user, otheruser) => {
 const addToFollower = async (user, otheruser) => {
   try {
     const usersRef = doc(db, "users", otheruser.email );
-    if (!otheruser.followers.includes(user.name)) {
+    if (!otheruser.followers.includes(user)) {
       await updateDoc(usersRef, {
-          'followers': arrayUnion(user.name),
+          'followers': arrayUnion(user),
           'totalfollowers': increment(1),
           });
       }
@@ -174,9 +174,10 @@ const addToFollower = async (user, otheruser) => {
 const removeFromFollowing = async (user, otheruser, newfollowingarray) => {
   try {
     const usersRef = doc(db, "users", user.email );
-    if (!user.following.includes(otheruser.name)) {
+    if (!user.following.includes(otheruser)) {
       await updateDoc(usersRef, {
-        following: newfollowingarray
+        'following': newfollowingarray,
+        'totalfollowing': increment(-1),
         });
     }
   } catch (err){
@@ -188,9 +189,10 @@ const removeFromFollowing = async (user, otheruser, newfollowingarray) => {
 const removeFromFollowers = async (user, otheruser, newfollowersarray) => {
   try {
     const usersRef = doc(db, "users", otheruser.email );
-    if (!otheruser.followers.includes(user.name)) {
+    if (!otheruser.followers.includes(user)) {
       await updateDoc(usersRef, {
-        following: newfollowersarray
+        'followers': newfollowersarray,
+        'totalfollowers': increment(-1),
         });
     }
   } catch (err){
@@ -251,7 +253,7 @@ const addAscentToLogbook = async (climb, grade, feel, rp, rating, recommendation
 
 const updateLogbook = async (newlogbook, email) => {
   try {
-    const usersRef = doc(db, "user", email)
+    const usersRef = doc(db, "users", email)
     await updateDoc(usersRef, {
       logbook: newlogbook
     });
@@ -275,7 +277,7 @@ const addClimbToTodoList = async (climb, email) => {
 
 const updateToDoList = async (newtodos, email) => {
   try {
-    const usersRef = doc(db, "user", email)
+    const usersRef = doc(db, "users", email)
     await updateDoc(usersRef, {
       todolist: newtodos
     });

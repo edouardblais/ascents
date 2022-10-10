@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import { AddAscentModal } from '../../addascent/AddAscentModal';
-import { updateToDoList } from '../../firebase/Firebase'
+import AddAscentModal from '../../addascent/AddAscentModal';
+import { updateToDoList } from '../../firebase/Firebase';
 
 
 const ToDo = () => {
@@ -10,11 +10,11 @@ const ToDo = () => {
 
     const navigate = useNavigate();
 
-    const [userToDos, setUserToDos] = useState(userInfo.todolist)
-    const [displayModal, setDisplayModal] = useState(false)
+    const [userToDos, setUserToDos] = useState(userInfo.todolist);
+    const [displayModal, setDisplayModal] = useState(null);
 
-    const showAddAscentModal = () => {
-            setDisplayModal(true)
+    const showAddAscentModal = (chosenClimb) => {
+            setDisplayModal(chosenClimb)
     };
 
     const removeFromToDo = (climb) => {
@@ -38,9 +38,9 @@ const ToDo = () => {
                 {userToDos.map((climb, index) => {
                     return  <div key={index}>
                                 <p onClick={() => seeClimb(climb)}>{climb.climb}</p>
-                                <button onClick={showAddAscentModal}>+Tick!</button>
+                                <button onClick={() => showAddAscentModal(climb)}>+Tick!</button>
                                 <button onClick={() => removeFromToDo(climb)}>Remove</button>
-                                {displayModal? <AddAscentModal climb={climb} useremail={userInfo.email}/> : null}
+                                {displayModal===climb? <AddAscentModal climb={climb} useremail={userInfo.email}/> : null}
                             </div>
                 })}
             </div>

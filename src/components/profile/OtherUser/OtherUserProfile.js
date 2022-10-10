@@ -23,12 +23,14 @@ const OtherUserProfile = () => {
     }, [user]);
 
     useEffect(() => {
-        userInfo.following.forEach((followed) => {
-            if (followed.email === otherUser.email) {
-                setFollowed(true)
-            }
-        })
-    }, [userInfo, otherUser])
+        if (userInfo.following) {
+            userInfo.following.forEach((followed) => {
+                if (followed.email === otherUser.email) {
+                    setFollowed(true)
+                }
+            })
+        }
+    }, [userInfo])
 
     const followUser = () => {
         if (user) {
