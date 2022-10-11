@@ -1,0 +1,16 @@
+.searchBarModal {
+    position:fixed;
+    background: white;
+    border: 2px solid black;
+    width: 80%;
+    height: auto;
+    top:5%;
+    left:90%;
+    transform: translate(-50%,-50%);
+    display:block;
+  }
+  
+  .display-none {
+    display:none;
+  }
+  
