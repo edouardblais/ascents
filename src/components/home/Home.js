@@ -96,6 +96,17 @@ const Home = () => {
         }
     }
 
+    const goToGoodClimb = (climb) => {
+        fetchExactClimb(climb.climb)
+        .then((resolvedclimb) => {
+            navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+                state: {
+                    chosenClimb: resolvedclimb[0],
+                }
+            })
+        })
+    }
+
     return (
         <div>
             <h2>Search for routes, crags, areas or users!</h2>
@@ -108,7 +119,7 @@ const Home = () => {
             <h2>Featured Awesome Climbs</h2>
             <div>
                 {goodClimbs.map((result, index) => {
-                    return <div key={index}>{result.climb}</div>
+                    return <div key={index} onClick={() => goToGoodClimb(result)}>{result.climb}</div>
                 })}
             </div>
         </div>
