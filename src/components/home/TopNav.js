@@ -49,6 +49,8 @@ const TopNav = () => {
                 <div className="topNavInputBox">
                     <span className="material-symbols-sharp">search</span>
                     <input type='text' onChange={(e) => activateSearchModal(e)} className="topNavInput"/>
+                </div>
+                <div>
                     {searching? <SearchBarModal data={input}/> : null}
                 </div>
             </div>

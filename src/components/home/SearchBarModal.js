@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchClimbInfo, fetchAllConcernedUsers, getCragInfo, getAreaInfo, fetchExactClimb } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
-import './SearchBarModal';
+import './SearchBarModal.css';
 
 const SearchBarModal = ({data}) => {
     let navigate = useNavigate();
@@ -10,8 +10,6 @@ const SearchBarModal = ({data}) => {
     const [allData, setAllData] = useState([]);
     
     let counter = 0;
-
-    const [closeModal, setCloseModal] = useState(false);
 
     useEffect(() => {
         if (data !== '') {
@@ -94,12 +92,24 @@ const SearchBarModal = ({data}) => {
     }
 
     return (
-        <div  className={closeModal?'display-none':'searchBarModal'}>
+        <div  className="searchBarModal">
                 <div>
-                    {allData.map((result, index) => { 
+                    {allData.map((result, index) => {
+                        console.log(result)
                         increment();
                         if (counter<=10) { 
-                            return  <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
+                            return  <div key={index} onClick={() => goToChosenData(result)}>
+                                        {result.name?   <div className="displayDataBox">
+                                                            <div className="displayDataSubBox">
+                                                                <p>{result.name}</p>
+                                                                <p>{result.logbook.length}</p>
+                                                            </div>
+                                                            <div className="displayDataSubBox">
+                                                                <p>user - {result.otherinfo.country || null}</p>
+                                                                <p>ascents</p>
+                                                            </div>
+                                                        </div>
+                                        : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
                         } 
                     })}
                 </div>
