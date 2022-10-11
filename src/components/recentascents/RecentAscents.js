@@ -32,14 +32,13 @@ const RecentAscents = () => {
         if (user) {
             getUserInfoByEmail(user.email)
                 .then((resolvedInfo) => {
-                    return resolvedInfo 
-                })
-                .then((resolvedInfo) => {
+                    console.log(resolvedInfo[0].following)
                     return fetchFollowingUsers(resolvedInfo[0].following);
                 })
-                .then((resolvedInfo)=> {
+                .then((resolvedUsers)=> {
+                    console.log(resolvedUsers)
                     const followingAscents = [];
-                    for (let followeduser of resolvedInfo) {
+                    for (let followeduser of resolvedUsers) {
                         followingAscents.push(...followeduser.logbook)
                     }
                     const sortedFollowingAscentsByDate = followingAscents.sort((ascent1 ,ascent2) => {
