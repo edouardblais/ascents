@@ -1,0 +1,31 @@
+.topNavMainBox {
+    width: 100vw;
+    max-height: 10vh;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #334155;
+    color: #e2e8f0;
+    margin: 0;
+}
+
+.topNavLinks {
+    flex:1;
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+    gap:1vw;
+    list-style: none;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color:#e2e8f0;
+  }
+
+.topNavSearchResultBox {
+    display: flex;
+    flex-direction: column;
+}

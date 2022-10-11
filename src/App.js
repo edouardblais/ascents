@@ -20,6 +20,7 @@ import SignIn from './components/authentication/SignIn';
 import CreateUser from './components/authentication/CreateUser';
 import Reset from './components/authentication/Reset';
 import OtherUserProfile from './components/profile/OtherUser/OtherUserProfile';
+import './App.css';
 
 
 const App = () => {

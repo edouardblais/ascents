@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchClimbInfo, fetchAllConcernedUsers, getCragInfo, getAreaInfo, fetchExactClimb } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate, Link } from 'react-router-dom';
+import './TopNav.css'
 
 const TopNav = () => {
     let navigate = useNavigate();
@@ -97,8 +98,9 @@ const TopNav = () => {
     }
 
     return (
-        <nav>
-            <ul>
+        <nav className="topNavMainBox">
+            <h1>Ascents</h1>
+            <ul className="topNavLinks">
                 <Link to=''>
                     <li>Home</li>
                 </Link>
@@ -114,18 +116,18 @@ const TopNav = () => {
                 <Link to='AddAscent'>
                     <li>Add Ascent</li>
                 </Link>
-                <div>
-                    <input type='text' onChange={(e) => searchAll(e.target.value)}/>
-                    <div>
-                        {allData.map((result, index) => { 
-                            increment();
-                            if (counter<=10) { 
-                                return  <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
-                            } 
-                        })}
-                    </div>
-                </div>
             </ul>
+            <div className="topNavSearchResultBox">
+                <input type='text' onChange={(e) => searchAll(e.target.value)}/>
+                <div>
+                    {allData.map((result, index) => { 
+                        increment();
+                        if (counter<=10) { 
+                            return  <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
+                        } 
+                    })}
+                </div>
+            </div>
         </nav>
     )
 }
