@@ -1,13 +1,12 @@
 .topNavMainBox {
-    width: 100vw;
-    max-height: 10vh;
     display:flex;
     flex-direction:row;
     align-items: center;
     justify-content: flex-start;
-    background-color: #334155;
-    color: #e2e8f0;
-    margin: 0;
+    background-color: #1e293b;
+    color: #cbd5e1;
+    padding:1%;
+    grid-area: topnav;
 }
 
 .topNavLinks {
@@ -15,15 +14,57 @@
     justify-content: center;
     flex-direction: row;
     display: flex;
-    gap:1vw;
+    gap:3vw;
     list-style: none;
-    font-weight: 700;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
 }
 
 a {
     text-decoration: none;
-    color:#e2e8f0;
+    color:#cbd5e1;
   }
+
+a:hover {
+    color: #f9fafb;
+}
+
+a:focus {
+    border-bottom: 2px solid #f9fafb;
+}
+
+.material-symbols-sharp {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+    font-size: 2rem;
+}
+
+.topNavInputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.topNavInput {
+    max-height:1.5rem;
+    min-width: 15vw;
+    font-size: 1rem;
+    font-family: 'Oswald', sans-serif;
+    border-radius: .25rem;
+    border: transparent;
+    padding: .2rem;
+}
+
+.topNavInput:focus {
+    outline: none;
+}
 
 .topNavSearchResultBox {
     display: flex;

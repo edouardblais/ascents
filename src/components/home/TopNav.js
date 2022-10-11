@@ -104,21 +104,24 @@ const TopNav = () => {
                 <Link to=''>
                     <li>Home</li>
                 </Link>
+                <Link to='Profile'>
+                    <li>Profile</li>
+                </Link>
                 <Link to='RecentAscents'>
                     <li>Recent Ascents</li>
                 </Link>
                 <Link to='SearchAreas'>
                     <li>Areas</li>
                 </Link>
-                <Link to='Profile'>
-                    <li>Profile</li>
-                </Link>
                 <Link to='AddAscent'>
                     <li>Add Ascent</li>
                 </Link>
             </ul>
             <div className="topNavSearchResultBox">
-                <input type='text' onChange={(e) => searchAll(e.target.value)}/>
+                <div className="topNavInputBox">
+                    <span className="material-symbols-sharp">search</span>
+                    <input type='text' onChange={(e) => searchAll(e.target.value)} placeholder='Search for climbs, crags, areas, users...' className="topNavInput"/>
+                </div>
                 <div>
                     {allData.map((result, index) => { 
                         increment();

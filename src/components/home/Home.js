@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo, fetchGoodClimbs } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
+import './Home.css'
 
 const Home = () => {
     let navigate = useNavigate();
@@ -108,7 +109,7 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className="homeBox">
             <h2>Search for routes, crags, areas or users!</h2>
             <input type='text' onChange={(e) => searchAll(e.target.value)}/>
             <div>

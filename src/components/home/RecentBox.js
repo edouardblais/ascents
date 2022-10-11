@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllUsers, auth, getUserInfoByEmail, fetchFollowingUsers, fetchExactClimb } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import './RecentBox.css'
 
 const RecentBox = () => {
     let navigate = useNavigate();
@@ -98,7 +99,7 @@ const RecentBox = () => {
 
     if (user) {
         return (
-            <div>
+            <div className="recentBox">
                 <h1>Recent Ascents</h1>
                 <h3>Friends</h3>
                 <div>
@@ -132,7 +133,7 @@ const RecentBox = () => {
     }
     
     return (
-        <div>
+        <div className="recentBox">
             <h1>Recent Ascents</h1>
             <div>
                 {recentAscents.map((ascent, index) => {

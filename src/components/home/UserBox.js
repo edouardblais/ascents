@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { auth, logout, getUserInfo } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import './UserBox.css'
 
 const UserBox = () => {
 
@@ -36,7 +37,7 @@ const UserBox = () => {
   
   if (user) {
     return (
-        <div>
+        <div className="userBox">
             <h2>User Profile</h2>
             <div>
                 <div>{userInfo.name}</div>
@@ -47,7 +48,7 @@ const UserBox = () => {
     )
   }
   return (
-        <div>
+        <div className="userBox">
             <h2>User Profile</h2>
             <ul>
                 <Link to='/SignIn'>
