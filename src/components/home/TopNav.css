@@ -50,16 +50,21 @@ a:focus {
     display: flex;
     flex-direction: row;
     align-items: center;
+    border: 1px solid #1e293b;
+    border-radius: .25rem;
+    background-color: #f9fafb;
+    min-width: 20vw;
 }
 
 .topNavInput {
     max-height:1.5rem;
-    min-width: 15vw;
     font-size: 1rem;
     font-family: 'Oswald', sans-serif;
     border-radius: .25rem;
     border: transparent;
     padding: .2rem;
+    background-color: #f9fafb;
+    min-width: 17vw;
 }
 
 .topNavInput:focus {

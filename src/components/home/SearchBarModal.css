@@ -1,17 +1,15 @@
 .searchBarModal {
-    position:fixed;
+    position:absolute;
     background: #f9fafb;
-    border: 1px solid #1e293b;;
-    width: 15vw;
-    height: auto;
-    top:20%;
-    left:99%;
-    transform: translate(-100%,-100%);
+    border: 1px solid #1e293b;
+    min-width: 20vw;
+    right:1%;
     display:flex;
     box-sizing: inherit;
     flex-direction: column;
     padding: .5vh;
     color:#1e293b;
+    border-radius: .25rem;
 }
 
 .displayDataBox {
@@ -19,12 +17,25 @@
     flex-direction: column;
     gap:.5vh;
     padding:.2vh;
+    border-bottom: 1px solid #1e293b;
 }
 
-.displayDataSubBox {
+.displayDataSubBoxTop {
     justify-content: space-between;
     display: flex;
     flex-direction: row;
+    font-size: 1rem;
+}
+
+.displayDataSubBoxBottom {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    font-size: .80rem;
+}
+
+p {
+    margin:0;
 }
 
 

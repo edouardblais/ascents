@@ -100,16 +100,42 @@ const SearchBarModal = ({data}) => {
                         if (counter<=10) { 
                             return  <div key={index} onClick={() => goToChosenData(result)}>
                                         {result.name?   <div className="displayDataBox">
-                                                            <div className="displayDataSubBox">
+                                                            <div className="displayDataSubBoxTop">
                                                                 <p>{result.name}</p>
                                                                 <p>{result.logbook.length}</p>
                                                             </div>
-                                                            <div className="displayDataSubBox">
-                                                                <p>user - {result.otherinfo.country || null}</p>
+                                                            <div className="displayDataSubBoxBottom">
+                                                                <p>User - {result.otherinfo.country || null}</p>
                                                                 <p>ascents</p>
                                                             </div>
                                                         </div>
-                                        : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
+                                        : result.area? <div className="displayDataBox">
+                                                            <div className="displayDataSubBoxTop">
+                                                                <p>{result.area}</p>
+                                                            </div>
+                                                            <div className="displayDataSubBoxBottom">
+                                                                <p>Area - {result.data.country || null}</p>
+                                                            </div>
+                                                        </div> 
+                                        : result.crag?  <div className="displayDataBox">
+                                                            <div className="displayDataSubBoxTop">
+                                                                <p>{result.crag}</p>
+                                                            </div>
+                                                            <div className="displayDataSubBoxBottom">
+                                                                <p>Crag - {result.data.area} - {result.data.country || null}</p>
+                                                            </div>
+                                                        </div> 
+                                        : result.climb? <div className="displayDataBox">
+                                                            <div className="displayDataSubBoxTop">
+                                                                <p>{result.climb}</p>
+                                                                <p>{result.data.numberoflogs}</p>
+                                                            </div>
+                                                            <div className="displayDataSubBoxBottom">
+                                                                <p>Climb - {result.data.crag} - {result.data.area} - {result.data.country || null}</p>
+                                                                <p>ascents</p>
+                                                            </div>
+                                                        </div>  
+                                        : "Oops! No results found"}</div>
                         } 
                     })}
                 </div>
