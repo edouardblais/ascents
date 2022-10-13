@@ -2,7 +2,7 @@
     grid-area:recentbox;
     display:flex;
     flex-direction: column;
-    gap:1vh;
+    gap:.75vh;
     padding: 1vh;
     background-color: #1e293b;
     color:#cbd5e1;
@@ -20,4 +20,38 @@ h3 {
 h4 {
     font-size: 1.2rem;
     margin:0;
+}
+
+.recentascentsbox {
+    padding: .3vh;
+    display: flex;
+    flex-direction: column;
+    gap:.4vh;
+}
+
+.recentascent {
+    display: flex;
+    flex-direction: column;
+    padding:.2vh;
+    gap:.2vh;
+}
+
+.recentclimb {
+    font-size: 1.1rem;
+}
+
+.recentclimb:hover {
+    background-color: #cbd5e1;
+    color:#1e293b;
+    cursor: pointer;
+}
+
+.recentuser {
+    font-size: 1rem;
+}
+
+.recentuser:hover {
+    background-color: #cbd5e1;
+    color:#1e293b;
+    cursor: pointer;
 }

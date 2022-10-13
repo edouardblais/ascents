@@ -12,11 +12,10 @@ body {
 
 #root {
     display:grid;
-    grid-template-rows: 10vh 20vh 40vh 30vh;
+    grid-template-rows: 10vh 20vh 70vh;
     grid-template-columns: 10vw 90vw;
     grid-template-areas: 
         "topnav topnav"
         "userbox content"
         "recentbox content"
-        ". content";
 }

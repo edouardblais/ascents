@@ -36,11 +36,9 @@ const RecentBox = () => {
             friendsCounter = 0;
             getUserInfoByEmail(user.email)
                 .then((resolvedInfo) => {
-                    console.log(resolvedInfo)
                     return fetchFollowingUsers(resolvedInfo[0].following);
                 })
                 .then((resolvedInfo)=> {
-                    console.log(resolvedInfo)
                     const followingAscents = [];
                     for (let followeduser of resolvedInfo) {
                         followingAscents.push(...followeduser.logbook)
@@ -101,13 +99,13 @@ const RecentBox = () => {
             <div className="recentBox">
                 <h3>Recent Ascents</h3>
                 <h4>Friends</h4>
-                <div>
+                <div className="recentascentsbox">
                     {recentFollowingAscents.map((ascent, index) => {
                         friendsCounter += 1;
                         if (friendsCounter <= 5 && friendsCounter !== 0) {
-                            return  <div key={index}>
-                                        <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                        <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                            return  <div key={index} className="recentascent">
+                                        <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb}-{ascent.grade}</div> 
+                                        <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                     </div>
                         }
                         if (friendsCounter === 0) {
@@ -116,13 +114,13 @@ const RecentBox = () => {
                     })}                    
                 </div>
                 <h4>Global</h4>
-                <div>
+                <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
                     counter += 1;
                     if (counter <= 5) {
-                        return  <div key={index}>
-                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                        return  <div key={index}  className="recentascent">
+                                    <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb}-{ascent.grade}</div> 
+                                    <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                 </div>
                     }
                 })}
@@ -134,13 +132,13 @@ const RecentBox = () => {
     return (
         <div className="recentBox">
             <h3>Recent Ascents</h3>
-            <div>
+            <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
                     counter += 1;
                     if (counter <= 5) {
-                        return  <div key={index}>
-                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                        return  <div key={index}  className="recentascent">
+                                    <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb} {ascent.date}</div> 
+                                    <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                 </div>
                      }
                 })}
