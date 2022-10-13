@@ -1,3 +1,23 @@
 .recentBox {
-    grid-area: recentbox;
+    grid-area:recentbox;
+    display:flex;
+    flex-direction: column;
+    gap:1vh;
+    padding: 1vh;
+    background-color: #1e293b;
+    color:#cbd5e1;
+    margin: 1vh;
+    border-radius: .25rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid #cbd5e1;
+    margin:0;
+}
+
+h4 {
+    font-size: 1.2rem;
+    margin:0;
 }

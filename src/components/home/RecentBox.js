@@ -36,12 +36,11 @@ const RecentBox = () => {
             friendsCounter = 0;
             getUserInfoByEmail(user.email)
                 .then((resolvedInfo) => {
-                    return resolvedInfo 
-                })
-                .then((resolvedInfo) => {
+                    console.log(resolvedInfo)
                     return fetchFollowingUsers(resolvedInfo[0].following);
                 })
                 .then((resolvedInfo)=> {
+                    console.log(resolvedInfo)
                     const followingAscents = [];
                     for (let followeduser of resolvedInfo) {
                         followingAscents.push(...followeduser.logbook)
@@ -100,8 +99,8 @@ const RecentBox = () => {
     if (user) {
         return (
             <div className="recentBox">
-                <h1>Recent Ascents</h1>
-                <h3>Friends</h3>
+                <h3>Recent Ascents</h3>
+                <h4>Friends</h4>
                 <div>
                     {recentFollowingAscents.map((ascent, index) => {
                         friendsCounter += 1;
@@ -116,7 +115,7 @@ const RecentBox = () => {
                         }
                     })}                    
                 </div>
-                <h3>Global</h3>
+                <h4>Global</h4>
                 <div>
                 {recentAscents.map((ascent, index) => {
                     counter += 1;
@@ -134,7 +133,7 @@ const RecentBox = () => {
     
     return (
         <div className="recentBox">
-            <h1>Recent Ascents</h1>
+            <h3>Recent Ascents</h3>
             <div>
                 {recentAscents.map((ascent, index) => {
                     counter += 1;

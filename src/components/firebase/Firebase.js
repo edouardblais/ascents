@@ -70,7 +70,7 @@ const fetchFollowingUsers = async (followingArray) => {
   const followingUsers = [];
   for (let followedUser of followingArray) {
     try {
-      const q = query(collection(db, "users"), where("name", "==", followedUser.name));
+      const q = query(collection(db, "users"), where("email", "==", followedUser.email));
       const docs = await getDocs(q);
       const data = docs.docs.map((doc) => doc.data());
       followingUsers.push(...data)

@@ -32,7 +32,6 @@ const RecentAscents = () => {
         if (user) {
             getUserInfoByEmail(user.email)
                 .then((resolvedInfo) => {
-                    console.log(resolvedInfo[0].following)
                     return fetchFollowingUsers(resolvedInfo[0].following);
                 })
                 .then((resolvedUsers)=> {
