@@ -12,8 +12,8 @@ body {
 
 #root {
     display:grid;
-    grid-template-rows: 10vh 10vh 40vh 40vh;
-    grid-template-columns: 20vw 80vw;
+    grid-template-rows: 10vh 20vh 40vh 30vh;
+    grid-template-columns: 10vw 90vw;
     grid-template-areas: 
         "topnav topnav"
         "userbox content"

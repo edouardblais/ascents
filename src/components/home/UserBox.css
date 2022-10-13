@@ -1,3 +1,39 @@
 .userBox {
     grid-area:userbox;
+    display:flex;
+    flex-direction: column;
+    gap:2vh;
+    padding: 1vh;
+    background-color: #1e293b;
+    color:#cbd5e1;
+    margin: 1vh;
+    border-radius: .25rem;
+}
+
+h3 {
+    font-size: 1.6rem;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid #cbd5e1;
+    margin:0;
+}
+
+button {
+    background-color: #ef4444;
+    color:#cbd5e1;
+    border-radius: .25rem;
+    border: 1px solid #cbd5e1;
+    max-width:5rem;
+    height:auto;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+button:hover {
+    color:#f9fafb;
+    cursor: pointer;
+}
+
+.link {
+    font-size: 1.3rem;
+    font-weight: 400;
 }

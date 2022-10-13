@@ -38,26 +38,21 @@ const UserBox = () => {
   if (user) {
     return (
         <div className="userBox">
-            <h2>User Profile</h2>
-            <div>
-                <div>{userInfo.name}</div>
-                <Link to ='/Profile'>Go to Profile</Link>
-                <button onClick={logout}>Log Out</button>
-            </div>
+            <h3>{userInfo.name}</h3>
+            <Link className="link" to='/Profile'>My Profile</Link>
+            <button onClick={logout}>Log Out</button>
         </div>
     )
   }
   return (
         <div className="userBox">
-            <h2>User Profile</h2>
-            <ul>
-                <Link to='/SignIn'>
-                    <li>Sign In</li>
-                </Link>
-                <Link to='/CreateUser'>
-                    <li>Create New User</li>
-                </Link>
-            </ul>
+          <h3>Welcome!</h3>
+          <Link className="link" to='/SignIn'>
+              Sign In
+          </Link>
+          <Link className="link" to='/CreateUser'>
+              Create New User
+          </Link>
         </div>
   )
 }

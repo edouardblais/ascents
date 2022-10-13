@@ -95,7 +95,6 @@ const SearchBarModal = ({data}) => {
         <div  className="searchBarModal">
                 <div>
                     {allData.map((result, index) => {
-                        console.log(result)
                         increment();
                         if (counter<=10) { 
                             return  <div key={index} onClick={() => goToChosenData(result)}>
