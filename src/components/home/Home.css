@@ -1,3 +1,22 @@
 .homeBox {
     grid-area: content;
 }
+
+.goodClimbsBox {
+    display: flex;
+    flex-direction: column;
+    gap:1vh;
+}
+
+.goodClimb:hover {
+    cursor: pointer;
+}
+
+.goodClimbTop {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.goodClimbBottom {
+    font-size: 1.2rem;
+}
