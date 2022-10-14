@@ -1,5 +1,11 @@
 .homeBox {
     grid-area: content;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "findClimbsLeft findClimbsRight"
+        "awesomeClimbs awesomeClimbs";
 }
 
 .goodClimbsBox {
@@ -19,4 +25,16 @@
 
 .goodClimbBottom {
     font-size: 1.2rem;
+}
+
+.findClimbsLeft {
+    grid-area: findClimbsLeft;
+}
+
+.findClimbsRight {
+    grid-area: findClimbsRight;
+}
+
+.awesomeclimbs {
+    grid-area:awesomeClimbs;
 }
