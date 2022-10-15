@@ -11,7 +11,26 @@ import v5 from '../pictures/v5.jpg';
 import './Home.css';
 
 const Carousel = () => {
-    const order = [alpha, atari, caustic, cherubin, jedi, outbreak, squam, techno, v5];
+    const order = [
+        {src:alpha, 
+         text: 'Alpha (7c+), Pic-aux-Corbeaux, Orford, Canada'},
+        {src:atari,
+         text: 'Atari (7a), Happy Boulders, Bishop, United States of America'},
+        {src:caustic,
+         text:'Caustic (6c), Cannibal Crag, Red Rocks, United States of America'}, 
+        {src:cherubin,
+        text:'Cherubin (7a+), Lac Boisseau, Laurentides, Canada'},
+        {src:jedi,
+        text:'Jedi Mind Tricks (6b+), Buttermilks, Bishop, United States of America'},
+        {src:outbreak,
+        text:'Outbreak (7c), Chez Roger, Lanaudiere, Canada'},
+        {src:squam,
+        text:'Rug Munchers (7a), Chekeamus Canyon, Squamish, Canada'},
+        {src:techno,
+        text:'Technosurfing (7b), Waimea, Rumney, United States of America'},
+        {src:v5,
+        text:'Strength in Numbers (6c+), Happy Boulders, Bishop, United States of America'}
+    ];
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const scrollCarousel  = () => {
@@ -22,7 +41,7 @@ const Carousel = () => {
     }
 
     useEffect(() => {
-        const interval =  setInterval(() => {scrollCarousel()}, 3000)
+        const interval =  setInterval(() => {scrollCarousel()}, 6000)
 
         return () => clearInterval(interval);
     })
@@ -30,8 +49,10 @@ const Carousel = () => {
     return (
         <div className='homePictures'>
             {order.map((pic, index) => {
-                console.log(index)
-                return  <img src={pic} alt='some climb' className='carouselItem' key={index} style={{transform: `translate(-${currentIndex * 100}%)`}}/>
+                return  <div className='carouselItem' key={index} style={{transform: `translate(-${currentIndex * 100}%)`}}>
+                            <img src={pic.src} alt='some climb' className='homeImage'/>
+                            <p className='picText'>{pic.text}</p>
+                        </div>
             })}
         </div>
     )

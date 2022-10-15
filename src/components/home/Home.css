@@ -2,7 +2,7 @@
     grid-area: content;
     display:grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1.5fr 1fr;
     grid-template-areas: 
         "homePictures findClimbs"
         "awesomeClimbs awesomeClimbs";
@@ -126,8 +126,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 1s cubic-bezier(0.25, 0.1, 0.25, 1.0);
-    object-fit: contain;
+    animation-name: changePicture;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
     width:100%;
     min-width: 100%;
+}
+
+@keyframes changePicture {
+    from {opacity: 1;}
+    20% {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.picText {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  color:#f9fafb;
+  font-size: 1rem;
+  font-weight: 400 ;
+}
+
+.homeImage {
+    object-fit: cover;
 }
