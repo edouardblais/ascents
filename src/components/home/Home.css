@@ -31,13 +31,19 @@
 
 .homePictures {
     grid-area: homePictures;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    display:flex;
+    background-color: #1e293b;
+    color:#cbd5e1;
+    border-radius: .25rem;
 }
 
 .findClimbs {
     grid-area: findClimbs;
 }
 
-.findClimbs, .homePictures {
+.findClimbs {
     background-color: #1e293b;
     color:#cbd5e1;
     border-radius: .25rem;
@@ -114,4 +120,14 @@
 .filterClimbsButton {
     font-size: 1.3rem;
     font-weight: 700;
+}
+
+.carouselItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 1s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    object-fit: contain;
+    width:100%;
+    min-width: 100%;
 }

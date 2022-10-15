@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo, fetchGoodClimbs } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
+import Carousel from './Carousel';
 import './Home.css'
 
 const Home = () => {
@@ -131,9 +132,7 @@ const Home = () => {
 
     return (
         <div className="homeBox">
-            <div className="homePictures">
-                changing pics to be uploaded
-            </div>
+            <Carousel/>
             <div className="findClimbs">
                 <div>
                     <h2 className="homeBoxTitle">Know what you're looking for?</h2>
