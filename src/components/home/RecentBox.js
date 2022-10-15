@@ -97,8 +97,8 @@ const RecentBox = () => {
     if (user) {
         return (
             <div className="recentBox">
-                <h3>Recent Ascents</h3>
-                <h4>Friends</h4>
+                <h3 className='recentBoxTitle'>Recent Ascents</h3>
+                <h4 className='recentBoxSubTitle'>Friends</h4>
                 <div className="recentascentsbox">
                     {recentFollowingAscents.map((ascent, index) => {
                         friendsCounter += 1;
@@ -113,7 +113,7 @@ const RecentBox = () => {
                         }
                     })}                    
                 </div>
-                <h4>Global</h4>
+                <h4 className='recentBoxSubTitle'>Global</h4>
                 <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
                     counter += 1;
@@ -131,7 +131,7 @@ const RecentBox = () => {
     
     return (
         <div className="recentBox">
-            <h3>Recent Ascents</h3>
+            <h3 className='recentBoxTitle'>Recent Ascents</h3>
             <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
                     counter += 1;

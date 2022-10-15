@@ -131,99 +131,101 @@ const Home = () => {
 
     return (
         <div className="homeBox">
-            <div className="findClimbsLeft">
-                <h2>Know what you're looking for?</h2>
-                <h3>Search for existing routes, crags, areas or users!</h3>
-                <input type='text' onChange={(e) => searchAll(e.target.value)}/>
+            <div className="homePictures">
+                changing pics to be uploaded
+            </div>
+            <div className="findClimbs">
+                <div>
+                    <h2 className="homeBoxTitle">Know what you're looking for?</h2>
+                    <h3 className="homeBoxSubTitle">Search for existing routes, crags, areas or users!</h3>
+                </div>
+                <div className="homeSearchBar">
+                    <input type='text' onChange={(e) => searchAll(e.target.value)} className='homeInput'/>
+                    <button className='homeSearchButton'><span className="material-symbols-sharp">search</span></button>
+                </div>
                 <div>
                     {allData.map((result, index) => {
                     return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
                     })}
                 </div>
-            </div>
-            <div className="findClimbsRight">
-                <h2>Explore Ascents database to find your dream climbs</h2>
+                <h2 className="homeBoxTitle">Explore Ascents database to find your dream climbs</h2>
                 <div className="exploreClimbsBox">
-                    <div>
-                        <label htmlFor='type'>Type:</label>
-                        <select name='type' id='type' value={type} onChange={(e) => getSelectedType(e.target.value)}>
+                        <label htmlFor='type'>Type :</label>
+                        <select name='type' id='type' className='filterInputs' value={type} onChange={(e) => getSelectedType(e.target.value)}>
                             <option value=''></option>
                             <option value='Bouldering'>Bouldering</option>
                             <option value='Sport Climbing'>Sport Climbing</option>
                             <option value='Trad Climbing'>Trad Climbing</option>
-                        </select>
-                    </div>
-                    <div>  
-                        <p>Grade</p>
-                        <label htmlFor="gradefrom">From:</label>
-                        <select name='gradefrom' id='gradefrom' value={gradeFrom} onChange={(e) => getSelectedGradeFrom(e.target.value)}>
-                            <option value=''></option>
-                            <option value='5'>5</option>
-                            <option value='6a'>6a</option>
-                            <option value='6a+'>6a+</option>
-                            <option value='6b'>6b</option>
-                            <option value='6b+'>6b+</option>
-                            <option value='6c'>6c</option>
-                            <option value='6c+'>6c+</option>
-                            <option value='7a'>7a</option>
-                            <option value='7a+'>7a+</option>
-                            <option value='7b'>7b</option>
-                            <option value='7b+'>7b+</option>
-                            <option value='7c'>7c</option>
-                            <option value='7c+'>7c+</option>
-                            <option value='8a'>8a</option>
-                            <option value='8a+'>8a+</option>
-                            <option value='8b'>8b</option>
-                            <option value='8b+'>8b+</option>
-                            <option value='8c'>8c</option>
-                            <option value='8c+'>8c+</option>
-                            <option value='9a'>9a</option>
-                            <option value='9a+'>9a+</option>
-                            <option value='9b'>9b</option>
-                            <option value='9b+'>9b+</option>
-                            <option value='9c'>9c+</option>
-                            <option value='9c+'>9c+</option>
-                        </select>
-                        <label htmlFor="gradeto">To:</label>
-                        <select name='gradeto' id='gradeto' value={gradeTo} onChange={(e) => getSelectedGradeTo(e.target.value)}>
-                            <option value=''></option>
-                            <option value='5'>5</option>
-                            <option value='6a'>6a</option>
-                            <option value='6a+'>6a+</option>
-                            <option value='6b'>6b</option>
-                            <option value='6b+'>6b+</option>
-                            <option value='6c'>6c</option>
-                            <option value='6c+'>6c+</option>
-                            <option value='7a'>7a</option>
-                            <option value='7a+'>7a+</option>
-                            <option value='7b'>7b</option>
-                            <option value='7b+'>7b+</option>
-                            <option value='7c'>7c</option>
-                            <option value='7c+'>7c+</option>
-                            <option value='8a'>8a</option>
-                            <option value='8a+'>8a+</option>
-                            <option value='8b'>8b</option>
-                            <option value='8b+'>8b+</option>
-                            <option value='8c'>8c</option>
-                            <option value='8c+'>8c+</option>
-                            <option value='9a'>9a</option>
-                            <option value='9a+'>9a+</option>
-                            <option value='9b'>9b</option>
-                            <option value='9b+'>9b+</option>
-                            <option value='9c'>9c+</option>
-                            <option value='9c+'>9c+</option>
-                        </select>
-                    </div>
-                    <div>
+                        </select> 
+                        <p>Grade:</p>
+                        <div className="homeGradeBox">
+                            <label htmlFor="gradefrom">From</label>
+                            <select name='gradefrom' id='gradefrom' className='filterInputs' value={gradeFrom} onChange={(e) => getSelectedGradeFrom(e.target.value)}>
+                                <option value=''></option>
+                                <option value='5'>5</option>
+                                <option value='6a'>6a</option>
+                                <option value='6a+'>6a+</option>
+                                <option value='6b'>6b</option>
+                                <option value='6b+'>6b+</option>
+                                <option value='6c'>6c</option>
+                                <option value='6c+'>6c+</option>
+                                <option value='7a'>7a</option>
+                                <option value='7a+'>7a+</option>
+                                <option value='7b'>7b</option>
+                                <option value='7b+'>7b+</option>
+                                <option value='7c'>7c</option>
+                                <option value='7c+'>7c+</option>
+                                <option value='8a'>8a</option>
+                                <option value='8a+'>8a+</option>
+                                <option value='8b'>8b</option>
+                                <option value='8b+'>8b+</option>
+                                <option value='8c'>8c</option>
+                                <option value='8c+'>8c+</option>
+                                <option value='9a'>9a</option>
+                                <option value='9a+'>9a+</option>
+                                <option value='9b'>9b</option>
+                                <option value='9b+'>9b+</option>
+                                <option value='9c'>9c+</option>
+                                <option value='9c+'>9c+</option>
+                            </select>
+                            <label htmlFor="gradeto">To</label>
+                            <select name='gradeto' id='gradeto' className='filterInputs' value={gradeTo} onChange={(e) => getSelectedGradeTo(e.target.value)}>
+                                <option value=''></option>
+                                <option value='5'>5</option>
+                                <option value='6a'>6a</option>
+                                <option value='6a+'>6a+</option>
+                                <option value='6b'>6b</option>
+                                <option value='6b+'>6b+</option>
+                                <option value='6c'>6c</option>
+                                <option value='6c+'>6c+</option>
+                                <option value='7a'>7a</option>
+                                <option value='7a+'>7a+</option>
+                                <option value='7b'>7b</option>
+                                <option value='7b+'>7b+</option>
+                                <option value='7c'>7c</option>
+                                <option value='7c+'>7c+</option>
+                                <option value='8a'>8a</option>
+                                <option value='8a+'>8a+</option>
+                                <option value='8b'>8b</option>
+                                <option value='8b+'>8b+</option>
+                                <option value='8c'>8c</option>
+                                <option value='8c+'>8c+</option>
+                                <option value='9a'>9a</option>
+                                <option value='9a+'>9a+</option>
+                                <option value='9b'>9b</option>
+                                <option value='9b+'>9b+</option>
+                                <option value='9c'>9c+</option>
+                                <option value='9c+'>9c+</option>
+                            </select>
+                        </div>
                         <label htmlFor="minrating">Minimum rating:</label>
-                        <select name='minrating' id='minrating' value={minRating} onChange={(e) => getSelectedMinimumRating(e.target.value)}>
+                        <select name='minrating' id='minrating' className='filterInputs' value={minRating} onChange={(e) => getSelectedMinimumRating(e.target.value)}>
                             <option value='0'></option>
                             <option value='1'>1 star</option>
                             <option value='2'>2 stars</option>
                             <option value='3'>3 stars</option>
                         </select>
-                    </div>
-                    <button>Find Climbs</button>
+                    <button className="filterClimbsButton">Find Climbs</button>
                 </div>
             </div>
             <div className="awesomeClimbs">

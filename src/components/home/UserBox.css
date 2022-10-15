@@ -10,7 +10,7 @@
     border-radius: .25rem;
 }
 
-h3 {
+.userBoxTitle {
     font-size: 1.6rem;
     padding-bottom: 1vh;
     border-bottom: 1px solid #cbd5e1;
