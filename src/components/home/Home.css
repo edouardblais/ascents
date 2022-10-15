@@ -131,6 +131,7 @@
     animation-iteration-count: infinite;
     width:100%;
     min-width: 100%;
+    object-fit:cover;
 }
 
 @keyframes changePicture {
@@ -144,10 +145,11 @@
   bottom: 8px;
   left: 16px;
   color:#f9fafb;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 400 ;
 }
 
 .homeImage {
-    object-fit: cover;
+    object-fit:cover;
+    width: 100%;
 }
