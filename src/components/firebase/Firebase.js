@@ -580,6 +580,28 @@ const fetchAllUsers = async () => {
   }
 }
 
+const findClimbsByGradeAndTypeFilter = async (grade, type) => {
+  try {
+    const q = query(collection(db, "climbs"), where("grade", "==", grade), where("type", "==", type));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const findClimbsByMinRatingFilter = async (minRating) => {
+  try {
+    const q = query(collection(db, "climbs"), where("averagerating", ">=", minRating));
+    const docs = await getDocs(q);
+    const data = docs.docs.map((doc) => doc.data());
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export {
   auth,
   db,
@@ -613,6 +635,8 @@ export {
   fetchGoodClimbs,
   removeFromFollowers,
   removeFromFollowing,
+  findClimbsByGradeAndTypeFilter,
+  findClimbsByMinRatingFilter,
 };
 
 

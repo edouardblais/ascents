@@ -109,14 +109,6 @@
     align-items: center;
 }
 
-.homeGradeBox {
-    display: flex;
-    flex-direction: row;
-    gap:.5em;
-    justify-content: center;
-    align-items: center;
-}
-
 .filterClimbsButton {
     font-size: 1.3rem;
     font-weight: 700;
@@ -127,7 +119,7 @@
     align-items: center;
     justify-content: center;
     animation-name: changePicture;
-    animation-duration: 6s;
+    animation-duration: 5s;
     animation-iteration-count: infinite;
     width:100%;
     min-width: 100%;
@@ -135,9 +127,9 @@
 }
 
 @keyframes changePicture {
-    from {opacity: 1;}
-    20% {opacity: 0;}
-    to {opacity: 1;}
+    from {opacity: 0;}
+    50% {opacity: 1;}
+    to {opacity: 0;}
 }
 
 .picText {

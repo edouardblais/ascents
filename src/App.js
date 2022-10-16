@@ -20,6 +20,7 @@ import SignIn from './components/authentication/SignIn';
 import CreateUser from './components/authentication/CreateUser';
 import Reset from './components/authentication/Reset';
 import OtherUserProfile from './components/profile/OtherUser/OtherUserProfile';
+import SearchResults from './components/searchresults/SearchResults';
 import './App.css';
 
 
@@ -51,6 +52,7 @@ const App = () => {
           <Route path='/SignIn' element={<SignIn/>}/>
           <Route path='/CreateUser' element={<CreateUser/>}/>
           <Route path='/Reset' element={<Reset/>}/>
+          <Route path='/SearchResults' element={<SearchResults/>}/>
       </Routes>
     </BrowserRouter>
   );

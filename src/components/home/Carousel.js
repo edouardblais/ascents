@@ -41,15 +41,19 @@ const Carousel = () => {
     }
 
     useEffect(() => {
-        const interval =  setInterval(() => {scrollCarousel()}, 6000)
+        const interval =  setInterval(() => {scrollCarousel()}, 5000)
 
         return () => clearInterval(interval);
-    })
+    }, [currentIndex])
+
+    const imageStyle = {
+        transform: `translate(-${currentIndex * 100}%)`
+    }
 
     return (
         <div className='homePictures'>
             {order.map((pic, index) => {
-                return  <div className='carouselItem' key={index} style={{transform: `translate(-${currentIndex * 100}%)`}}>
+                return  <div className='carouselItem' key={index} style={imageStyle}>
                             <img src={pic.src} alt='some climb' className='homeImage'/>
                             <p className='picText'>{pic.text}</p>
                         </div>

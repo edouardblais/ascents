@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo, fetchGoodClimbs } from '../firebase/Firebase';
+import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo, fetchGoodClimbs, findClimbsByGradeAndTypeFilter, findClimbsByMinRatingFilter } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
 import Carousel from './Carousel';
@@ -13,8 +13,7 @@ const Home = () => {
     const [goodClimbs, setGoodClimbs] = useState([]);
 
     const [type, setType] = useState('');
-    const [gradeFrom, setGradeFrom] = useState('');
-    const [gradeTo, setGradeTo] = useState('');
+    const [grade, setGrade] = useState('');
     const [minRating, setMinRating] = useState('');
 
     useEffect(() => {
@@ -118,16 +117,45 @@ const Home = () => {
         setType(typevalue);
     };
 
-    const getSelectedGradeFrom = (gradefrom) => {
-        setGradeFrom(gradefrom)
-    }
-
-    const getSelectedGradeTo = (gradeto) => {
-        setGradeTo(gradeto)
+    const getSelectedGrade = (grade) => {
+        setGrade(grade)
     }
 
     const getSelectedMinimumRating = (rating) => {
         setMinRating(Number(rating))
+    }
+
+    const findClimbs = (grade, type, minRating) => {
+        const gradeAndTypeArray = [];
+        const minRatingArray = [];
+        if (type !== '' && grade !== '' && minRating !== '') {
+            findClimbsByGradeAndTypeFilter(grade, type)
+                .then((resolvedData) => {
+                    gradeAndTypeArray.push(...resolvedData)
+                    console.log(gradeAndTypeArray)
+                })
+                .then(() => {
+                    findClimbsByMinRatingFilter(minRating)
+                        .then((resolvedData) => {
+                            minRatingArray.push(...resolvedData)
+                            console.log(minRatingArray)
+                            const allDataArray = minRatingArray.filter(climb => gradeAndTypeArray.some(climbobject => {
+                                if (climbobject.climb === climb.climb) {
+                                    return true;
+                                }
+                                return false;
+                            }))
+                            console.log(allDataArray)
+                            navigate('/SearchResults', {
+                                state: {
+                                    searchResults: allDataArray,
+                                }
+                            })
+                        })
+                })
+        } else {
+            alert('Please choose a type, a minimum grade, a maximum grade and a minimum rating!')
+        }
     }
 
     return (
@@ -156,67 +184,35 @@ const Home = () => {
                             <option value='Sport Climbing'>Sport Climbing</option>
                             <option value='Trad Climbing'>Trad Climbing</option>
                         </select> 
-                        <p>Grade:</p>
-                        <div className="homeGradeBox">
-                            <label htmlFor="gradefrom">From</label>
-                            <select name='gradefrom' id='gradefrom' className='filterInputs' value={gradeFrom} onChange={(e) => getSelectedGradeFrom(e.target.value)}>
-                                <option value=''></option>
-                                <option value='5'>5</option>
-                                <option value='6a'>6a</option>
-                                <option value='6a+'>6a+</option>
-                                <option value='6b'>6b</option>
-                                <option value='6b+'>6b+</option>
-                                <option value='6c'>6c</option>
-                                <option value='6c+'>6c+</option>
-                                <option value='7a'>7a</option>
-                                <option value='7a+'>7a+</option>
-                                <option value='7b'>7b</option>
-                                <option value='7b+'>7b+</option>
-                                <option value='7c'>7c</option>
-                                <option value='7c+'>7c+</option>
-                                <option value='8a'>8a</option>
-                                <option value='8a+'>8a+</option>
-                                <option value='8b'>8b</option>
-                                <option value='8b+'>8b+</option>
-                                <option value='8c'>8c</option>
-                                <option value='8c+'>8c+</option>
-                                <option value='9a'>9a</option>
-                                <option value='9a+'>9a+</option>
-                                <option value='9b'>9b</option>
-                                <option value='9b+'>9b+</option>
-                                <option value='9c'>9c+</option>
-                                <option value='9c+'>9c+</option>
-                            </select>
-                            <label htmlFor="gradeto">To</label>
-                            <select name='gradeto' id='gradeto' className='filterInputs' value={gradeTo} onChange={(e) => getSelectedGradeTo(e.target.value)}>
-                                <option value=''></option>
-                                <option value='5'>5</option>
-                                <option value='6a'>6a</option>
-                                <option value='6a+'>6a+</option>
-                                <option value='6b'>6b</option>
-                                <option value='6b+'>6b+</option>
-                                <option value='6c'>6c</option>
-                                <option value='6c+'>6c+</option>
-                                <option value='7a'>7a</option>
-                                <option value='7a+'>7a+</option>
-                                <option value='7b'>7b</option>
-                                <option value='7b+'>7b+</option>
-                                <option value='7c'>7c</option>
-                                <option value='7c+'>7c+</option>
-                                <option value='8a'>8a</option>
-                                <option value='8a+'>8a+</option>
-                                <option value='8b'>8b</option>
-                                <option value='8b+'>8b+</option>
-                                <option value='8c'>8c</option>
-                                <option value='8c+'>8c+</option>
-                                <option value='9a'>9a</option>
-                                <option value='9a+'>9a+</option>
-                                <option value='9b'>9b</option>
-                                <option value='9b+'>9b+</option>
-                                <option value='9c'>9c+</option>
-                                <option value='9c+'>9c+</option>
-                            </select>
-                        </div>
+                        <label htmlFor="grade">Grade</label>
+                        <select name='grade' id='grade' className='filterInputs' value={grade} onChange={(e) => getSelectedGrade(e.target.value)}>
+                            <option value=''></option>
+                            <option value='5'>5</option>
+                            <option value='6a'>6a</option>
+                            <option value='6a+'>6a+</option>
+                            <option value='6b'>6b</option>
+                            <option value='6b+'>6b+</option>
+                            <option value='6c'>6c</option>
+                            <option value='6c+'>6c+</option>
+                            <option value='7a'>7a</option>
+                            <option value='7a+'>7a+</option>
+                            <option value='7b'>7b</option>
+                            <option value='7b+'>7b+</option>
+                            <option value='7c'>7c</option>
+                            <option value='7c+'>7c+</option>
+                            <option value='8a'>8a</option>
+                            <option value='8a+'>8a+</option>
+                            <option value='8b'>8b</option>
+                            <option value='8b+'>8b+</option>
+                            <option value='8c'>8c</option>
+                            <option value='8c+'>8c+</option>
+                            <option value='9a'>9a</option>
+                            <option value='9a+'>9a+</option>
+                            <option value='9b'>9b</option>
+                            <option value='9b+'>9b+</option>
+                            <option value='9c'>9c+</option>
+                            <option value='9c+'>9c+</option>
+                        </select>
                         <label htmlFor="minrating">Minimum rating:</label>
                         <select name='minrating' id='minrating' className='filterInputs' value={minRating} onChange={(e) => getSelectedMinimumRating(e.target.value)}>
                             <option value='0'></option>
@@ -224,7 +220,7 @@ const Home = () => {
                             <option value='2'>2 stars</option>
                             <option value='3'>3 stars</option>
                         </select>
-                    <button className="filterClimbsButton">Find Climbs</button>
+                    <button className="filterClimbsButton" onClick={() => findClimbs(grade, type, minRating)}>Find Climbs</button>
                 </div>
             </div>
             <div className="awesomeClimbs">
