@@ -1,10 +1,57 @@
-import React from 'react';
-import { useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, addClimbToTodoList } from '../firebase/Firebase';
+import AddAscentModal from '../addascent/AddAscentModal';
 import './SearchResultsBox.css';
 
 const SearchResults = () => {
     const location = useLocation();
     const searchResults= location.state.searchResults;
+    const navigate = useNavigate();
+
+    const [user, loading, error] = useAuthState(auth);
+    const [displayModal, setDisplayModal] = useState(null)
+
+    const showAddAscentModal = (climb) => {
+        if (user) {
+            setDisplayModal(climb)
+        } else {
+            alert('Please sign in or register to tick a climb!')
+        }
+    };
+
+    const addToToDo = (climb) => {
+        if (user) {
+            addClimbToTodoList(climb, user.email)
+        } else {
+            alert('Please sign in or register to add a climb to your to-do list!')
+        }
+    }
+
+    if (loading) {
+        return (
+          <div>
+            <p>Initialising User...</p>
+          </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error}</p>
+            </div>
+        );
+    }
+
+    const seeClimb = (climbinfo) => {
+        navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+            state: {
+                chosenClimb:climbinfo
+            }
+        }) 
+    }
 
     return (
         <div className='searchResultsBox'>
@@ -23,10 +70,11 @@ const SearchResults = () => {
                                 <div className='searchResultSecInfo'>{climb.numberoflogs} ascents</div>
                             </div>
                             <div className='searchResultsButtonContainer'>
-                                <button className='searchResultsButton'>More Info</button>
-                                <button className='searchResultsButton'>Tick it!</button>
-                                <button className='searchResultsButton'>To do!</button>
+                                <button className='searchResultsButton' onClick={() => seeClimb(climb)}>More Info</button>
+                                <button className='searchResultsButton' onClick={() => showAddAscentModal(climb)}>Tick it!</button>
+                                <button className='searchResultsButton' onClick={() => addToToDo(climb)}>To do!</button>
                             </div>
+                            {displayModal===climb? <AddAscentModal climb={climb} useremail={user.email}/> : null}
                         </div>
             })}
         </div>
