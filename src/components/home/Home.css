@@ -10,25 +10,6 @@
     padding: 1vh;
 }
 
-.goodClimbsBox {
-    display: flex;
-    flex-direction: column;
-    gap:1vh;
-}
-
-.goodClimb:hover {
-    cursor: pointer;
-}
-
-.goodClimbTop {
-    font-size: 1.5rem;
-    font-weight: 400;
-}
-
-.goodClimbBottom {
-    font-size: 1.2rem;
-}
-
 .homePictures {
     grid-area: homePictures;
     flex-wrap: nowrap;
@@ -41,9 +22,12 @@
 
 .findClimbs {
     grid-area: findClimbs;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
 }
 
-.findClimbs {
+.findClimbs, .awesomeClimbs {
     background-color: #1e293b;
     color:#cbd5e1;
     border-radius: .25rem;
@@ -51,22 +35,23 @@
     gap:1vh;
     display:flex;
     flex-direction: column;
+}
+
+.findClimbs {
     align-items: center;
 }
 
-.awesomeclimbs {
-    grid-area:awesomeClimbs;
-}
-
 .homeBoxTitle {
-    font-size: 1.7rem;
+    font-size: 2rem;
     font-weight: 400;
     margin:0;
     text-align: center;
+    padding:1vh;
+    border-bottom: 1px solid #f9fafb;
 }
 
 .homeBoxSubTitle {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 200;
     margin:0;
     text-align: center;
@@ -87,6 +72,7 @@
 
 .filterInputs {
     border-radius: .25rem;
+    min-height: 4vh;
 }
 
 .filterInputs:focus, .homeInput:focus {
@@ -104,7 +90,7 @@
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 2vh;
     justify-content: center;
     align-items: center;
 }
@@ -144,4 +130,43 @@
 .homeImage {
     object-fit:cover;
     width: 100%;
+}
+
+.awesomeClimbs {
+    grid-area:awesomeClimbs;
+}
+
+.goodClimbsBox {
+    display: flex;
+    flex-direction: row;
+    gap:1vh;
+    flex-wrap: wrap;
+}
+
+
+.goodClimb {
+    border-radius: .25rem;
+    padding: .5vh 1.1vw .5vh 1.1vw;
+    width: 41.5vw;
+}
+
+.goodClimb:hover {
+    cursor: pointer;
+    background-color: #cbd5e1;
+    color: #1e293b;
+}
+
+.goodClimbTop {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.goodClimbBottom {
+    font-size: 1.2rem;
+}
+
+.goodClimbTop, .goodClimbBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

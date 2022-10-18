@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllConcernedUsers, fetchClimbInfo, fetchExactClimb, getAreaInfo, getCragInfo, fetchGoodClimbs, findClimbsByGradeAndTypeFilter, findClimbsByMinRatingFilter } from '../firebase/Firebase';
-import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
+import { fetchExactClimb, fetchGoodClimbs, findClimbsByGradeAndTypeFilter, findClimbsByMinRatingFilter } from '../firebase/Firebase';
 import { useNavigate } from 'react-router-dom';
 import Carousel from './Carousel';
 import './Home.css'
@@ -8,8 +7,8 @@ import './Home.css'
 const Home = () => {
     let navigate = useNavigate();
 
-    const [input, setInput] = useState('');
-    const [allData, setAllData] = useState([]);
+    let counter = 0;
+
     const [goodClimbs, setGoodClimbs] = useState([]);
 
     const [type, setType] = useState('');
@@ -22,85 +21,6 @@ const Home = () => {
                 setGoodClimbs(resolvedgoodclimbs)
             })
     }, [])
-
-    useEffect(() => {
-        if (input !== '') {
-            const trimInput = trimSentence(input)
-            const trimAndCapInput = capitalizeFirstLetter(trimInput);
-
-            const combinedDataArray = [];
-
-            Promise.all([fetchAllConcernedUsers(input), fetchAllConcernedUsers(trimAndCapInput), fetchClimbInfo(trimAndCapInput)])
-                .then((alldata) => {
-                    for (let data of alldata) {
-                        combinedDataArray.push(...data);
-                    }
-                    setAllData(combinedDataArray)
-                })
-                .catch ((err) => {
-                    console.log(err)
-                })
-        } else {
-            setAllData([]);
-        }
-    }, [input])
-
-    const searchAll = (input) => {
-        setInput(input);
-    }
-
-    const goToChosenData = (result) => {
-        if (result.name) {
-            navigate('/visitUser', {
-                state: {
-                    otherUserInfo: result,
-                }
-            })
-        } else if (result.area) {
-            getAreaInfo(result.area)
-                .then((resolvedareas) => {
-                    const areasList = [];
-                    const areasDataList = [];
-                    resolvedareas.map((eachData) => {
-                        if (!areasList.includes(eachData.area)) {
-                            areasList.push(eachData.area);
-                            areasDataList.push(eachData);
-                        }
-                        })
-                    navigate('/SearchAreas/SearchCrags', {
-                        state: {
-                            chosenArea: areasDataList[0],
-                        }
-                    })
-                })
-        } else if (result.crag) {
-            getCragInfo(result.crag)
-                .then((resolvedcrags) => {
-                    const cragsList = [];
-                    const cragsDataList = [];
-                    resolvedcrags.map((eachData) => {
-                        if (!cragsList.includes(eachData.crag)) {
-                            cragsList.push(eachData.crag);
-                            cragsDataList.push(eachData);
-                        }
-                        })
-                    navigate('/SearchAreas/SearchCrags/SearchClimbs', {
-                        state: {
-                            chosenArea: cragsDataList[0],
-                        }
-                    })
-                })
-        } else if (result.climb) {
-            fetchExactClimb(result.climb)
-                .then((resolvedclimb) => {
-                    navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
-                        state: {
-                            chosenClimb: resolvedclimb[0],
-                        }
-                    })
-                })
-        }
-    }
 
     const goToGoodClimb = (climb) => {
         fetchExactClimb(climb.climb)
@@ -132,20 +52,17 @@ const Home = () => {
             findClimbsByGradeAndTypeFilter(grade, type)
                 .then((resolvedData) => {
                     gradeAndTypeArray.push(...resolvedData)
-                    console.log(gradeAndTypeArray)
                 })
                 .then(() => {
                     findClimbsByMinRatingFilter(minRating)
                         .then((resolvedData) => {
                             minRatingArray.push(...resolvedData)
-                            console.log(minRatingArray)
                             const allDataArray = minRatingArray.filter(climb => gradeAndTypeArray.some(climbobject => {
                                 if (climbobject.climb === climb.climb) {
                                     return true;
                                 }
                                 return false;
                             }))
-                            console.log(allDataArray)
                             navigate('/SearchResults', {
                                 state: {
                                     searchResults: allDataArray,
@@ -158,33 +75,24 @@ const Home = () => {
         }
     }
 
+    const increment = () => {
+        counter += 1;
+    }
+
     return (
         <div className="homeBox">
             <Carousel/>
             <div className="findClimbs">
-                <div>
-                    <h2 className="homeBoxTitle">Know what you're looking for?</h2>
-                    <h3 className="homeBoxSubTitle">Search for existing routes, crags, areas or users!</h3>
-                </div>
-                <div className="homeSearchBar">
-                    <input type='text' onChange={(e) => searchAll(e.target.value)} className='homeInput'/>
-                    <button className='homeSearchButton'><span className="material-symbols-sharp">search</span></button>
-                </div>
-                <div>
-                    {allData.map((result, index) => {
-                    return <div key={index} onClick={() => goToChosenData(result)}>{result.name? result.name : result.area? result.area : result.crag? result.crag : result.climb? result.climb : "Oops! Can't display result"}</div>
-                    })}
-                </div>
-                <h2 className="homeBoxTitle">Explore Ascents database to find your dream climbs</h2>
+                <h2 className="homeBoxTitle">Explore <b>Ascents</b> To Find Your Dream Climbs</h2>
                 <div className="exploreClimbsBox">
-                        <label htmlFor='type'>Type :</label>
+                        <label htmlFor='type' className="homeBoxSubTitle">Type</label>
                         <select name='type' id='type' className='filterInputs' value={type} onChange={(e) => getSelectedType(e.target.value)}>
                             <option value=''></option>
                             <option value='Bouldering'>Bouldering</option>
                             <option value='Sport Climbing'>Sport Climbing</option>
                             <option value='Trad Climbing'>Trad Climbing</option>
                         </select> 
-                        <label htmlFor="grade">Grade</label>
+                        <label htmlFor="grade" className="homeBoxSubTitle">Grade</label>
                         <select name='grade' id='grade' className='filterInputs' value={grade} onChange={(e) => getSelectedGrade(e.target.value)}>
                             <option value=''></option>
                             <option value='5'>5</option>
@@ -213,7 +121,7 @@ const Home = () => {
                             <option value='9c'>9c+</option>
                             <option value='9c+'>9c+</option>
                         </select>
-                        <label htmlFor="minrating">Minimum rating:</label>
+                        <label htmlFor="minrating" className="homeBoxSubTitle">Minimum Rating</label>
                         <select name='minrating' id='minrating' className='filterInputs' value={minRating} onChange={(e) => getSelectedMinimumRating(e.target.value)}>
                             <option value='0'></option>
                             <option value='1'>1 star</option>
@@ -224,13 +132,22 @@ const Home = () => {
                 </div>
             </div>
             <div className="awesomeClimbs">
-                <h2>Featured Awesome Climbs</h2>
+                <h2 className="homeBoxTitle">Featured Awesome Climbs Based On <b>Ascents</b> Users</h2>
                 <div className="goodClimbsBox">
                     {goodClimbs.map((result, index) => {
-                        return  <div key={index} onClick={() => goToGoodClimb(result)} className="goodClimb">
-                                    <div className="goodClimbTop">{result.climb} - {result.grade}</div>
-                                    <div className="goodClimbBottom">{result.crag} - {result.area} - {result.country}</div>
-                                </div>
+                        increment();
+                        if (counter <= 8) { 
+                            return  <div key={index} onClick={() => goToGoodClimb(result)} className="goodClimb">
+                                        <div className="goodClimbTop">
+                                            <div>{result.climb} - {result.grade}</div>
+                                            <div>{result.averagerating} stars</div>
+                                        </div>
+                                        <div className="goodClimbBottom">
+                                            <div>{result.crag} - {result.area} - {result.country}</div>
+                                            <div>{result.numberoflogs} ascents</div>
+                                        </div>
+                                    </div>
+                        } 
                     })}
                 </div>
             </div>
