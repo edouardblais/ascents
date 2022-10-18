@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ginseng from '../pictures/biss.jpg';
 import alpha from '../pictures/alpha.jpg';
 import atari from '../pictures/atari.jpg';
 import caustic from '../pictures/caustic.jpg';
@@ -12,10 +13,12 @@ import './Home.css';
 
 const Carousel = () => {
     const order = [
+        {src:ginseng, 
+        text: 'Ginseng Route (7b), Shagg Crag, Maine, United States of America'},
         {src:alpha, 
-         text: 'Alpha (7c+), Pic-aux-Corbeaux, Orford, Canada'},
+        text: 'Alpha (7c+), Pic-aux-Corbeaux, Orford, Canada'},
         {src:atari,
-         text: 'Atari (7a), Happy Boulders, Bishop, United States of America'},
+        text: 'Atari (7a), Happy Boulders, Bishop, United States of America'},
         {src:caustic,
          text:'Caustic (6c), Cannibal Crag, Red Rocks, United States of America'}, 
         {src:cherubin,
