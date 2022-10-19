@@ -9,10 +9,11 @@ import outbreak from '../pictures/outbreak.jpg';
 import squam from '../pictures/squam.jpg';
 import techno from '../pictures/techno.jpg';
 import v5 from '../pictures/v5.jpg';
+import { shuffleArray } from '../operations/Operations';
 import './Home.css';
 
 const Carousel = () => {
-    const order = [
+    const pictures = [
         {src:ginseng, 
         text: 'Ginseng Route (7b), Shagg Crag, Maine, United States of America'},
         {src:alpha, 
@@ -34,10 +35,13 @@ const Carousel = () => {
         {src:v5,
         text:'Strength in Numbers (6c+), Happy Boulders, Bishop, United States of America'}
     ];
+
+    const shuffledPictures = shuffleArray(pictures);
+
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const scrollCarousel  = () => {
-        if (currentIndex === order.length-1) {
+        if (currentIndex === pictures.length-1) {
             return setCurrentIndex(0)
         }
         return setCurrentIndex(currentIndex+1)
@@ -55,7 +59,7 @@ const Carousel = () => {
 
     return (
         <div className='homePictures'>
-            {order.map((pic, index) => {
+            {shuffledPictures.map((pic, index) => {
                 return  <div className='carouselItem' key={index} style={imageStyle}>
                             <img src={pic.src} alt='some climb' className='homeImage'/>
                             <p className='picText'>{pic.text}</p>

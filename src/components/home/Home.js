@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchExactClimb, fetchGoodClimbs, findClimbsByGradeAndTypeFilter, findClimbsByMinRatingFilter } from '../firebase/Firebase';
 import { useNavigate } from 'react-router-dom';
 import Carousel from './Carousel';
+import { shuffleArray } from '../operations/Operations';
 import './Home.css'
 
 const Home = () => {
@@ -18,7 +19,10 @@ const Home = () => {
     useEffect(() => {
         fetchGoodClimbs()
             .then((resolvedgoodclimbs) => {
-                setGoodClimbs(resolvedgoodclimbs)
+                console.log(resolvedgoodclimbs)
+                const shuffledGoodClimbs = shuffleArray(resolvedgoodclimbs);
+                console.log(shuffledGoodClimbs);
+                setGoodClimbs(shuffledGoodClimbs);
             })
     }, [])
 
