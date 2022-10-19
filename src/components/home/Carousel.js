@@ -9,11 +9,23 @@ import outbreak from '../pictures/outbreak.jpg';
 import squam from '../pictures/squam.jpg';
 import techno from '../pictures/techno.jpg';
 import v5 from '../pictures/v5.jpg';
+import serenity from '../pictures/magi.jpg';
+import grand from '../pictures/grand.jpg';
+import chulilla from '../pictures/chulilla.jpg';
+import sasha from '../pictures/sasha.jpg';
 import { shuffleArray } from '../operations/Operations';
 import './Home.css';
 
 const Carousel = () => {
     const pictures = [
+        {src:sasha, 
+        text: "Sasha's Dream Boy (8a), El Techo de Ed, Chulilla, Canada"},
+        {src:chulilla, 
+        text: 'Entre Dos Caminos (8a), Pared De Enfrente, Chulilla, Spain'},
+        {src:grand, 
+        text: 'The Grand Wall (6c), Grand Wall Area, The Chief, Canada'},
+        {src:serenity, 
+        text: 'Serenity and Sons (6b+), Royal Arches, Yosemite Valley, United States of America'},
         {src:ginseng, 
         text: 'Ginseng Route (7b), Shagg Crag, Maine, United States of America'},
         {src:alpha, 
@@ -48,7 +60,7 @@ const Carousel = () => {
     }
 
     useEffect(() => {
-        const interval =  setInterval(() => {scrollCarousel()}, 5000)
+        const interval =  setInterval(() => {scrollCarousel()}, 7000)
 
         return () => clearInterval(interval);
     }, [currentIndex])

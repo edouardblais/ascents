@@ -7,7 +7,7 @@
         "homePictures findClimbs"
         "awesomeClimbs awesomeClimbs";
     gap:1vh;
-    padding: 1vh;
+    padding: 1vh 1vh 1vh 0vh;
 }
 
 .homePictures {
@@ -105,7 +105,7 @@
     align-items: center;
     justify-content: center;
     animation-name: changePicture;
-    animation-duration: 5s;
+    animation-duration: 7s;
     animation-iteration-count: infinite;
     width:100%;
     min-width: 100%;
@@ -125,6 +125,7 @@
   color:#f9fafb;
   font-size: 1.2rem;
   font-weight: 400 ;
+  -webkit-text-stroke: .5px black;
 }
 
 .homeImage {
