@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, getUserInfo, updateProfile } from '../firebase/Firebase';
 
 const Profile = () => {
+    const navigate = useNavigate();
 
     const [user, loading, error] = useAuthState(auth);
     const [userInfo, setUserInfo] = useState('');
 
+    const [displayInfo, setDisplayInfo] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
 
     const [name, setName] = useState('');
@@ -16,6 +18,10 @@ const Profile = () => {
     const [startedClimbing, setStartedClimbing] = useState('');
     const [favoriteAreas, setFavoriteAreas] = useState('');
     const [otherInterests, setOtherInterests] = useState('');
+
+    const [displayRoutesLogged, setDisplayRoutesLogged] = useState(false);
+    const [displayBouldersLogged, setDisplayBouldersLogged] = useState(false);
+    const [displayFollowers, setDisplayFollowing] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -51,6 +57,38 @@ const Profile = () => {
         }
     }
 
+    const seeRoutesLogged = () => {
+        navigate('/Profile/Routes', {
+            state: {
+                userInformation: userInfo,
+            }
+        })
+    }
+
+    const seeBouldersLogged = () => {
+        navigate('/Profile/Boulders', {
+            state: {
+                userInformation: userInfo,
+            }
+        })
+    }
+
+    const seeFollowing = () => {
+        navigate('/Profile/Following', {
+            state: {
+                userInformation: userInfo,
+            }
+        })
+    }
+
+    const seeToDo = () => {
+        navigate('/Profile/ToDo', {
+            state: {
+                userInformation: userInfo,
+            }
+        })
+    }
+
     if (loading) {
         return (
           <div>
@@ -67,39 +105,33 @@ const Profile = () => {
         );
     }
     
-    if (user && isEditing === false) {
+    if (user && displayInfo === true && isEditing === false) {
         return (
-            <div>
-                <div className='profile box'>
+            <div className='profileBox'>
+                <div className='profileInfoBox'>
                     <h3>{name}</h3>
                     <p>Age: {age}</p>
                     <p>Country: {country}</p>
+                </div>
+                <div className='profileMoreInfoBox'>
                     <p>Started climbing in: {startedClimbing}</p>
                     <p>Favorite areas: {favoriteAreas}</p>
                     <p>Other interests: {otherInterests}</p>
                     <p>Following: {userInfo.totalfollowing}</p>
-                <p>Followers: {userInfo.totalfollowers}</p>
+                    <p>Followers: {userInfo.totalfollowers}</p>
                     <button type='button' onClick={() => editInfo()}>Edit</button>
                 </div>
-                <ul>
-                    <Link to='Routes' state={userInfo}>
-                        <li>Routes Logged</li>
-                    </Link>
-                    <Link to='Boulders' state={userInfo}>
-                        <li>Boulders Logged</li>
-                    </Link>
-                    <Link to='Following' state={userInfo}>
-                        <li>Following</li>
-                    </Link>
-                    <Link to='ToDo' state={userInfo}>
-                        <li>To Do List</li>
-                    </Link>
-                </ul>
+                <div>
+                    <button onClick={seeRoutesLogged}>Routes Logged</button>
+                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                    <button onClick={seeToDo}>To-Do's</button>
+                    <button onClick={seeFollowing}>Following/Followers</button>
+                </div>
             </div>
         )
     }
 
-    if (user && isEditing === true) {
+    if (user && displayInfo === true && isEditing === true) {
         return (
             <div>
                 <div className='profile box'>

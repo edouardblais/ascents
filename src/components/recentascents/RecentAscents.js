@@ -35,7 +35,6 @@ const RecentAscents = () => {
                     return fetchFollowingUsers(resolvedInfo[0].following);
                 })
                 .then((resolvedUsers)=> {
-                    console.log(resolvedUsers)
                     const followingAscents = [];
                     for (let followeduser of resolvedUsers) {
                         followingAscents.push(...followeduser.logbook)

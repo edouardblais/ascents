@@ -19,9 +19,7 @@ const Home = () => {
     useEffect(() => {
         fetchGoodClimbs()
             .then((resolvedgoodclimbs) => {
-                console.log(resolvedgoodclimbs)
                 const shuffledGoodClimbs = shuffleArray(resolvedgoodclimbs);
-                console.log(shuffledGoodClimbs);
                 setGoodClimbs(shuffledGoodClimbs);
             })
     }, [])
@@ -136,7 +134,7 @@ const Home = () => {
                 </div>
             </div>
             <div className="awesomeClimbs">
-                <h2 className="homeBoxTitle">Featured Awesome Climbs Based On <b>Ascents</b> Users</h2>
+                <h2 className="homeBoxTitle">Featured Awesome Climbs Based On <b>Ascents</b> Users Ticks!</h2>
                 <div className="goodClimbsBox">
                     {goodClimbs.map((result, index) => {
                         increment();
