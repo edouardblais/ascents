@@ -6,6 +6,7 @@ import RoutesLogged from './ProfileInfo/RoutesLogged';
 import BouldersLogged from './ProfileInfo/BouldersLogged';
 import Following from './ProfileInfo/Following';
 import ToDo from './ProfileInfo/ToDo';
+import './Profile.css';
 
 const Profile = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -124,7 +125,14 @@ const Profile = () => {
                     <p>Age: {age}</p>
                     <p>Country: {country}</p>
                 </div>
-                <div className='profileMoreInfoBox'>
+                <div className='profileNav'>
+                    <div className='activeToggle'>Profile Info</div>
+                    <button onClick={seeRoutesLogged}>Routes Logged</button>
+                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                    <button onClick={seeToDo}>To-Do's</button>
+                    <button onClick={seeFollowing}>Following/Followers</button>
+                </div>
+                <div className='profileContent'>
                     <p>Started climbing in: {startedClimbing}</p>
                     <p>Favorite areas: {favoriteAreas}</p>
                     <p>Other interests: {otherInterests}</p>
@@ -132,43 +140,48 @@ const Profile = () => {
                     <p>Followers: {userInfo.totalfollowers}</p>
                     <button type='button' onClick={() => editInfo()}>Edit</button>
                 </div>
-                <div>
-                    <div className='activeToggle'>Profile Info</div>
-                    <button onClick={seeRoutesLogged}>Routes Logged</button>
-                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
-                    <button onClick={seeToDo}>To-Do's</button>
-                    <button onClick={seeFollowing}>Following/Followers</button>
-                </div>
             </div>
         )
     }
 
     if (user && displayInfo && isEditing) {
         return (
-            <div>
-                <div className='profile box'>
-                    <form>
-                        <label htmlFor='name'>Name</label>
-                        <input name='name' type='text' onChange={(e) => setName(e.target.value)} value={name}/>
+                <div className='profileBox'>
+                    <div className='profileInfoBox'>
+                        <h3>{name}</h3>
+                        <p>Age: {age}</p>
+                        <p>Country: {country}</p>
+                    </div>
+                    <div className='profileNav'>
+                        <div className='activeToggle'>Profile Info</div>
+                        <button onClick={seeRoutesLogged}>Routes Logged</button>
+                        <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                        <button onClick={seeToDo}>To-Do's</button>
+                        <button onClick={seeFollowing}>Following/Followers</button>
+                    </div>
+                    <div className='profileContent'>
+                        <form>
+                            <label htmlFor='name'>Name</label>
+                            <input name='name' type='text' onChange={(e) => setName(e.target.value)} value={name}/>
 
-                        <label htmlFor='age'>Age</label>
-                        <input name='age' type='number' onChange={(e) => setAge(e.target.value)} value={age}/>
+                            <label htmlFor='age'>Age</label>
+                            <input name='age' type='number' onChange={(e) => setAge(e.target.value)} value={age}/>
 
-                        <label htmlFor='country'>Country</label>
-                        <input name='country' type='text' onChange={(e) => setCountry(e.target.value)} value={country}/>
+                            <label htmlFor='country'>Country</label>
+                            <input name='country' type='text' onChange={(e) => setCountry(e.target.value)} value={country}/>
 
-                        <label htmlFor='started'>Started climbing in:</label>
-                        <input name='started' type='year' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
-                        
-                        <label htmlFor='favorite'>Favorite areas</label>
-                        <input name='favorite' type='text' onChange={(e) => setFavoriteAreas(e.target.value)} value={favoriteAreas}/>
+                            <label htmlFor='started'>Started climbing in:</label>
+                            <input name='started' type='year' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
+                            
+                            <label htmlFor='favorite'>Favorite areas</label>
+                            <input name='favorite' type='text' onChange={(e) => setFavoriteAreas(e.target.value)} value={favoriteAreas}/>
 
-                        <label htmlFor='other'>Other interests</label>
-                        <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)} value={otherInterests}/>
-                    </form>
-                    <button type='button' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save Edits</button>
+                            <label htmlFor='other'>Other interests</label>
+                            <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)} value={otherInterests}/>
+                        </form>
+                        <button type='button' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save Edits</button>
+                    </div>
                 </div>
-            </div>
         )
     }
 
@@ -180,7 +193,7 @@ const Profile = () => {
                     <p>Age: {age}</p>
                     <p>Country: {country}</p>
                 </div>
-                <div>
+                <div className='profileNav'>
                     <button onClick={seeProfileinfo}>Profile Info</button>
                     <div className='activeToggle'>Routes Logged</div>
                     <button onClick={seeBouldersLogged}>Boulders Logged</button>
@@ -200,7 +213,7 @@ const Profile = () => {
                     <p>Age: {age}</p>
                     <p>Country: {country}</p>
                 </div>
-                <div>
+                <div className='profileNav'>
                     <button onClick={seeProfileinfo}>Profile Info</button>
                     <button onClick={seeRoutesLogged}>Routes Logged</button>
                     <div className='activeToggle'>Boulders Logged</div>
@@ -220,7 +233,7 @@ const Profile = () => {
                     <p>Age: {age}</p>
                     <p>Country: {country}</p>
                 </div>
-                <div>
+                <div className='profileNav'>
                     <button onClick={seeProfileinfo}>Profile Info</button>
                     <button onClick={seeRoutesLogged}>Routes Logged</button>
                     <button onClick={seeBouldersLogged}>Boulders Logged</button>
@@ -240,7 +253,7 @@ const Profile = () => {
                     <p>Age: {age}</p>
                     <p>Country: {country}</p>
                 </div>
-                <div>
+                <div className='profileNav'>
                     <button onClick={seeProfileinfo}>Profile Info</button>
                     <button onClick={seeRoutesLogged}>Routes Logged</button>
                     <button onClick={seeBouldersLogged}>Boulders Logged</button>

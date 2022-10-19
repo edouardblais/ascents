@@ -1,0 +1,35 @@
+.profileBox {
+    display:grid;
+    grid-template-columns: 1fr 7fr;
+    grid-template-rows: 1fr 9fr;
+    grid-template-areas: 
+        "profileInfo profileNav"
+        "profileInfo profileContent";
+    gap:1vh;
+}
+
+.profileInfoBox {
+    grid-area: profileInfo;
+    display: flex;
+    flex-direction: column;
+    gap:1vh;
+}
+
+.profileNav {
+    grid-area: profileNav;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:2vw;
+    padding:1vh;
+}
+
+.profileContent {
+    grid-area: profileContent;
+    display: flex;
+    flex-direction: column;
+    gap:1vh;
+    justify-content: center;
+}
+

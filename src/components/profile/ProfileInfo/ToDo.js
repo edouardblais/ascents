@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import AddAscentModal from '../../addascent/AddAscentModal';
 import { updateToDoList } from '../../firebase/Firebase';
+import '../Profile.css';
 
 
 const ToDo = ({userInfo}) => {
@@ -29,7 +30,7 @@ const ToDo = ({userInfo}) => {
     }
 
     return (
-        <div>
+        <div className='profileContent'>
             <h1>To Do list</h1>
             <div>
                 {userToDos.map((climb, index) => {

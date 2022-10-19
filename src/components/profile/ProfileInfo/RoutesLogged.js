@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { updateLogbook } from '../../firebase/Firebase'
+import { updateLogbook } from '../../firebase/Firebase';
+import '../Profile.css';
 
 
 const RoutesLogged = ({userInfo}) => {
@@ -24,7 +25,7 @@ const RoutesLogged = ({userInfo}) => {
     }
 
     return (
-        <div>
+        <div className='profileContent'>
             <h1>Routes logged</h1>
             <div>
                 {routesLogged.map((climb, index) => {

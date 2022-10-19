@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { getUserInfoByEmail, removeFromFollowers, removeFromFollowing}  from '../../firebase/Firebase'
+import { getUserInfoByEmail, removeFromFollowers, removeFromFollowing}  from '../../firebase/Firebase';
+import '../Profile.css';
 
 
 const Following = ({userInfo}) => {
@@ -37,7 +38,7 @@ const Following = ({userInfo}) => {
 
     if (seeFollowers) {
         return (
-            <div>
+            <div className='profileContent'>
                 <div>
                     <p onClick={switchDisplay}>Following</p>
                     <p>Followers</p>
@@ -59,7 +60,7 @@ const Following = ({userInfo}) => {
     }
 
     return (
-        <div>
+        <div className='profileContent'>
             <div>
                 <p>Following</p>
                 <p onClick={switchDisplay}>Followers</p>
