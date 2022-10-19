@@ -6,6 +6,8 @@ import RoutesLogged from './ProfileInfo/RoutesLogged';
 import BouldersLogged from './ProfileInfo/BouldersLogged';
 import Following from './ProfileInfo/Following';
 import ToDo from './ProfileInfo/ToDo';
+import format from 'date-fns/format';
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import './Profile.css';
 
 const Profile = () => {
@@ -26,6 +28,16 @@ const Profile = () => {
     const [displayBouldersLogged, setDisplayBouldersLogged] = useState(false);
     const [displayFollowers, setDisplayFollowers] = useState(false);
     const [displayToDo, setDisplayToDo]= useState(false);
+
+    const [createdOn, setCreatedOn] = useState('');
+    const [lastSignIn, setLastSignIn] = useState('');
+
+    useEffect(() => {
+        if (user) {
+            setCreatedOn(format(new Date(user.metadata.creationTime), 'PPP'));
+            setLastSignIn(formatDistanceToNowStrict(new Date(user.metadata.lastSignInTime)));
+        }
+    }, [user])
 
     useEffect(() => {
         if (user) {
@@ -121,9 +133,11 @@ const Profile = () => {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
-                    <h3>{name}</h3>
-                    <p>Age: {age}</p>
-                    <p>Country: {country}</p>
+                    <h3 className='profileName'>{name}</h3>
+                    <p className='profileText'>{age} years old</p>
+                    <p className='profileText'>{country}</p>
+                    <p className='profileText'>Ascents user since {createdOn}</p>
+                    <p className='profileText'>Last seen {lastSignIn} ago</p>
                 </div>
                 <div className='profileNav'>
                     <div className='activeToggle'>Profile Info</div>
