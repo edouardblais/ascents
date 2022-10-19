@@ -9,7 +9,7 @@
     margin:1vh 1vh 1vh 0vh;
     padding:1vh;
     background-color: #1e293b;
-    color:#cbd5e1;
+    color:#f9fafb;
     border-radius: .25rem;
     height: 86vh;
 }
@@ -28,7 +28,7 @@
     align-items: center;
     gap:.5vh;
     padding:3vh 0vh 3vh 0vh;
-    border-bottom: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e180;
     width: 12vw;
     margin:0 1vw 0 1vw;
     justify-content: center;
@@ -43,7 +43,7 @@
     gap:2vw;
     margin:0 5vh 0 5vh;
     padding:1vh;
-    border-bottom: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e180;
 }
 
 .profileButton {
@@ -77,13 +77,14 @@
     display: flex;
     flex-direction: column;
     gap:1vh;
-    justify-content: center;
+    padding: 2vw;
 }
 
 .profileName {
     font-size: 2rem;
     font-weight: 700;
     margin:.5vh;
+    font-family: 'Oswald', sans-serif;
 }
 
 .profileText {
@@ -93,5 +94,73 @@
 
 .profileSubText {
     font-size: 1.2rem;
+}
+
+.contentInfoBox {
+    display: flex;
+    flex-direction: column;
+    gap:5vh;
+    font-size: 1.3rem;
+}
+
+.contentInfoSubBox {
+    position:relative;
+    display: flex;
+    flex-direction: row;
+    gap:25vw;
+    border-bottom: 1px solid #cbd5e180;
+    padding-bottom: 5vh;
+    padding-left: 4vw;
+}
+
+.contentInfoSubSubBox {
+    display: flex;
+    flex-direction: column;
+    gap:2vh;
+}
+
+.profileEditButton {
+    position:absolute;
+    top:.1vw;
+    right:.1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.recommendedBox {
+    display: flex;
+    flex-direction: column;
+    gap:1.5vh;
+    padding:1vh;
+}
+
+.recommendedClimbsBox {
+    display: flex;
+    flex-direction: row;
+    gap:1.2vh;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.recommendedClimb {
+    border-radius: .25rem;
+    padding: .5vh 1.1vw .5vh 1.1vw;
+    width: 30vw;
+}
+
+.recommendedClimb:hover {
+    cursor: pointer;
+    background-color: #cbd5e1;
+    color: #1e293b;
 }
 

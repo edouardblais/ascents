@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
-import { auth, getUserInfo, updateProfile } from '../firebase/Firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, getUserInfoByEmail, updateProfile } from '../firebase/Firebase';
 import RoutesLogged from './ProfileInfo/RoutesLogged';
 import BouldersLogged from './ProfileInfo/BouldersLogged';
 import Following from './ProfileInfo/Following';
 import ToDo from './ProfileInfo/ToDo';
 import format from 'date-fns/format';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
+import { shuffleArray } from '../operations/Operations';
 import './Profile.css';
 
 const Profile = () => {
+    const navigate = useNavigate();
+
     const [user, loading, error] = useAuthState(auth);
     const [userInfo, setUserInfo] = useState('');
 
@@ -33,6 +36,9 @@ const Profile = () => {
     const [lastSignIn, setLastSignIn] = useState('');
     const [numberOfAscents, setNumberOfAscents] = useState(0);
     const [numberOfToDos, setNumberOfToDos] = useState(0);
+    const [recommendedClimbs, setRecommendedClimbs] = useState([]);
+
+    let counter = 0;
 
     useEffect(() => {
         if (user) {
@@ -43,7 +49,7 @@ const Profile = () => {
 
     useEffect(() => {
         if (user) {
-            getUserInfo(user.uid)
+            getUserInfoByEmail(user.email)
                 .then((resolvedinfo) => {
                 const infotoset = resolvedinfo[0];
                 setUserInfo(infotoset);
@@ -62,6 +68,10 @@ const Profile = () => {
 
             setNumberOfAscents(userInfo.logbook.length);
             setNumberOfToDos(userInfo.todolist.length);
+
+            const recommendedArray = userInfo.logbook.filter((climb) => (climb.recommendation === true));
+            const shuffledRecommendations = shuffleArray(recommendedArray);
+            setRecommendedClimbs(shuffledRecommendations);
         }
     }, [userInfo]);
 
@@ -118,6 +128,19 @@ const Profile = () => {
         setDisplayToDo(true);
     }
 
+    const goToRecommendedClimb = (climb) => {
+            navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
+                state: {
+                    chosenClimb: climb,
+                }
+            })
+    }
+
+    const increment = () => {
+        counter += 1;
+    }
+
+
     if (loading) {
         return (
           <div>
@@ -168,12 +191,39 @@ const Profile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <div className='profileContent'>
-                    <p>Started climbing in: {startedClimbing}</p>
-                    <p>Favorite areas: {favoriteAreas}</p>
-                    <p>Other interests: {otherInterests}</p>
-                    <p>Following: {userInfo.totalfollowing}</p>
-                    <p>Followers: {userInfo.totalfollowers}</p>
-                    <button type='button' onClick={() => editInfo()}>Edit</button>
+                    <div className='contentInfoBox'>
+                        <div className='contentInfoSubBox'>
+                            <div className='contentInfoSubSubBox'>
+                                <p>Name: <b>{name}</b></p>
+                                <p>From: <b>{country}</b></p>
+                                <p>Age: <b>{age}</b></p>
+                            </div>
+                            <div className='contentInfoSubSubBox'>
+                                <p>Started climbing in: <b>{startedClimbing}</b></p>
+                                <p>Favorite areas: <b>{favoriteAreas}</b></p>
+                                <p>Other interests: <b>{otherInterests}</b></p>
+                            </div>
+                            <button type='button' className='profileEditButton' onClick={() => editInfo()}><span className="material-symbols-outlined">settings</span></button>
+                        </div>
+                    </div>
+                    <div className='recommendedBox'>
+                            <h2 className='profileName'>Recommended Climbs</h2>
+                            <div className='recommendedClimbsBox'>
+                                {recommendedClimbs.map((climb, index) => {
+                                    increment();
+                                    if (counter <= 10) { 
+                                        return  <div key={index} onClick={() => goToRecommendedClimb(climb)} className="recommendedClimb">
+                                                    <div className="goodClimbTop">
+                                                        <div>{climb.climb} - {climb.grade}</div>
+                                                    </div>
+                                                    <div className="goodClimbBottom">
+                                                        <div>{climb.crag} - {climb.area} - {climb.country}</div>
+                                                    </div>
+                                                </div>
+                                    } 
+                                })}
+                            </div>
+                    </div>
                 </div>
             </div>
         )

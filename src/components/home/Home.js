@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchExactClimb, fetchGoodClimbs, findClimbsByGradeAndTypeFilter, findClimbsByMinRatingFilter } from '../firebase/Firebase';
+import { fetchGoodClimbs, findClimbsByGradeAndTypeFilter, findClimbsByMinRatingFilter } from '../firebase/Firebase';
 import { useNavigate } from 'react-router-dom';
 import Carousel from './Carousel';
 import { shuffleArray } from '../operations/Operations';
@@ -25,14 +25,11 @@ const Home = () => {
     }, [])
 
     const goToGoodClimb = (climb) => {
-        fetchExactClimb(climb.climb)
-        .then((resolvedclimb) => {
             navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
                 state: {
-                    chosenClimb: resolvedclimb[0],
+                    chosenClimb: climb,
                 }
             })
-        })
     }
 
     const getSelectedType = (typevalue) => {
@@ -136,17 +133,17 @@ const Home = () => {
             <div className="awesomeClimbs">
                 <h2 className="homeBoxTitle">Featured Awesome Climbs Based On <b>Ascents</b> Users Ticks!</h2>
                 <div className="goodClimbsBox">
-                    {goodClimbs.map((result, index) => {
+                    {goodClimbs.map((climb, index) => {
                         increment();
                         if (counter <= 8) { 
-                            return  <div key={index} onClick={() => goToGoodClimb(result)} className="goodClimb">
+                            return  <div key={index} onClick={() => goToGoodClimb(climb)} className="goodClimb">
                                         <div className="goodClimbTop">
-                                            <div>{result.climb} - {result.grade}</div>
-                                            <div>{result.averagerating} stars</div>
+                                            <div>{climb.climb} - {climb.grade}</div>
+                                            <div>{climb.averagerating} stars</div>
                                         </div>
                                         <div className="goodClimbBottom">
-                                            <div>{result.crag} - {result.area} - {result.country}</div>
-                                            <div>{result.numberoflogs} ascents</div>
+                                            <div>{climb.crag} - {climb.area} - {climb.country}</div>
+                                            <div>{climb.numberoflogs} ascents</div>
                                         </div>
                                     </div>
                         } 
