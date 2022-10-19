@@ -38,10 +38,6 @@ const App = () => {
               <Route path='/SearchAreas/SearchCrags/SearchClimbs' element={<Crag/>}/>
                 <Route path='/SearchAreas/SearchCrags/SearchClimbs/Climb' element={<Climb/>}/>
           <Route path='/Profile' element={<Profile/>}/>
-            <Route path='/Profile/Boulders' element={<BouldersLogged/>}/>
-            <Route path='/Profile/Routes' element={<RoutesLogged/>}/>
-            <Route path='/Profile/Following' element={<Following/>}/>
-            <Route path='/Profile/ToDo' element={<ToDo/>}/>
           <Route path='/visitUser' element={<OtherUserProfile/>}/>
             <Route path='/visitUser/Boulders' element={<BouldersLogged/>}/>
             <Route path='/visitUser/Routes' element={<RoutesLogged/>}/>

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUserInfoByEmail, removeFromFollowers, removeFromFollowing}  from '../../firebase/Firebase'
 
 
-const Following = () => {
-    const location = useLocation();
-    const userInfo = location.state;
+const Following = ({userInfo}) => {
     const navigate = useNavigate();
 
     const [seeFollowers, setSeeFollowers] = useState(false);

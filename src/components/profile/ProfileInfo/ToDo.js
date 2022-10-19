@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AddAscentModal from '../../addascent/AddAscentModal';
 import { updateToDoList } from '../../firebase/Firebase';
 
 
-const ToDo = () => {
-    const location = useLocation();
-    const userInfo = location.state;
-
+const ToDo = ({userInfo}) => {
     const navigate = useNavigate();
 
     const [userToDos, setUserToDos] = useState(userInfo.todolist);

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { updateLogbook } from '../../firebase/Firebase'
 
-const BouldersLogged = () => {
-    const location = useLocation();
+const BouldersLogged = ({userInfo}) => {
     const navigate = useNavigate();
-    const userInfo = location.state;
 
     const [bouldersLogged, setBouldersLogged] = useState(userInfo.logbook);
 

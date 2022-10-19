@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link } from 'react-router-dom';
 import { auth, getUserInfo, updateProfile } from '../firebase/Firebase';
+import RoutesLogged from './ProfileInfo/RoutesLogged';
+import BouldersLogged from './ProfileInfo/BouldersLogged';
+import Following from './ProfileInfo/Following';
+import ToDo from './ProfileInfo/ToDo';
 
 const Profile = () => {
-    const navigate = useNavigate();
-
     const [user, loading, error] = useAuthState(auth);
     const [userInfo, setUserInfo] = useState('');
 
@@ -21,7 +23,8 @@ const Profile = () => {
 
     const [displayRoutesLogged, setDisplayRoutesLogged] = useState(false);
     const [displayBouldersLogged, setDisplayBouldersLogged] = useState(false);
-    const [displayFollowers, setDisplayFollowing] = useState(false);
+    const [displayFollowers, setDisplayFollowers] = useState(false);
+    const [displayToDo, setDisplayToDo]= useState(false);
 
     useEffect(() => {
         if (user) {
@@ -57,36 +60,44 @@ const Profile = () => {
         }
     }
 
+    const seeProfileinfo = () => {
+        setDisplayBouldersLogged(false);
+        setDisplayFollowers(false);
+        setDisplayToDo(false);
+        setDisplayRoutesLogged(false);
+        setDisplayInfo(true);
+    }
+
     const seeRoutesLogged = () => {
-        navigate('/Profile/Routes', {
-            state: {
-                userInformation: userInfo,
-            }
-        })
+        setDisplayInfo(false);
+        setDisplayBouldersLogged(false);
+        setDisplayFollowers(false);
+        setDisplayToDo(false);
+        setDisplayRoutesLogged(true);
     }
 
     const seeBouldersLogged = () => {
-        navigate('/Profile/Boulders', {
-            state: {
-                userInformation: userInfo,
-            }
-        })
+        setDisplayInfo(false);
+        setDisplayFollowers(false);
+        setDisplayToDo(false);
+        setDisplayRoutesLogged(false);
+        setDisplayBouldersLogged(true);
     }
 
     const seeFollowing = () => {
-        navigate('/Profile/Following', {
-            state: {
-                userInformation: userInfo,
-            }
-        })
+        setDisplayInfo(false);
+        setDisplayBouldersLogged(false);
+        setDisplayRoutesLogged(false);
+        setDisplayToDo(false);
+        setDisplayFollowers(true);
     }
 
     const seeToDo = () => {
-        navigate('/Profile/ToDo', {
-            state: {
-                userInformation: userInfo,
-            }
-        })
+        setDisplayInfo(false);
+        setDisplayBouldersLogged(false);
+        setDisplayRoutesLogged(false);
+        setDisplayFollowers(false);
+        setDisplayToDo(true);
     }
 
     if (loading) {
@@ -105,7 +116,7 @@ const Profile = () => {
         );
     }
     
-    if (user && displayInfo === true && isEditing === false) {
+    if (user && displayInfo && !isEditing) {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
@@ -122,6 +133,7 @@ const Profile = () => {
                     <button type='button' onClick={() => editInfo()}>Edit</button>
                 </div>
                 <div>
+                    <div className='activeToggle'>Profile Info</div>
                     <button onClick={seeRoutesLogged}>Routes Logged</button>
                     <button onClick={seeBouldersLogged}>Boulders Logged</button>
                     <button onClick={seeToDo}>To-Do's</button>
@@ -131,7 +143,7 @@ const Profile = () => {
         )
     }
 
-    if (user && displayInfo === true && isEditing === true) {
+    if (user && displayInfo && isEditing) {
         return (
             <div>
                 <div className='profile box'>
@@ -156,20 +168,86 @@ const Profile = () => {
                     </form>
                     <button type='button' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save Edits</button>
                 </div>
-                <ul>
-                    <Link to='Routes' state={userInfo}>
-                        <li>Routes Logged</li>
-                    </Link>
-                    <Link to='Boulders' state={userInfo}>
-                        <li>Boulders Logged</li>
-                    </Link>
-                    <Link to='Following' state={userInfo}>
-                        <li>Following</li>
-                    </Link>
-                    <Link to='ToDo' state={userInfo}>
-                        <li>To Do List</li>
-                    </Link>
-                </ul>
+            </div>
+        )
+    }
+
+    if (user && displayRoutesLogged) {
+        return (
+            <div className='profileBox'>
+                <div className='profileInfoBox'>
+                    <h3>{name}</h3>
+                    <p>Age: {age}</p>
+                    <p>Country: {country}</p>
+                </div>
+                <div>
+                    <button onClick={seeProfileinfo}>Profile Info</button>
+                    <div className='activeToggle'>Routes Logged</div>
+                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                    <button onClick={seeToDo}>To-Do's</button>
+                    <button onClick={seeFollowing}>Following/Followers</button>
+                </div>
+                <RoutesLogged userInfo={userInfo}/>
+            </div>
+        )
+    }
+
+    if (user && displayBouldersLogged) {
+        return (
+            <div className='profileBox'>
+                <div className='profileInfoBox'>
+                    <h3>{name}</h3>
+                    <p>Age: {age}</p>
+                    <p>Country: {country}</p>
+                </div>
+                <div>
+                    <button onClick={seeProfileinfo}>Profile Info</button>
+                    <button onClick={seeRoutesLogged}>Routes Logged</button>
+                    <div className='activeToggle'>Boulders Logged</div>
+                    <button onClick={seeToDo}>To-Do's</button>
+                    <button onClick={seeFollowing}>Following/Followers</button>
+                </div>
+                <BouldersLogged userInfo={userInfo}/>
+            </div>
+        )
+    }
+
+    if (user && displayFollowers) {
+        return (
+            <div className='profileBox'>
+                <div className='profileInfoBox'>
+                    <h3>{name}</h3>
+                    <p>Age: {age}</p>
+                    <p>Country: {country}</p>
+                </div>
+                <div>
+                    <button onClick={seeProfileinfo}>Profile Info</button>
+                    <button onClick={seeRoutesLogged}>Routes Logged</button>
+                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                    <button onClick={seeToDo}>To-Do's</button>
+                    <div className='activeToggle'>Following/Followers</div>
+                </div>
+                <Following userInfo={userInfo}/>
+            </div>
+        )
+    }
+
+    if (user && displayToDo) {
+        return (
+            <div className='profileBox'>
+                <div className='profileInfoBox'>
+                    <h3>{name}</h3>
+                    <p>Age: {age}</p>
+                    <p>Country: {country}</p>
+                </div>
+                <div>
+                    <button onClick={seeProfileinfo}>Profile Info</button>
+                    <button onClick={seeRoutesLogged}>Routes Logged</button>
+                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                    <div className='activeToggle'>To-Do's</div>
+                    <button onClick={seeFollowing}>Following/Followers</button>
+                </div>
+                <ToDo userInfo={userInfo}/>
             </div>
         )
     }

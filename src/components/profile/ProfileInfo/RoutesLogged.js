@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { updateLogbook } from '../../firebase/Firebase'
 
 
-const RoutesLogged = () => {
-    const location = useLocation();
+const RoutesLogged = ({userInfo}) => {
     const navigate = useNavigate();
-    const userInfo = location.state;
+
 
     const [routesLogged, setRoutesLogged] = useState(userInfo.logbook);
 
