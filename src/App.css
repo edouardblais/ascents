@@ -20,3 +20,20 @@ body {
         "userbox content"
         "recentbox content"
 }
+
+button {
+    background-color: #ef4444;
+    color:#cbd5e1;
+    border-radius: .25rem;
+    border: 1px solid #cbd5e1;
+    max-width:5rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    padding: .3vh;
+    font-family: 'Oswald', sans-serif;
+}
+
+button:hover {
+    color:#f9fafb;
+    cursor: pointer;
+}

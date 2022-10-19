@@ -17,23 +17,6 @@
     margin:0;
 }
 
-button {
-    background-color: #ef4444;
-    color:#cbd5e1;
-    border-radius: .25rem;
-    border: 1px solid #cbd5e1;
-    max-width:5rem;
-    height:auto;
-    font-size: 1rem;
-    font-weight: 400;
-    padding: .3vh;
-}
-
-button:hover {
-    color:#f9fafb;
-    cursor: pointer;
-}
-
 .link {
     font-size: 1.3rem;
     font-weight: 400;

@@ -31,6 +31,8 @@ const Profile = () => {
 
     const [createdOn, setCreatedOn] = useState('');
     const [lastSignIn, setLastSignIn] = useState('');
+    const [numberOfAscents, setNumberOfAscents] = useState(0);
+    const [numberOfToDos, setNumberOfToDos] = useState(0);
 
     useEffect(() => {
         if (user) {
@@ -57,6 +59,9 @@ const Profile = () => {
             setStartedClimbing(userInfo.otherinfo.startedclimbing);
             setFavoriteAreas(userInfo.otherinfo.favoriteareas);
             setOtherInterests(userInfo.otherinfo.otherinterests);
+
+            setNumberOfAscents(userInfo.logbook.length);
+            setNumberOfToDos(userInfo.todolist.length);
         }
     }, [userInfo]);
 
@@ -133,18 +138,34 @@ const Profile = () => {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
-                    <h3 className='profileName'>{name}</h3>
-                    <p className='profileText'>{age} years old</p>
-                    <p className='profileText'>{country}</p>
-                    <p className='profileText'>Ascents user since {createdOn}</p>
-                    <p className='profileText'>Last seen {lastSignIn} ago</p>
+                    <div className='profileInfoSubBox'>
+                        <h3 className='profileName'>{name}</h3>
+                        <p className='profileSubText'>{age} years old</p>
+                        <p className='profileSubText'>{country}</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>{numberOfAscents} logged ascents</p>
+                        <p className='profileSubText'>{numberOfToDos} dream climbs</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'><b>Ascents</b> user since</p>
+                        <p className='profileSubText'>{createdOn}</p>  
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>Last seen</p>
+                        <p className='profileSubText'>{lastSignIn} ago</p>
+                    </div>
                 </div>
                 <div className='profileNav'>
                     <div className='activeToggle'>Profile Info</div>
-                    <button onClick={seeRoutesLogged}>Routes Logged</button>
-                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
-                    <button onClick={seeToDo}>To-Do's</button>
-                    <button onClick={seeFollowing}>Following/Followers</button>
+                    <button onClick={seeRoutesLogged} className='profileButton'>Routes Logged</button>
+                    <button onClick={seeBouldersLogged} className='profileButton'>Boulders Logged</button>
+                    <button onClick={seeToDo} className='profileButton'>To-Do's</button>
+                    <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <div className='profileContent'>
                     <p>Started climbing in: {startedClimbing}</p>
@@ -162,16 +183,34 @@ const Profile = () => {
         return (
                 <div className='profileBox'>
                     <div className='profileInfoBox'>
-                        <h3>{name}</h3>
-                        <p>Age: {age}</p>
-                        <p>Country: {country}</p>
+                        <div className='profileInfoSubBox'>
+                            <h3 className='profileName'>{name}</h3>
+                            <p className='profileSubText'>{age} years old</p>
+                            <p className='profileSubText'>{country}</p>
+                        </div>
+                        <div className='profileInfoSubBox'>
+                            <p className='profileText'>{numberOfAscents} logged ascents</p>
+                            <p className='profileSubText'>{numberOfToDos} dream climbs</p>
+                        </div>
+                        <div className='profileInfoSubBox'>
+                            <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
+                            <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                        </div>
+                        <div className='profileInfoSubBox'>
+                            <p className='profileText'><b>Ascents</b> user since</p>
+                            <p className='profileSubText'>{createdOn}</p>  
+                        </div>
+                        <div className='profileInfoSubBox'>
+                            <p className='profileText'>Last seen</p>
+                            <p className='profileSubText'>{lastSignIn} ago</p>
+                        </div>
                     </div>
                     <div className='profileNav'>
                         <div className='activeToggle'>Profile Info</div>
-                        <button onClick={seeRoutesLogged}>Routes Logged</button>
-                        <button onClick={seeBouldersLogged}>Boulders Logged</button>
-                        <button onClick={seeToDo}>To-Do's</button>
-                        <button onClick={seeFollowing}>Following/Followers</button>
+                        <button onClick={seeRoutesLogged} className='profileButton'>Routes Logged</button>
+                        <button onClick={seeBouldersLogged} className='profileButton'>Boulders Logged</button>
+                        <button onClick={seeToDo} className='profileButton'>To-Do's</button>
+                        <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                     </div>
                     <div className='profileContent'>
                         <form>
@@ -203,16 +242,34 @@ const Profile = () => {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
-                    <h3>{name}</h3>
-                    <p>Age: {age}</p>
-                    <p>Country: {country}</p>
+                    <div className='profileInfoSubBox'>
+                        <h3 className='profileName'>{name}</h3>
+                        <p className='profileSubText'>{age} years old</p>
+                        <p className='profileSubText'>{country}</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>{numberOfAscents} logged ascents</p>
+                        <p className='profileSubText'>{numberOfToDos} dream climbs</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'><b>Ascents</b> user since</p>
+                        <p className='profileSubText'>{createdOn}</p>  
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>Last seen</p>
+                        <p className='profileSubText'>{lastSignIn} ago</p>
+                    </div>
                 </div>
                 <div className='profileNav'>
-                    <button onClick={seeProfileinfo}>Profile Info</button>
+                    <button onClick={seeProfileinfo} className='profileButton'>Profile Info</button>
                     <div className='activeToggle'>Routes Logged</div>
-                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
-                    <button onClick={seeToDo}>To-Do's</button>
-                    <button onClick={seeFollowing}>Following/Followers</button>
+                    <button onClick={seeBouldersLogged} className='profileButton'>Boulders Logged</button>
+                    <button onClick={seeToDo} className='profileButton'>To-Do's</button>
+                    <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <RoutesLogged userInfo={userInfo}/>
             </div>
@@ -223,16 +280,34 @@ const Profile = () => {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
-                    <h3>{name}</h3>
-                    <p>Age: {age}</p>
-                    <p>Country: {country}</p>
+                    <div className='profileInfoSubBox'>
+                        <h3 className='profileName'>{name}</h3>
+                        <p className='profileSubText'>{age} years old</p>
+                        <p className='profileSubText'>{country}</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>{numberOfAscents} logged ascents</p>
+                        <p className='profileSubText'>{numberOfToDos} dream climbs</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'><b>Ascents</b> user since</p>
+                        <p className='profileSubText'>{createdOn}</p>  
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>Last seen</p>
+                        <p className='profileSubText'>{lastSignIn} ago</p>
+                    </div>
                 </div>
                 <div className='profileNav'>
-                    <button onClick={seeProfileinfo}>Profile Info</button>
-                    <button onClick={seeRoutesLogged}>Routes Logged</button>
+                    <button onClick={seeProfileinfo} className='profileButton'>Profile Info</button>
+                    <button onClick={seeRoutesLogged} className='profileButton'>Routes Logged</button>
                     <div className='activeToggle'>Boulders Logged</div>
-                    <button onClick={seeToDo}>To-Do's</button>
-                    <button onClick={seeFollowing}>Following/Followers</button>
+                    <button onClick={seeToDo} className='profileButton'>To-Do's</button>
+                    <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <BouldersLogged userInfo={userInfo}/>
             </div>
@@ -243,15 +318,33 @@ const Profile = () => {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
-                    <h3>{name}</h3>
-                    <p>Age: {age}</p>
-                    <p>Country: {country}</p>
+                    <div className='profileInfoSubBox'>
+                        <h3 className='profileName'>{name}</h3>
+                        <p className='profileSubText'>{age} years old</p>
+                        <p className='profileSubText'>{country}</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>{numberOfAscents} logged ascents</p>
+                        <p className='profileSubText'>{numberOfToDos} dream climbs</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'><b>Ascents</b> user since</p>
+                        <p className='profileSubText'>{createdOn}</p>  
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>Last seen</p>
+                        <p className='profileSubText'>{lastSignIn} ago</p>
+                    </div>
                 </div>
                 <div className='profileNav'>
-                    <button onClick={seeProfileinfo}>Profile Info</button>
-                    <button onClick={seeRoutesLogged}>Routes Logged</button>
-                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
-                    <button onClick={seeToDo}>To-Do's</button>
+                    <button onClick={seeProfileinfo} className='profileButton'>Profile Info</button>
+                    <button onClick={seeRoutesLogged} className='profileButton'>Routes Logged</button>
+                    <button onClick={seeBouldersLogged} className='profileButton'>Boulders Logged</button>
+                    <button onClick={seeToDo} className='profileButton'>To-Do's</button>
                     <div className='activeToggle'>Following/Followers</div>
                 </div>
                 <Following userInfo={userInfo}/>
@@ -263,16 +356,34 @@ const Profile = () => {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
-                    <h3>{name}</h3>
-                    <p>Age: {age}</p>
-                    <p>Country: {country}</p>
+                    <div className='profileInfoSubBox'>
+                        <h3 className='profileName'>{name}</h3>
+                        <p className='profileSubText'>{age} years old</p>
+                        <p className='profileSubText'>{country}</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>{numberOfAscents} logged ascents</p>
+                        <p className='profileSubText'>{numberOfToDos} dream climbs</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'><b>Ascents</b> user since</p>
+                        <p className='profileSubText'>{createdOn}</p>  
+                    </div>
+                    <div className='profileInfoSubBox'>
+                        <p className='profileText'>Last seen</p>
+                        <p className='profileSubText'>{lastSignIn} ago</p>
+                    </div>
                 </div>
                 <div className='profileNav'>
-                    <button onClick={seeProfileinfo}>Profile Info</button>
-                    <button onClick={seeRoutesLogged}>Routes Logged</button>
-                    <button onClick={seeBouldersLogged}>Boulders Logged</button>
+                    <button onClick={seeProfileinfo} className='profileButton'>Profile Info</button>
+                    <button onClick={seeRoutesLogged} className='profileButton'>Routes Logged</button>
+                    <button onClick={seeBouldersLogged} className='profileButton'>Boulders Logged</button>
                     <div className='activeToggle'>To-Do's</div>
-                    <button onClick={seeFollowing}>Following/Followers</button>
+                    <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <ToDo userInfo={userInfo}/>
             </div>

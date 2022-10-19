@@ -19,7 +19,19 @@
     display: flex;
     flex-direction: column;
     gap:1vh;
-    border-right: 1px solid #cbd5e1;
+    align-items: center;
+}
+
+.profileInfoSubBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:.5vh;
+    padding:3vh 0vh 3vh 0vh;
+    border-bottom: 1px solid #cbd5e1;
+    width: 12vw;
+    margin:0 1vw 0 1vw;
+    justify-content: center;
 }
 
 .profileNav {
@@ -29,8 +41,35 @@
     justify-content: center;
     align-items: center;
     gap:2vw;
+    margin:0 5vh 0 5vh;
     padding:1vh;
     border-bottom: 1px solid #cbd5e1;
+}
+
+.profileButton {
+    background-color: #1e293b;
+    border:none;
+    font-size: 1.5rem;
+    font-weight: 400;
+    white-space: nowrap;
+    max-width: none;
+    padding: 1vh;
+    font-family: 'Oswald', sans-serif;
+}
+
+.profileButton:hover {
+    background-color: #cbd5e1;
+    color: #1e293b;
+}
+
+.activeToggle {
+    border-top: thick solid #cbd5e1;
+    border-right: thick solid  #cbd5e1;
+    border-left: thick solid #cbd5e1;
+    padding: 1vh;
+    font-size: 1.5rem;
+    font-weight: 400;
+    border-radius: .25rem;
 }
 
 .profileContent {
@@ -43,11 +82,16 @@
 
 .profileName {
     font-size: 2rem;
-    font-weight: 400;
-    margin:0;
+    font-weight: 700;
+    margin:.5vh;
 }
 
 .profileText {
     font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.profileSubText {
+    font-size: 1.2rem;
 }
 
