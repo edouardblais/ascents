@@ -282,7 +282,7 @@ const Profile = () => {
                                 <div className='contentInfoSubSubBox'>
                                     <div className='contentInfoInputBox'>
                                         <label htmlFor='started'>Started climbing in:</label>
-                                        <input name='started' type='year' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
+                                        <input name='started' type='number' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
                                     </div>
                                     <div className='contentInfoInputBox'> 
                                         <label htmlFor='favorite'>Favorite areas:</label>

@@ -30,9 +30,33 @@ const RoutesLogged = ({userInfo}) => {
             <div>
                 {routesLogged.map((climb, index) => {
                     if (climb.type === 'Sport Climbing' || climb.type === 'Trad Climbing') {
-                        return  <div key={index}>
-                                  <p onClick={() => seeClimb(climb)}>{climb.climb}</p>
-                                  <button onClick={() => removeFromLogbook(climb)}>Remove</button>
+                        return  <div key={index} className='searchResult'>
+                                    <div className='searchResultSubPart' onClick={() => seeClimb(climb)}>
+                                        <div className='searchResultMainInfo'>{climb.climb}</div>
+                                        <div className='searchResultSecInfo'>{climb.crag} - {climb.area} - {climb.country}</div>
+                                    </div>
+                                    <div className='searchResultSubPart'>
+                                        <div className='searchResultMainInfo'>{climb.grade}</div>
+                                        <div className='searchResultSecInfo'>{climb.type}</div>
+                                    </div>
+                                    <div className='searchResultSubPart'>
+                                        <div className='searchResultMainInfo'>{climb.grade}</div>
+                                        <div className='searchResultSecInfo'>{climb.feel}</div>
+                                    </div>
+                                    <div className='searchResultSubPart'>
+                                        <div className='searchResultMainInfo'>{climb.rating} stars</div>
+                                        <div className='searchResultSecInfo'>{climb.recommendation}</div>
+                                    </div>
+                                    <div className='searchResultSubPart'>
+                                        <div className='searchResultMainInfo'>{climb.comment}</div>
+                                    </div>
+                                    <div className='searchResultSubPart'>
+                                        <div className='searchResultMainInfo'>{climb.type}</div>
+                                        <div className='searchResultSecInfo'>{climb.rp}</div>
+                                    </div>
+                                    <div className='searchResultSubPart'>
+                                        <button onClick={() => removeFromLogbook(climb)}>Delete</button>
+                                    </div>
                                 </div>
                     }
                 })}
