@@ -119,6 +119,12 @@
     gap:2vh;
 }
 
+.contentInfoInputBox {
+    display: flex;
+    flex-direction: column;
+    gap:.5vh;
+}
+
 .profileEditButton {
     position:absolute;
     top:.1vw;

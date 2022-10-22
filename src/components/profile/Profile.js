@@ -263,26 +263,57 @@ const Profile = () => {
                         <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                     </div>
                     <div className='profileContent'>
-                        <form>
-                            <label htmlFor='name'>Name</label>
-                            <input name='name' type='text' onChange={(e) => setName(e.target.value)} value={name}/>
-
-                            <label htmlFor='age'>Age</label>
-                            <input name='age' type='number' onChange={(e) => setAge(e.target.value)} value={age}/>
-
-                            <label htmlFor='country'>Country</label>
-                            <input name='country' type='text' onChange={(e) => setCountry(e.target.value)} value={country}/>
-
-                            <label htmlFor='started'>Started climbing in:</label>
-                            <input name='started' type='year' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
-                            
-                            <label htmlFor='favorite'>Favorite areas</label>
-                            <input name='favorite' type='text' onChange={(e) => setFavoriteAreas(e.target.value)} value={favoriteAreas}/>
-
-                            <label htmlFor='other'>Other interests</label>
-                            <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)} value={otherInterests}/>
+                        <form className='contentInfoBox'>
+                            <div className='contentInfoSubBox'>
+                                <div className='contentInfoSubSubBox'>
+                                    <div className='contentInfoInputBox'>
+                                        <label htmlFor='name'>Name:</label>
+                                        <input name='name' type='text' onChange={(e) => setName(e.target.value)} value={name}/>
+                                    </div>
+                                    <div className='contentInfoInputBox'>
+                                        <label htmlFor='country'>Country:</label>
+                                        <input name='country' type='text' onChange={(e) => setCountry(e.target.value)} value={country}/>
+                                    </div>
+                                    <div className='contentInfoInputBox'>
+                                        <label htmlFor='age'>Age:</label>
+                                        <input name='age' type='number' onChange={(e) => setAge(e.target.value)} value={age}/>
+                                    </div>
+                                </div>
+                                <div className='contentInfoSubSubBox'>
+                                    <div className='contentInfoInputBox'>
+                                        <label htmlFor='started'>Started climbing in:</label>
+                                        <input name='started' type='year' onChange={(e) => setStartedClimbing(e.target.value)} value={startedClimbing}/>
+                                    </div>
+                                    <div className='contentInfoInputBox'> 
+                                        <label htmlFor='favorite'>Favorite areas:</label>
+                                        <input name='favorite' type='text' onChange={(e) => setFavoriteAreas(e.target.value)} value={favoriteAreas}/>
+                                    </div> 
+                                    <div className='contentInfoInputBox'>
+                                        <label htmlFor='other'>Other interests:</label>
+                                        <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)} value={otherInterests}/>
+                                    </div>
+                                </div>
+                                <button type='button' className='profileEditButton' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save</button>
+                            </div>
                         </form>
-                        <button type='button' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save Edits</button>
+                        <div className='recommendedBox'>
+                            <h2 className='profileName'>Recommended Climbs</h2>
+                            <div className='recommendedClimbsBox'>
+                                {recommendedClimbs.map((climb, index) => {
+                                    increment();
+                                    if (counter <= 10) { 
+                                        return  <div key={index} onClick={() => goToRecommendedClimb(climb)} className="recommendedClimb">
+                                                    <div className="goodClimbTop">
+                                                        <div>{climb.climb} - {climb.grade}</div>
+                                                    </div>
+                                                    <div className="goodClimbBottom">
+                                                        <div>{climb.crag} - {climb.area} - {climb.country}</div>
+                                                    </div>
+                                                </div>
+                                    } 
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
         )
