@@ -1,7 +1,9 @@
+import { calculateBackoffMillis } from '@firebase/util';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { updateLogbook } from '../../firebase/Firebase';
 import '../Profile.css';
+import './Logbook.css';
 
 
 const RoutesLogged = ({userInfo}) => {
@@ -26,36 +28,31 @@ const RoutesLogged = ({userInfo}) => {
 
     return (
         <div className='profileContent'>
-            <h1>Routes logged</h1>
-            <div>
+            <div className='logbookBox'>
                 {routesLogged.map((climb, index) => {
                     if (climb.type === 'Sport Climbing' || climb.type === 'Trad Climbing') {
-                        return  <div key={index} className='searchResult'>
-                                    <div className='searchResultSubPart' onClick={() => seeClimb(climb)}>
-                                        <div className='searchResultMainInfo'>{climb.climb}</div>
-                                        <div className='searchResultSecInfo'>{climb.crag} - {climb.area} - {climb.country}</div>
+                        return  <div key={index} className='loggedClimbBox'>
+                                    <div>
+                                        <span className={climb.rp==='onsight'? 'onsight material-symbols-outlined' : climb.rp === 'flash'? 'flash material-symbols-outlined' : 'material-symbols-outlined redpoint'}>adjust</span>
                                     </div>
-                                    <div className='searchResultSubPart'>
-                                        <div className='searchResultMainInfo'>{climb.grade}</div>
-                                        <div className='searchResultSecInfo'>{climb.type}</div>
+                                    <div className='loggedClimbInfoBox' onClick={() => seeClimb(climb)}>
+                                        <div className='loggedClimbTopInfo'>{climb.climb}</div>
+                                        <div className='loggedClimbBottomInfo'>{climb.crag} - {climb.area} - {climb.country}</div>
                                     </div>
-                                    <div className='searchResultSubPart'>
-                                        <div className='searchResultMainInfo'>{climb.grade}</div>
-                                        <div className='searchResultSecInfo'>{climb.feel}</div>
+                                    <div className='loggedClimbCommentBox'>
+                                        <div  className='loggedClimbTopInfo'>{climb.comment}</div>
                                     </div>
-                                    <div className='searchResultSubPart'>
-                                        <div className='searchResultMainInfo'>{climb.rating} stars</div>
-                                        <div className='searchResultSecInfo'>{climb.recommendation}</div>
+                                    <div className='loggedClimbSubBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.grade} <span className='loggedClimbBottomInfo'>{climb.feel}</span></div>
+                                        <div className='loggedClimbBottomInfo'>{climb.type}</div>
                                     </div>
-                                    <div className='searchResultSubPart'>
-                                        <div className='searchResultMainInfo'>{climb.comment}</div>
+                                    
+                                    <div className='loggedClimbSubBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.rating} stars</div>
+                                        <div className='loggedClimbBottomInfo'>{climb.recommendation? <span className="material-symbols-outlined redpoint">favorite</span>:''}</div>
                                     </div>
-                                    <div className='searchResultSubPart'>
-                                        <div className='searchResultMainInfo'>{climb.type}</div>
-                                        <div className='searchResultSecInfo'>{climb.rp}</div>
-                                    </div>
-                                    <div className='searchResultSubPart'>
-                                        <button onClick={() => removeFromLogbook(climb)}>Delete</button>
+                                    <div className='loggedClimbSubBox'>
+                                        <button onClick={() => removeFromLogbook(climb)} className='deleteButton'><span className="material-symbols-outlined">delete</span></button>
                                     </div>
                                 </div>
                     }
