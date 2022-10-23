@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import { auth, addToFollowing, addToFollower, getUserInfo, removeFromFollowers, removeFromFollowing } from '../../firebase/Firebase';
+import { auth, addToFollowing, addToFollower, getUserInfo, removeFromFollowers, removeFromFollowing, getUserInfoByEmail } from '../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import format from 'date-fns/format';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
@@ -10,6 +10,7 @@ import BouldersLogged from '../ProfileInfo/BouldersLogged';
 import Following from '../ProfileInfo/Following';
 import ToDo from '../ProfileInfo/ToDo';
 import '../Profile.css';
+import { getAdditionalUserInfo } from 'firebase/auth';
 
 const OtherUserProfile = () => {
     const navigate = useNavigate();
@@ -42,14 +43,10 @@ const OtherUserProfile = () => {
         const recommendedArray = otherUser.logbook.filter((climb) => (climb.recommendation === true));
         const shuffledRecommendations = shuffleArray(recommendedArray);
         setRecommendedClimbs(shuffledRecommendations);
-    }, [])
 
-    useEffect(() => {
-        if (user) {
-            setCreatedOn(format(new Date(user.metadata.creationTime), 'PPP'));
-            setLastSignIn(formatDistanceToNowStrict(new Date(user.metadata.lastSignInTime)));
-        }
-    }, [user])
+        //setCreatedOn(format(new Date(otherUser.metadata.creationTime), 'PPP'));
+        //setLastSignIn(formatDistanceToNowStrict(new Date(otherUser.metadata.lastSignInTime)));
+    }, []);
 
     useEffect(() => {
         if (user) {
@@ -165,16 +162,16 @@ const OtherUserProfile = () => {
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{otherUser.name}</h3>
-                        <p className='profileSubText'>{otherUser.otherInfo.age} years old</p>
-                        <p className='profileSubText'>{otherUser.otherInfo.country}</p>
+                        <p className='profileSubText'>{otherUser.otherinfo.age} years old</p>
+                        <p className='profileSubText'>{otherUser.otherinfo.country}</p>
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'>{numberOfAscents} logged ascents</p>
                         <p className='profileSubText'>{numberOfToDos} dream climbs</p>
                     </div>
                     <div className='profileInfoSubBox'>
-                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
-                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Following {otherUser.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {otherUser.totalfollowers} <b>Ascents</b> users</p>
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
@@ -192,7 +189,7 @@ const OtherUserProfile = () => {
                     <button onClick={seeToDo} className='profileButton'>To-Do's</button>
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
-                <RoutesLogged userInfo={userInfo}/>
+                <RoutesLogged userInfo={otherUser}/>
             </div>
         )
     }
@@ -211,8 +208,8 @@ const OtherUserProfile = () => {
                         <p className='profileSubText'>{numberOfToDos} dream climbs</p>
                     </div>
                     <div className='profileInfoSubBox'>
-                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
-                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Following {otherUser.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {otherUser.totalfollowers} <b>Ascents</b> users</p>
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
@@ -230,7 +227,7 @@ const OtherUserProfile = () => {
                     <button onClick={seeToDo} className='profileButton'>To-Do's</button>
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
-                <BouldersLogged userInfo={userInfo}/>
+                <BouldersLogged userInfo={otherUser}/>
             </div>
         )
     }
@@ -249,8 +246,8 @@ const OtherUserProfile = () => {
                         <p className='profileSubText'>{numberOfToDos} dream climbs</p>
                     </div>
                     <div className='profileInfoSubBox'>
-                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
-                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Following {otherUser.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {otherUser.totalfollowers} <b>Ascents</b> users</p>
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
@@ -268,7 +265,7 @@ const OtherUserProfile = () => {
                     <button onClick={seeToDo} className='profileButton'>To-Do's</button>
                     <div className='activeToggle'>Following/Followers</div>
                 </div>
-                <Following userInfo={userInfo}/>
+                <Following userInfo={otherUser}/>
             </div>
         )
     }
@@ -287,8 +284,8 @@ const OtherUserProfile = () => {
                         <p className='profileSubText'>{numberOfToDos} dream climbs</p>
                     </div>
                     <div className='profileInfoSubBox'>
-                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
-                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Following {otherUser.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {otherUser.totalfollowers} <b>Ascents</b> users</p>
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
@@ -306,7 +303,7 @@ const OtherUserProfile = () => {
                     <div className='activeToggle'>To-Do's</div>
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
-                <ToDo userInfo={userInfo}/>
+                <ToDo userInfo={otherUser}/>
             </div>
         )
     }
@@ -325,8 +322,8 @@ const OtherUserProfile = () => {
                         <p className='profileSubText'>{numberOfToDos} dream climbs</p>
                     </div>
                     <div className='profileInfoSubBox'>
-                        <p className='profileSubText'>Following {userInfo.totalfollowing} <b>Ascents</b> users</p>
-                        <p className='profileSubText'>Followed by {userInfo.totalfollowers} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Following {otherUser.totalfollowing} <b>Ascents</b> users</p>
+                        <p className='profileSubText'>Followed by {otherUser.totalfollowers} <b>Ascents</b> users</p>
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
@@ -353,9 +350,9 @@ const OtherUserProfile = () => {
                                 <p>Age: <b>{otherUser.otherinfo.age}</b></p>
                             </div>
                             <div className='contentInfoSubSubBox'>
-                                <p>Started climbing in: <b>{otherUser.otherinfo.startedClimbing}</b></p>
-                                <p>Favorite areas: <b>{otherUser.otherinfo.favoriteAreas}</b></p>
-                                <p>Other interests: <b>{otherUser.otherinfo.otherInterests}</b></p>
+                                <p>Started climbing in: <b>{otherUser.otherinfo.startedclimbing}</b></p>
+                                <p>Favorite areas: <b>{otherUser.otherinfo.favoriteareas}</b></p>
+                                <p>Other interests: <b>{otherUser.otherinfo.otherinterests}</b></p>
                             </div>
                             <button type='button' className='profileEditButton' onClick={followed?() => unfollowUser(): () => followUser()}><span className="material-symbols-outlined">settings</span></button>
                         </div>
