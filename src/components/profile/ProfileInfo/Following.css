@@ -1,0 +1,71 @@
+.followingNav {
+    display:flex;
+    flex-direction: row;
+    gap:1.5vw;
+    justify-content: center;
+    min-height: 5vh;
+}
+
+.followingNavChoiceActive {
+    padding: 1vh;
+    border-radius: .25rem;
+    border: 1px solid #fafaf9;
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.followingNavChoiceActive:hover {
+    cursor: pointer;
+    font-weight:700;
+    border: 2px solid #fafaf9;
+}
+
+.followingNavChoiceInactive {
+    padding: 1vh;
+    border-radius: .25rem;
+    background-color: #fafaf9;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #1e293b;
+}
+
+.followingBox {
+    display: flex;
+    flex-direction: column;
+    gap:1vh;
+}
+
+.followingSubBox {
+    display: flex;
+    flex-direction: row;
+    gap:1vw;
+    background-color: #fafaf9;
+    color: #1e293b;
+    border-radius: .25rem;
+    padding: 1vh 2vw 1vh 2vw;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.followingNameBox:hover {
+    background-color: #1e293b;
+    color: #fafaf9;
+    cursor: pointer;
+}
+
+.followingNameBox {
+    display: flex;
+    flex-direction: column;
+    border-radius:.25rem;
+    padding:.5vh;
+
+}
+
+.followingTop {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.followingBottom {
+    font-size: 1.2rem;
+}

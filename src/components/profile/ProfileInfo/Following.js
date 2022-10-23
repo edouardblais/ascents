@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { getUserInfoByEmail, removeFromFollowers, removeFromFollowing}  from '../../firebase/Firebase';
 import '../Profile.css';
+import './Following.css';
 
 
 const Following = ({userInfo}) => {
@@ -39,16 +40,19 @@ const Following = ({userInfo}) => {
     if (seeFollowers) {
         return (
             <div className='profileContent'>
-                <div>
-                    <p onClick={switchDisplay}>Following</p>
-                    <p>Followers</p>
+                <div className='followingNav'>
+                    <p onClick={switchDisplay} className='followingNavChoiceActive'>Following</p>
+                    <p className='followingNavChoiceInactive'>Followers</p>
                 </div>
-                <h3>Followers</h3>
-                <div>
+                <div className='followingBox'>
                     {userInfo.followers.length > 0 ? 
                     userInfo.followers.map((follower, index) => {
-                            return  <div key={index}>
-                                        <p onClick={() => seeProfile(follower)}>{follower.name}</p>
+                            return  <div key={index} className='followingSubBox'>
+                                        <div className='followingNameBox' onClick={() => seeProfile(follower)}>
+                                            <div className='followingTop'>{follower.name}</div>
+                                            <div className='followingBottom'>{follower.otherinfo.country}</div>
+                                        </div>
+                                        <div className='followingTop'>{follower.logbook.length} ascents</div>
                                     </div>
                     })
                     :
@@ -61,16 +65,19 @@ const Following = ({userInfo}) => {
 
     return (
         <div className='profileContent'>
-            <div>
-                <p>Following</p>
-                <p onClick={switchDisplay}>Followers</p>
+            <div className='followingNav'>
+                <p className='followingNavChoiceInactive'>Following</p>
+                <p className='followingNavChoiceActive' onClick={switchDisplay}>Followers</p>
             </div>
-            <h3>Following</h3>
-            <div>
+            <div className='followingBox'>
                 {userInfo.following.length > 0 ? 
                 userInfo.following.map((followed, index) => {
-                        return  <div key={index}>
-                                    <p onClick={() => seeProfile(followed)}>{followed.name}</p>
+                        return  <div key={index} className='followingSubBox'>
+                                    <div className='followingNameBox' onClick={() => seeProfile(followed)}>
+                                        <div className='followingTop'>{followed.name}</div>
+                                        <div className='followingBottom'>{followed.otherinfo.country}</div>
+                                    </div>
+                                    <div className='followingTop'>{followed.logbook.length} ascents</div>
                                     <button onClick={() => unfollow(followed)}>Unfollow</button>
                                 </div>
                 })

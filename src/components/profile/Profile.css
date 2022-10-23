@@ -76,8 +76,8 @@
     grid-area: profileContent;
     display: flex;
     flex-direction: column;
-    gap:1vh;
-    padding: 2vw;
+    gap:2vh;
+    padding: 2vh 2vw 2vh 2vw;
 }
 
 .profileName {
