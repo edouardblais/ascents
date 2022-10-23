@@ -2,7 +2,7 @@
     display:flex;
     flex-direction: column;
     gap:1vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 72vh;
 
 }
@@ -80,4 +80,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.toDoButtonBox {
+    display: flex;
+    flex-direction: row;
+    gap:.5vw;
 }

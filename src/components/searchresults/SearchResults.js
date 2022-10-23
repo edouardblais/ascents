@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, addClimbToTodoList } from '../firebase/Firebase';
 import AddAscentModal from '../addascent/AddAscentModal';
-import './SearchResultsBox.css';
+import './SearchResults.css';
 
 const SearchResults = () => {
     const location = useLocation();
