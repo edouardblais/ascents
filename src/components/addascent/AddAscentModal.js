@@ -132,7 +132,7 @@ const AddAscentModal = ({climb, useremail}) => {
                 <button type='button' onClick={isRecommended}>Recommended?</button>
 
                 <label htmlFor='comment'>Comment:</label>
-                <input type='text' id='comment' name='comment' defaultValue={comment} onChange={(e) => getComment(e.target.value)}></input>
+                <textarea type='textarea' id='comment' name='comment'  rows="5" cols="40" defaultValue={comment} onChange={(e) => getComment(e.target.value)}></textarea>
 
                 <button type='button' onClick={addAscent}>Add Ascent</button>
 

@@ -1,4 +1,3 @@
-import { calculateBackoffMillis } from '@firebase/util';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { updateLogbook } from '../../firebase/Firebase';
