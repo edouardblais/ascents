@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth, signIn } from '../firebase/Firebase';
+import { auth, signIn, updateLastSignIn } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const SignIn = () => {
@@ -18,6 +18,11 @@ const SignIn = () => {
     };
     if (user) navigate('/');
   }, [user]);
+
+  const signInUser = async (email, password) => {
+    await signIn(email, password);
+    await updateLastSignIn(email);
+  }
 
   return (
     <div className="signin">
@@ -47,7 +52,7 @@ const SignIn = () => {
         <button 
           type='button'
           className="signin-btn"
-          onClick={() => signIn(email, password)}
+          onClick={() => signInUser(email, password)}
         >
           Sign In
         </button>

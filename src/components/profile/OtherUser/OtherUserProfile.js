@@ -10,7 +10,6 @@ import BouldersLogged from '../ProfileInfo/BouldersLogged';
 import Following from '../ProfileInfo/Following';
 import ToDo from '../ProfileInfo/ToDo';
 import '../Profile.css';
-import { getAdditionalUserInfo } from 'firebase/auth';
 
 const OtherUserProfile = () => {
     const navigate = useNavigate();
@@ -28,7 +27,7 @@ const OtherUserProfile = () => {
     const [displayFollowers, setDisplayFollowers] = useState(false);
     const [displayToDo, setDisplayToDo]= useState(false);
 
-    const [createdOn, setCreatedOn] = useState('');
+    
     const [lastSignIn, setLastSignIn] = useState('');
     const [numberOfAscents, setNumberOfAscents] = useState(0);
     const [numberOfToDos, setNumberOfToDos] = useState(0);
@@ -44,8 +43,7 @@ const OtherUserProfile = () => {
         const shuffledRecommendations = shuffleArray(recommendedArray);
         setRecommendedClimbs(shuffledRecommendations);
 
-        //setCreatedOn(format(new Date(otherUser.metadata.creationTime), 'PPP'));
-        //setLastSignIn(formatDistanceToNowStrict(new Date(otherUser.metadata.lastSignInTime)));
+        setLastSignIn(formatDistanceToNowStrict(otherUser.lastsignedin.toString()));
     }, []);
 
     useEffect(() => {
@@ -175,7 +173,7 @@ const OtherUserProfile = () => {
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
-                        <p className='profileSubText'>{createdOn}</p>  
+                        <p className='profileSubText'>{otherUser.createdon}</p>  
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'>Last seen</p>
@@ -213,7 +211,7 @@ const OtherUserProfile = () => {
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
-                        <p className='profileSubText'>{createdOn}</p>  
+                        <p className='profileSubText'>{otherUser.createdon}</p>  
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'>Last seen</p>
@@ -251,7 +249,7 @@ const OtherUserProfile = () => {
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
-                        <p className='profileSubText'>{createdOn}</p>  
+                        <p className='profileSubText'>{otherUser.createdon}</p>  
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'>Last seen</p>
@@ -289,7 +287,7 @@ const OtherUserProfile = () => {
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
-                        <p className='profileSubText'>{createdOn}</p>  
+                        <p className='profileSubText'>{otherUser.createdon}</p>  
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'>Last seen</p>
@@ -327,7 +325,7 @@ const OtherUserProfile = () => {
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'><b>Ascents</b> user since</p>
-                        <p className='profileSubText'>{createdOn}</p>  
+                        <p className='profileSubText'>{otherUser.createdon}</p>  
                     </div>
                     <div className='profileInfoSubBox'>
                         <p className='profileText'>Last seen</p>

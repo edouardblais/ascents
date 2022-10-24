@@ -17,6 +17,7 @@ import { getFirestore,
   setDoc,
 } from "firebase/firestore";
 import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
+import format from 'date-fns/format';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBHlIY3djJMXF6A3ehQCCUb_vDfMa7Sd4U",
@@ -43,6 +44,18 @@ const signIn = async (email, password) => {
     alert(err.message);
   }
 };
+
+const updateLastSignIn = async (email) => {
+  try {
+    const usersRef = doc(db, "users", email );
+    await updateDoc(usersRef, {
+     lastsignedin: new Date(),
+    });
+  } catch (err){
+    alert(err)
+    console.log(err)
+  }
+}
 
 const getUserInfo = async (userUID) => {
   try {
@@ -102,6 +115,8 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       totalfollowers: 0,
       logbook:[],
       todolist:[],
+      createdon: format(new Date(user.metadata.creationTime), 'PPP'),
+      lastsignedin: new Date(),
       });
   } catch (err) {
     console.error(err);
@@ -606,6 +621,7 @@ export {
   auth,
   db,
   signIn,
+  updateLastSignIn,
   registerWithEmailAndPassword,
   sendPasswordReset,
   logout,

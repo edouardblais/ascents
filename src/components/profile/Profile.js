@@ -42,13 +42,6 @@ const Profile = () => {
 
     useEffect(() => {
         if (user) {
-            setCreatedOn(format(new Date(user.metadata.creationTime), 'PPP'));
-            setLastSignIn(formatDistanceToNowStrict(new Date(user.metadata.lastSignInTime)));
-        }
-    }, [user])
-
-    useEffect(() => {
-        if (user) {
             getUserInfoByEmail(user.email)
                 .then((resolvedinfo) => {
                 const infotoset = resolvedinfo[0];
@@ -68,6 +61,9 @@ const Profile = () => {
 
             setNumberOfAscents(userInfo.logbook.length);
             setNumberOfToDos(userInfo.todolist.length);
+
+            setCreatedOn(userInfo.createdon);
+            setLastSignIn(formatDistanceToNowStrict(userInfo.lastsignedin));
 
             const recommendedArray = userInfo.logbook.filter((climb) => (climb.recommendation === true));
             const shuffledRecommendations = shuffleArray(recommendedArray);
