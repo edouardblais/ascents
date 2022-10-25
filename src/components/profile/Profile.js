@@ -6,7 +6,6 @@ import RoutesLogged from './ProfileInfo/RoutesLogged';
 import BouldersLogged from './ProfileInfo/BouldersLogged';
 import Following from './ProfileInfo/Following';
 import ToDo from './ProfileInfo/ToDo';
-import format from 'date-fns/format';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { shuffleArray } from '../operations/Operations';
 import './Profile.css';

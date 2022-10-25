@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import { auth, addToFollowing, addToFollower, getUserInfo, removeFromFollowers, removeFromFollowing, getUserInfoByEmail } from '../../firebase/Firebase';
+import { auth, addToFollowing, addToFollower, getUserInfo, removeFromFollowers, removeFromFollowing } from '../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import format from 'date-fns/format';
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
 import { shuffleArray } from '../../operations/Operations';
 import RoutesLogged from '../ProfileInfo/RoutesLogged';
@@ -78,8 +77,8 @@ const OtherUserProfile = () => {
     }
 
     const unfollowUser = () => {
-        const newFollowingArray = userInfo.following.filter((otherusername) => (otherusername !== otherUser.name));
-        const newFollowersArray = otherUser.followers.filter((otherusername) => (otherusername !== userInfo.name));
+        const newFollowingArray = userInfo.following.filter((otherusername) => (otherusername.name !== otherUser.name));
+        const newFollowersArray = otherUser.followers.filter((otherusername) => (otherusername.name !== userInfo.name));
         removeFromFollowing(userInfo, otherUser, newFollowingArray);
         removeFromFollowers(userInfo, otherUser, newFollowersArray);
         setFollowed(false);
@@ -352,7 +351,7 @@ const OtherUserProfile = () => {
                                 <p>Favorite areas: <b>{otherUser.otherinfo.favoriteareas}</b></p>
                                 <p>Other interests: <b>{otherUser.otherinfo.otherinterests}</b></p>
                             </div>
-                            <button type='button' className='profileEditButton' onClick={followed?() => unfollowUser(): () => followUser()}><span className="material-symbols-outlined">settings</span></button>
+                            <button type='button' className='profileEditButton' onClick={followed?() => unfollowUser(): () => followUser()}>{followed? 'Unfollow' : 'Follow'}</button>
                         </div>
                     </div>
                     <div className='recommendedBox'>
