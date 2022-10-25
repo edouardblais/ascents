@@ -46,10 +46,12 @@ const signIn = async (email, password) => {
 };
 
 const updateLastSignIn = async (email) => {
+  const date = new Date();
+  const ISOdate = date.toISOString();
   try {
     const usersRef = doc(db, "users", email );
     await updateDoc(usersRef, {
-     lastsignedin: new Date(),
+     lastsignedin: ISOdate,
     });
   } catch (err){
     alert(err)

@@ -43,7 +43,7 @@ const OtherUserProfile = () => {
         const shuffledRecommendations = shuffleArray(recommendedArray);
         setRecommendedClimbs(shuffledRecommendations);
 
-        setLastSignIn(formatDistanceToNowStrict(otherUser.lastsignedin.toString()));
+        setLastSignIn(formatDistanceToNowStrict(new Date(otherUser.lastsignedin)));
     }, []);
 
     useEffect(() => {

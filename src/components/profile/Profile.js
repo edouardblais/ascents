@@ -63,7 +63,7 @@ const Profile = () => {
             setNumberOfToDos(userInfo.todolist.length);
 
             setCreatedOn(userInfo.createdon);
-            setLastSignIn(formatDistanceToNowStrict(userInfo.lastsignedin));
+            setLastSignIn(formatDistanceToNowStrict(new Date(userInfo.lastsignedin)));
 
             const recommendedArray = userInfo.logbook.filter((climb) => (climb.recommendation === true));
             const shuffledRecommendations = shuffleArray(recommendedArray);
