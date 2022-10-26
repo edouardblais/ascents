@@ -11,6 +11,12 @@ const TopNav = () => {
 
     const [input, setInput] = useState('');
 
+    const [homeFocus, setHomeFocus] = useState(true);
+    const [profileFocus, setProfileFocus] = useState(false);
+    const [recentAscentsFocus, setRecentAscentsFocus] = useState(false);
+    const [areasFocus, setAreasFocus] = useState(false);
+    const [addAscentFocus , setAddAscentFocus] = useState(false);
+
     const activateSearchModal = (e) => {
         if (e.target.value !== '') {
             setSearching(true);
@@ -25,24 +31,64 @@ const TopNav = () => {
         navigate('/')
     }
 
+    const activateHome = () => {
+        setProfileFocus(false);
+        setRecentAscentsFocus(false);
+        setAreasFocus(false);
+        setAddAscentFocus(false)
+        setHomeFocus(true)
+    }
+
+    const activateProfile = () => {
+        setRecentAscentsFocus(false);
+        setAreasFocus(false);
+        setAddAscentFocus(false);
+        setHomeFocus(false);
+        setProfileFocus(true);
+    }
+
+    const activateRecentAscents = () => {
+        setAreasFocus(false);
+        setAddAscentFocus(false);
+        setHomeFocus(false);
+        setProfileFocus(false);
+        setRecentAscentsFocus(true);
+    }
+
+    const activateAreas = () => {
+        setAddAscentFocus(false);
+        setHomeFocus(false);
+        setProfileFocus(false);
+        setRecentAscentsFocus(false);
+        setAreasFocus(true);
+    }
+
+    const activateAddAscent = () => {
+        setHomeFocus(false);
+        setProfileFocus(false);
+        setRecentAscentsFocus(false);
+        setAreasFocus(false);
+        setAddAscentFocus(true);
+    }
+
     return (
         <nav className="topNavMainBox">
             <h1 onClick={goToHome}>Ascents</h1>
             <ul className="topNavLinks">
                 <Link to=''>
-                    <li>Home</li>
+                    <li className={homeFocus? 'activeNav' : ''} onClick={activateHome}>Home</li>
                 </Link>
                 <Link to='Profile'>
-                    <li>Profile</li>
+                    <li className={profileFocus? 'activeNav' : ''} onClick={activateProfile}>Profile</li>
                 </Link>
                 <Link to='RecentAscents'>
-                    <li>Recent Ascents</li>
+                    <li className={recentAscentsFocus? 'activeNav' : ''} onClick={activateRecentAscents}>Recent Ascents</li>
                 </Link>
                 <Link to='SearchAreas'>
-                    <li>Areas</li>
+                    <li className={areasFocus? 'activeNav' : ''} onClick={activateAreas}>Areas</li>
                 </Link>
                 <Link to='AddAscent'>
-                    <li>Add Ascent</li>
+                    <li className={addAscentFocus? 'activeNav' : ''} onClick={activateAddAscent}>Add Ascent</li>
                 </Link>
             </ul>
             <div className="topNavSearchResultBox">

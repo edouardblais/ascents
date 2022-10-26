@@ -38,7 +38,7 @@ a:hover {
     color: #f9fafb;
 }
 
-a:focus {
+.activeNav {
     border-bottom: 2px solid #f9fafb;
 }
 

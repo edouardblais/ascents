@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchAllUsers, auth, getUserInfoByEmail, fetchFollowingUsers, fetchExactClimb } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import './RecentAscents.css';
 
 const RecentAscents = () => {
     let navigate = useNavigate();
@@ -104,7 +105,7 @@ const RecentAscents = () => {
 
     if (friendsOnly === true) {
         return (
-            <div>
+            <div className='recentAscentsBox'>
                 <h1>Recent Ascents</h1>
                 <button onClick={seeAllAscents}>See All Climbers</button>
                 <div>
@@ -120,7 +121,7 @@ const RecentAscents = () => {
     }
     
     return (
-        <div>
+        <div className='recentAscentsBox'>
             <h1>Recent Ascents</h1>
             <button onClick={seeFollowedAscents}>See Followed Climbers Only</button>
             <div>
