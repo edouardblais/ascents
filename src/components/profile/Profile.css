@@ -1,5 +1,6 @@
 .profileBox {
     display:grid;
+    grid-area: content;
     grid-template-columns: 1fr 7fr;
     grid-template-rows: 1fr 9fr;
     grid-template-areas: 

@@ -3,6 +3,8 @@ import { fetchAllUsers, auth, getUserInfoByEmail, fetchFollowingUsers, fetchExac
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import './RecentAscents.css';
+import '../profile/ProfileInfo/Following.css';
+import '../profile/ProfileInfo/Logbook.css';
 
 const RecentAscents = () => {
     let navigate = useNavigate();
@@ -103,16 +105,41 @@ const RecentAscents = () => {
         );
     }
 
-    if (friendsOnly === true) {
+    if (friendsOnly) {
         return (
             <div className='recentAscentsBox'>
-                <h1>Recent Ascents</h1>
-                <button onClick={seeAllAscents}>See All Climbers</button>
-                <div>
-                    {recentFollowingAscents.map((ascent, index) => {
-                        return  <div key={index}>
-                                    <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                    <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+                <h1 className='recentAscentsTitle'>Recent Ascents</h1>
+                <div className='followingNav'>
+                    <p onClick={seeAllAscents} className='followingNavChoiceActive'>All Ascents</p>
+                    <p className='followingNavChoiceInactive'>Friends Ascents</p>
+                </div>
+                <div className='recentAscentsSubBox'>
+                    {recentFollowingAscents.map((climb, index) => {
+                        return  <div key={index} className='recentAscentBox'>
+                                    <div className='loggedClimbNameBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.name}</div>
+                                    </div>
+                                    <div>
+                                        <span className={climb.rp==='onsight'? 'onsight material-symbols-outlined' : climb.rp === 'flash'? 'flash material-symbols-outlined' : 'material-symbols-outlined redpoint'}>adjust</span>
+                                    </div>
+                                    <div className='loggedClimbInfoBox' onClick={() => seeClimb(climb)}>
+                                        <div className='loggedClimbTopInfo'>{climb.climb}</div>
+                                        <div className='loggedClimbBottomInfo'>{climb.crag} - {climb.area} - {climb.country}</div>
+                                    </div>
+                                    <div className='loggedClimbCommentBox'>
+                                        <div  className='loggedClimbTopInfo'>{climb.comment}</div>
+                                    </div>
+                                    <div className='loggedClimbSubBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.grade} <span className='loggedClimbBottomInfo'>{climb.feel}</span></div>
+                                        <div className='loggedClimbBottomInfo'>{climb.type}</div>
+                                    </div>
+                                    <div className='loggedClimbSubBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.rating} stars</div>
+                                        <div className='loggedClimbBottomInfo'>{climb.recommendation? <span className="material-symbols-outlined redpoint">favorite</span>:''}</div>
+                                    </div>
+                                    <div className='loggedClimbSubBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.date}</div>
+                                    </div>
                                 </div>
                     })}
                 </div>
@@ -122,13 +149,39 @@ const RecentAscents = () => {
     
     return (
         <div className='recentAscentsBox'>
-            <h1>Recent Ascents</h1>
-            <button onClick={seeFollowedAscents}>See Followed Climbers Only</button>
-            <div>
-                {recentAscents.map((ascent, index) => {
-                    return  <div key={index}>
-                                <div onClick={() => seeClimb(ascent)}>{ascent.climb} {ascent.date}</div> 
-                                <div onClick={() => seeProfile(ascent.email)}>{ascent.name}</div>
+            <h1 className='recentAscentsTitle'>Recent Ascents</h1>
+            <div className='followingNav'>
+                <p className='followingNavChoiceInactive'>All Ascents</p>
+                <p className='followingNavChoiceActive' onClick={seeFollowedAscents}>Friends Ascents</p>
+            </div>
+            <div className='recentAscentsSubBox'>
+                {recentAscents.map((climb, index) => {
+                    return  <div key={index} className='recentAscentBox'>
+                                <div className='loggedClimbNameBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.name}</div>
+                                </div>
+                                <div>
+                                    <span className={climb.rp==='onsight'? 'onsight material-symbols-outlined' : climb.rp === 'flash'? 'flash material-symbols-outlined' : 'material-symbols-outlined redpoint'}>adjust</span>
+                                </div>
+                                <div className='loggedClimbInfoBox' onClick={() => seeClimb(climb)}>
+                                    <div className='loggedClimbTopInfo'>{climb.climb}</div>
+                                    <div className='loggedClimbBottomInfo'>{climb.crag} - {climb.area} - {climb.country}</div>
+                                </div>
+                                <div className='loggedClimbCommentBox'>
+                                    <div  className='loggedClimbTopInfo'>{climb.comment}</div>
+                                </div>
+                                <div className='loggedClimbSubBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.grade} <span className='loggedClimbBottomInfo'>{climb.feel}</span></div>
+                                    <div className='loggedClimbBottomInfo'>{climb.type}</div>
+                                </div>
+                                
+                                <div className='loggedClimbSubBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.rating} stars</div>
+                                    <div className='loggedClimbBottomInfo'>{climb.recommendation? <span className="material-symbols-outlined redpoint">favorite</span>:''}</div>
+                                </div>
+                                <div className='loggedClimbSubBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.date}</div>
+                                </div>
                             </div>
                 })}
             </div>
