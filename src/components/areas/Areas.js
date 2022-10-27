@@ -37,7 +37,7 @@ const Areas = () => {
                 }
                 setAreas(areasToDisplay)
             })
-    })
+    }, [])
 
     useEffect(() => {
         const trimAreas = trimSentence(areasToSearch)
@@ -53,7 +53,7 @@ const Areas = () => {
             <h2 className='areasTitle'>Areas</h2>
             <div>Search Area</div>
             <div className="topNavInputBox">
-                <span className="material-symbols-sharp">search</span>
+                <span className="material-symbols-sharp areasSearchSymbol">search</span>
                 <input type='text' onChange={(e) => searchArea(e.target.value)} className="topNavInput"/>
             </div>
             <div>
