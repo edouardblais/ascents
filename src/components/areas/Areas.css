@@ -20,3 +20,12 @@
 .areasSearchSymbol {
     color:#1e293b;
 }
+
+.areasInput {
+    max-width: 30vw;
+}
+
+.areasSearchBox {
+    display: flex;
+    flex-direction: column;
+}
