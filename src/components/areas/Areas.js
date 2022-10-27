@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { fetchAllClimbs, processArea } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from '../operations/Operations';
+import './Areas.css';
 
 const Areas = () => {
     let navigate = useNavigate();
@@ -48,20 +49,23 @@ const Areas = () => {
     }, [areasToSearch]);
 
     return (
-        <div>
-            <h2>Areas</h2>
-            <ul>
-                {areas.map((area, index) => {
-                    return <li key={index} onClick={() => linkToArea(area)}>{area.area}</li>
-                })}
-            </ul>
+        <div className='areasBox'>
+            <h2 className='areasTitle'>Areas</h2>
             <div>Search Area</div>
-            <input type='text' onChange={(e) => searchArea(e.target.value)}></input>
+            <div className="topNavInputBox">
+                <span className="material-symbols-sharp">search</span>
+                <input type='text' onChange={(e) => searchArea(e.target.value)} className="topNavInput"/>
+            </div>
             <div>
                 {possibleAreas?.map((area, index) => {
                     return <div key={index} onClick={() => linkToArea(area)}>{area.area}</div>
                 })}
             </div>
+            <ul>
+                {areas.map((area, index) => {
+                    return <li key={index} onClick={() => linkToArea(area)}>{area.area}</li>
+                })}
+            </ul>
         </div>
     )
 }

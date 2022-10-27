@@ -86,7 +86,6 @@ const SearchBarModal = ({data}) => {
         }
     }
 
-
     const increment = () => {
         counter += 1;
     }

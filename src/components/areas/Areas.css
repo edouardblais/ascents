@@ -1,0 +1,18 @@
+.areasBox {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    gap:1vh;
+    margin:1vh 1vh 1vh 0vh;
+    padding:1vh;
+    background-color: #1e293b;
+    color:#f9fafb;
+    border-radius: .25rem;
+    height: 86vh;
+}
+
+.areasTitle {
+    font-size: 3rem;
+    font-weight: 400;
+    margin:0;
+}
