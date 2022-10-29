@@ -48,7 +48,7 @@ const AreasSearchModal = ({data}) => {
     }
 
     return (
-        <div  className="AreasSearchModal">
+        <div  className="AreasSearchModalBox">
                 <div>
                     {possibleAreas.map((result, index) => {
                         increment();
@@ -57,9 +57,6 @@ const AreasSearchModal = ({data}) => {
                                         {result.area? <div className="displayDataBox">
                                                             <div className="displayDataSubBoxTop">
                                                                 <p>{result.area}</p>
-                                                            </div>
-                                                            <div className="displayDataSubBoxBottom">
-                                                                <p>Area - {result.data.country || null}</p>
                                                             </div>
                                                         </div> 
                                         : "Oops! No results found"}</div>

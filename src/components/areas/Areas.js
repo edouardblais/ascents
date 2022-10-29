@@ -53,7 +53,7 @@ const Areas = () => {
                     <span className="material-symbols-sharp areasSearchSymbol">search</span>
                     <input type='text' onChange={(e) => searchArea(e.target.value)} className="areasInput"/>
                 </div>
-                <div>
+                <div className='areasResultsBox'>
                     {searching? <AreasSearchModal data={areasToSearch}/> : null}
                 </div>
             </div>
