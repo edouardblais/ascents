@@ -29,7 +29,7 @@ const Crags = () => {
     useEffect(() => {
         const cragsToDisplay = [];
         const avoidCragDuplicates = [];
-        getAreaInfo(chosenArea.area)
+        getAreaInfo(chosenArea)
             .then((resolvedCrags) => {
                 for (let crag of resolvedCrags) {
                     if (!avoidCragDuplicates.includes(crag.crag)) {
@@ -47,7 +47,7 @@ const Crags = () => {
             const trimAndCapCrags = capitalizeFirstLetter(trimCrags);
             processCrag(trimAndCapCrags)
                 .then((resolvedCrags) => {
-                    const filteredCrags = resolvedCrags.filter((crag) => (crag.area === chosenArea.area))
+                    const filteredCrags = resolvedCrags.filter((crag) => (crag.area === chosenArea))
                     setPossibleCrags(filteredCrags);
             });
         }
@@ -55,11 +55,11 @@ const Crags = () => {
 
     return (
         <div>
-            <h2>{chosenArea.area}</h2>
+            <h2>{chosenArea}</h2>
             <h3>Crags</h3>
             <ul>
-                {crags.map((crag, index) => {
-                    return <li key={index} onClick={() => linkToCrag(crag)}>{crag.crag}</li>
+                {crags.map((climb, index) => {
+                    return <li key={index} onClick={() => linkToCrag(climb.crag)}>{climb.crag}</li>
                 })}
             </ul>
             <div>Search Crags</div>

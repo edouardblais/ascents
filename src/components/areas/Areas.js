@@ -6,6 +6,7 @@ import AreasSearchModal from './AreasSearchModal';
 
 const Areas = () => {
     let navigate = useNavigate();
+    let counter = 0;
 
     const [areas, setAreas] = useState([]);
 
@@ -45,6 +46,10 @@ const Areas = () => {
             })
     }, [])
 
+    const increment = () => {
+        counter += 1;
+    }
+
     return (
         <div className='areasBox'>
             <h2 className='areasTitle'>Areas</h2>
@@ -57,9 +62,15 @@ const Areas = () => {
                     {searching? <AreasSearchModal data={areasToSearch}/> : null}
                 </div>
             </div>
-            <div>
-                {areas.map((area, index) => {
-                    return <div key={index} onClick={() => linkToArea(area)}>{area.area}</div>
+            <div className='goodClimbsBox'>
+                {areas.map((climb, index) => {
+                    increment();
+                    if (counter <= 18) {
+                        return <div className='goodClimb' key={index} onClick={() => linkToArea(climb.area)}>
+                                    <div className='goodClimbTop'>{climb.area}</div>
+                                    <div className='goodClimbBottom'>{climb.country}</div>
+                                </div>
+                        }
                 })}
             </div>
         </div>
