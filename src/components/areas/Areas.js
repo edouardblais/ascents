@@ -54,7 +54,7 @@ const Areas = () => {
         <div className='areasBox'>
             <h2 className='areasTitle'>Areas</h2>
             <div className = 'areasSearchBox'>
-                <div className="topNavInputBox">
+                <div className="areasInputBox">
                     <span className="material-symbols-sharp areasSearchSymbol">search</span>
                     <input type='text' onChange={(e) => searchArea(e.target.value)} className="areasInput"/>
                 </div>

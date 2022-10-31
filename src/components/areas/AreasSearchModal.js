@@ -58,6 +58,9 @@ const AreasSearchModal = ({data}) => {
                                                             <div className="displayDataSubBoxTop">
                                                                 <p>{result.area}</p>
                                                             </div>
+                                                            <div className="displayDataSubBoxBottom">
+                                                                <p>{result.country}</p>
+                                                            </div>
                                                         </div> 
                                         : "Oops! No results found"}</div>
                         } 

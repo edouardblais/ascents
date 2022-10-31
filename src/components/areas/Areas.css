@@ -21,8 +21,20 @@
     color:#1e293b;
 }
 
+.areasInputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #1e293b;
+    border-radius: .25rem;
+    background-color: #f9fafb;
+    justify-content: flex-start;
+    max-width: 20vw;
+}
+
 .areasInput {
-    max-width: 30vw;
+    border:none;
+    outline:none;
 }
 
 .areasSearchBox {
