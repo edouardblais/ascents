@@ -41,38 +41,16 @@ const SearchBarModal = ({data}) => {
                 }
             })
         } else if (result.area) {
-            getAreaInfo(result.area)
-                .then((resolvedareas) => {
-                    const areasList = [];
-                    const areasDataList = [];
-                    resolvedareas.map((eachData) => {
-                        if (!areasList.includes(eachData.area)) {
-                            areasList.push(eachData.area);
-                            areasDataList.push(eachData);
-                        }
-                        })
                     navigate('/SearchAreas/SearchCrags', {
                         state: {
-                            chosenArea: areasDataList[0],
+                            chosenArea: result.area,
                         }
                     })
-                })
         } else if (result.crag) {
-            getCragInfo(result.crag)
-                .then((resolvedcrags) => {
-                    const cragsList = [];
-                    const cragsDataList = [];
-                    resolvedcrags.map((eachData) => {
-                        if (!cragsList.includes(eachData.crag)) {
-                            cragsList.push(eachData.crag);
-                            cragsDataList.push(eachData);
-                        }
-                        })
                     navigate('/SearchAreas/SearchCrags/SearchClimbs', {
                         state: {
-                            chosenArea: cragsDataList[0],
+                            chosenCrag: result.crag,
                         }
-                    })
                 })
         } else if (result.climb) {
             fetchExactClimb(result.climb)
