@@ -149,9 +149,9 @@ const Crag = () => {
                     <button onClick={sortByGradeDecreasing}><span className="material-symbols-outlined">arrow_upward</span></button>
                 </div>
             </div>
-            <div className='cragsBox'>
+            <div className='cragBox'>
                 {climbs.map((climb, index) => {
-                        return <div className='goodClimb' key={index} onClick={() => linkToClimb(climb)}>
+                        return <div className='cragClimb' key={index} onClick={() => linkToClimb(climb)}>
                                     <div className='goodClimbTop'>
                                         <div>{climb.climb} - {climb.grade}</div>
                                         <div>{climb.averagerating} stars</div>

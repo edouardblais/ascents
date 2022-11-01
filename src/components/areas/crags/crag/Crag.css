@@ -21,3 +21,27 @@
     font-size: 1.4rem;
     font-weight: 400;
 }
+
+.cragBox {
+    overflow-y: scroll;
+    gap:1vh;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow-y: auto;
+}
+
+.cragClimb {
+    border-radius: .25rem;
+    padding: 1vh;
+    width: 40vw;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.cragClimb:hover {
+    cursor: pointer;
+    background-color: #cbd5e1;
+    color: #1e293b;
+}
