@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { getCragInfo } from '../../../firebase/Firebase';
 import ClimbsSearchModal from './ClimbsSearchModal';
+import './Crag.css';
 
 const Crag = () => {
     const location = useLocation();
@@ -139,14 +140,22 @@ const Crag = () => {
                     {searching? <ClimbsSearchModal data={climbsToSearch} consideredCrag={chosenCrag}/> : null}
                 </div>
             </div>
-            <div>
-                <p>Sort by:</p>
-                <p onClick={sortByAscentsIncreasing}>Ascents++</p>
-                <p onClick={sortByAscentsDecreasing}>Ascents--</p>
-                <p onClick={sortByRatingIncreasing}>Rating++</p>
-                <p onClick={sortByRatingDecreasing}>Rating--</p>
-                <p onClick={sortByGradeIncreasing}>Grade++</p>
-                <p onClick={sortByGradeDecreasing}>Grade--</p>
+            <div className='sortButtonsBox'>
+                <div className='sortButtonBox'>
+                    <button onClick={sortByAscentsIncreasing}><span className="material-symbols-outlined">arrow_downward</span></button>
+                    <div className='sortButtonText'>Ascents</div>
+                    <button onClick={sortByAscentsDecreasing}><span className="material-symbols-outlined">arrow_upward</span></button>
+                </div>
+                <div className='sortButtonBox'>
+                    <button onClick={sortByRatingIncreasing}><span className="material-symbols-outlined">arrow_downward</span></button>
+                    <div className='sortButtonText'>Rating</div>
+                    <button onClick={sortByRatingDecreasing}><span className="material-symbols-outlined">arrow_upward</span></button>
+                </div>
+                <div className='sortButtonBox'>
+                    <button onClick={sortByGradeIncreasing}><span className="material-symbols-outlined">arrow_downward</span></button>
+                    <div className='sortButtonText'>Grade</div>
+                    <button onClick={sortByGradeDecreasing}><span className="material-symbols-outlined">arrow_upward</span></button>
+                </div>
             </div>
             <div className='cragsBox'>
                 {climbs.map((climb, index) => {

@@ -1,0 +1,23 @@
+.sortButtonsBox {
+    display:flex;
+    flex-direction:row;
+    gap:1vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.sortButtonBox {
+    border: none;
+    background-color: #f9fafb;
+    color: #1e293b;
+    display: flex;
+    flex-direction: row;
+    gap: .5vh;
+    border-radius: .25rem;
+    align-items: center;
+}
+
+.sortButtonText {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
