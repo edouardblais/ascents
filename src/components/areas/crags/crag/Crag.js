@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { processClimb, getCragInfo } from '../../../firebase/Firebase';
-import { trimSentence, capitalizeFirstLetter } from '../../../operations/Operations';
+import { getCragInfo } from '../../../firebase/Firebase';
+import ClimbsSearchModal from './ClimbsSearchModal';
 
 const Crag = () => {
     const location = useLocation();
@@ -9,13 +9,20 @@ const Crag = () => {
 
     let navigate = useNavigate();
 
+    const [searching, setSearching] = useState(false);
+
     const [climbs, setClimbs] = useState([]);
 
     const [climbsToSearch, setClimbsToSearch] = useState('');
-    const [possibleClimbs, setPossibleClimbs] = useState([]);
 
     const searchClimb = (input) => {
-        setClimbsToSearch(input);
+        if (input !== '') {
+            setSearching(true);
+            setClimbsToSearch(input);
+        } else {
+            setSearching(false)
+            setClimbsToSearch('');
+        }
     }
 
     const linkToClimb = (climb) => {
@@ -39,21 +46,6 @@ const Crag = () => {
                 setClimbs(sortedClimbsByAscents);
             })
     }, [])
-
-    useEffect(() => {
-        if (climbsToSearch !== '') {
-            const trimClimbs = trimSentence(climbsToSearch)
-            const trimAndCapClimbs = capitalizeFirstLetter(trimClimbs);
-            const possibleClimbs = processClimb(trimAndCapClimbs);
-            possibleClimbs.then((resolvedClimbs) => {
-                const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === chosenCrag))
-                const sortedClimbsByAscents = filteredClimbs.sort((ascent1 ,ascent2) => {
-                    return ((ascent2.numberoflogs) - (ascent1.numberoflogs));
-                });
-                setPossibleClimbs(sortedClimbsByAscents);
-            });
-        }
-    }, [climbsToSearch]);
 
     const sortByAscentsDecreasing = () => {
         const sortedClimbsByAscents = climbs.sort((ascent1 ,ascent2) => {
@@ -87,14 +79,23 @@ const Crag = () => {
         const sortedClimbsByGrade = climbs.sort((ascent1 ,ascent2) => {
             const splitAscent1 = ascent1.grade.split('');
             const splitAscent2 = ascent2.grade.split('');
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 0; i <= 2; i++) {
                 if (splitAscent1[i] > splitAscent2[i]) {
+                    console.log('a')
                     return 1
                 } else if (splitAscent1[i] < splitAscent2[i]) {
+                    console.log('b')
                     return -1
-                } else {
-                    return 0
-                }
+                } else if (splitAscent1[i] === '+') {
+                    console.log('c')
+                    return -1
+                } else if (splitAscent2[i] === '+') {
+                    console.log('d')
+                    return 1
+                } else if (splitAscent1[i] === splitAscent2[i]) {
+                    continue
+                }  
+                return 0;
             }
         });
         setClimbs([...sortedClimbsByGrade])
@@ -127,15 +128,16 @@ const Crag = () => {
     }
 
     return (
-        <div>
-            <h2>{chosenCrag}</h2>
-            <h3>Climbs</h3>
-            <div>Search Climbs</div>
-            <input type='text' onChange={(e) => searchClimb(e.target.value)}></input>
-            <div>
-                {possibleClimbs.map((climb, index) => {
-                    return <div key={index} onClick={() => linkToClimb(climb)}>{climb.climb}</div>
-                })}
+        <div className='areasBox'>
+            <h2 className='areasTitle'>{chosenCrag}</h2>
+            <div className = 'areasSearchBox'>
+                <div className="areasInputBox">
+                    <span className="material-symbols-sharp areasSearchSymbol">search</span>
+                    <input type='text' onChange={(e) => searchClimb(e.target.value)} className="areasInput"/>
+                </div>
+                <div className='areasResultsBox'>
+                    {searching? <ClimbsSearchModal data={climbsToSearch} consideredCrag={chosenCrag}/> : null}
+                </div>
             </div>
             <div>
                 <p>Sort by:</p>
@@ -146,11 +148,20 @@ const Crag = () => {
                 <p onClick={sortByGradeIncreasing}>Grade++</p>
                 <p onClick={sortByGradeDecreasing}>Grade--</p>
             </div>
-            <ul>
+            <div className='cragsBox'>
                 {climbs.map((climb, index) => {
-                    return <li key={index} onClick={() => linkToClimb(climb)}>{climb.climb}: {climb.numberoflogs} Ascents, {climb.averagerating} stars, {climb.grade}</li>
+                        return <div className='goodClimb' key={index} onClick={() => linkToClimb(climb)}>
+                                    <div className='goodClimbTop'>
+                                        <div>{climb.climb} - {climb.grade}</div>
+                                        <div>{climb.averagerating} stars</div>
+                                    </div>
+                                    <div className='goodClimbBottom'>
+                                        <div>{climb.crag} - {climb.area} - {climb.country}</div>
+                                        <div>{climb.numberoflogs} ascents</div>
+                                    </div>
+                                </div>
                 })}
-            </ul>
+            </div>
         </div>
     )
 }

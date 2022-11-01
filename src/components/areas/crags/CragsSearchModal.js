@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAreaInfo, processCrag } from '../../firebase/Firebase';
+import { processCrag } from '../../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../../operations/Operations";
 import { useNavigate } from 'react-router-dom';
 import '../AreasSearchModal.css'
