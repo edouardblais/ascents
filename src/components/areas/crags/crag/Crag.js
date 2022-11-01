@@ -82,17 +82,13 @@ const Crag = () => {
             const splitAscent2 = ascent2.grade.split('');
             for (let i = 0; i <= 2; i++) {
                 if (splitAscent1[i] > splitAscent2[i]) {
-                    console.log('a')
                     return 1
                 } else if (splitAscent1[i] < splitAscent2[i]) {
-                    console.log('b')
                     return -1
                 } else if (splitAscent1[i] === '+') {
-                    console.log('c')
-                    return -1
-                } else if (splitAscent2[i] === '+') {
-                    console.log('d')
                     return 1
+                } else if (splitAscent2[i] === '+') {
+                    return -1
                 } else if (splitAscent1[i] === splitAscent2[i]) {
                     continue
                 }  
@@ -108,21 +104,17 @@ const Crag = () => {
             const splitAscent2 = ascent2.grade.split('');
             for (let i = 0; i <= 2; i++) {
                 if (splitAscent1[i] > splitAscent2[i]) {
-                    console.log('a')
                     return -1
                 } else if (splitAscent1[i] < splitAscent2[i]) {
-                    console.log('b')
                     return 1
                 } else if (splitAscent1[i] === '+') {
-                    console.log('c')
-                    return 1
-                } else if (splitAscent2[i] === '+') {
-                    console.log('d')
                     return -1
-                } else {
-                    console.log('e')
-                    return 0
+                } else if (splitAscent2[i] === '+') {
+                    return 1
+                } else if (splitAscent1[i] === splitAscent2[i]) {
+                    continue 
                 }
+                return 0;
             }
         });
         setClimbs([...sortedClimbsByGrade])
