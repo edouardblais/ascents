@@ -15,31 +15,20 @@ const AreasSearchModal = ({data}) => {
         if (data !== '') {
             const trimAreas = trimSentence(data)
             const trimAndCapAreas = capitalizeFirstLetter(trimAreas);
-            const possibleAreas = processArea(trimAndCapAreas);
-            possibleAreas.then((resolvedAreas) => {
-                setPossibleAreas(resolvedAreas);
-            });
+            processArea(trimAndCapAreas)
+                .then((resolvedAreas) => {
+                    setPossibleAreas(resolvedAreas);
+                });
         } else {
             setPossibleAreas([]);
         }
     }, [])
 
     const goToChosenArea = (result) => {
-            getAreaInfo(result.area)
-                .then((resolvedareas) => {
-                    const areasList = [];
-                    const areasDataList = [];
-                    resolvedareas.map((eachData) => {
-                        if (!areasList.includes(eachData.area)) {
-                            areasList.push(eachData.area);
-                            areasDataList.push(eachData);
-                        }
-                        })
                     navigate('/SearchAreas/SearchCrags', {
                         state: {
-                            chosenArea: areasDataList[0],
+                            chosenArea: result.area,
                         }
-                    })
                 })
     }
 

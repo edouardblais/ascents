@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { processCrag, getAreaInfo } from '../../firebase/Firebase';
-import { trimSentence, capitalizeFirstLetter } from '../../operations/Operations';
+import { getAreaInfo } from '../../firebase/Firebase';
+import './Crags.css';
+import CragsSearchModal from './CragsSearchModal';
 
 const Crags = () => {
     const location = useLocation();
@@ -9,13 +10,20 @@ const Crags = () => {
 
     let navigate = useNavigate();
 
+    const [searching, setSearching] = useState(false);
+
     const [crags, setCrags] = useState([]);
 
     const [cragsToSearch, setCragsToSearch] = useState('');
-    const [possibleCrags, setPossibleCrags] = useState([]);
 
     const searchCrag = (input) => {
-        setCragsToSearch(input);
+        if (input !== '') {
+            setSearching(true);
+            setCragsToSearch(input);
+        } else {
+            setSearching(false)
+            setCragsToSearch('');
+        }
     }
 
     const linkToCrag = (crag) => {
@@ -41,32 +49,24 @@ const Crags = () => {
             })
     }, [])
 
-    useEffect(() => {
-        if (cragsToSearch !== '') {
-            const trimCrags = trimSentence(cragsToSearch)
-            const trimAndCapCrags = capitalizeFirstLetter(trimCrags);
-            processCrag(trimAndCapCrags)
-                .then((resolvedCrags) => {
-                    const filteredCrags = resolvedCrags.filter((crag) => (crag.area === chosenArea))
-                    setPossibleCrags(filteredCrags);
-            });
-        }
-    }, [cragsToSearch]);
-
     return (
-        <div>
-            <h2>{chosenArea}</h2>
-            <h3>Crags</h3>
-            <ul>
+        <div className='areasBox'>
+            <h2 className='areasTitle'>{chosenArea}</h2>
+            <div className = 'areasSearchBox'>
+                <div className="areasInputBox">
+                    <span className="material-symbols-sharp areasSearchSymbol">search</span>
+                    <input type='text' onChange={(e) => searchCrag(e.target.value)} className="areasInput"/>
+                </div>
+                <div className='areasResultsBox'>
+                    {searching? <CragsSearchModal data={cragsToSearch} consideredArea={chosenArea}/> : null}
+                </div>
+            </div>
+            <div className='cragsBox'>
                 {crags.map((climb, index) => {
-                    return <li key={index} onClick={() => linkToCrag(climb.crag)}>{climb.crag}</li>
-                })}
-            </ul>
-            <div>Search Crags</div>
-            <input type='text' onChange={(e) => searchCrag(e.target.value)}></input>
-            <div>
-                {possibleCrags.map((crag, index) => {
-                    return <div key={index} onClick={() => linkToCrag(crag)}>{crag.crag}</div>
+                        return <div className='goodClimb' key={index} onClick={() => linkToCrag(climb.crag)}>
+                                    <div className='goodClimbTop'>{climb.crag}</div>
+                                    <div className='goodClimbBottom'>{climb.area} - {climb.country}</div>
+                                </div>
                 })}
             </div>
         </div>

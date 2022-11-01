@@ -1,0 +1,7 @@
+.cragsBox {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+    gap:1vh;
+    flex-wrap: wrap;
+}
