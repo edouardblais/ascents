@@ -117,7 +117,7 @@ const RecentAscents = () => {
                     {recentFollowingAscents.map((climb, index) => {
                         return  <div key={index} className='recentAscentBox'>
                                     <div className='loggedClimbNameBox'>
-                                        <div className='loggedClimbTopInfo'>{climb.name}</div>
+                                        <div className='loggedClimbTopInfo' onClick={() => seeProfile(climb.email)}>{climb.name}</div>
                                     </div>
                                     <div>
                                         <span className={climb.rp==='onsight'? 'onsight material-symbols-outlined' : climb.rp === 'flash'? 'flash material-symbols-outlined' : 'material-symbols-outlined redpoint'}>adjust</span>
@@ -158,7 +158,7 @@ const RecentAscents = () => {
                 {recentAscents.map((climb, index) => {
                     return  <div key={index} className='recentAscentBox'>
                                 <div className='loggedClimbNameBox'>
-                                    <div className='loggedClimbTopInfo'>{climb.name}</div>
+                                    <div className='loggedClimbTopInfo' onClick={() => seeProfile(climb.email)}>{climb.name}</div>
                                 </div>
                                 <div>
                                     <span className={climb.rp==='onsight'? 'onsight material-symbols-outlined' : climb.rp === 'flash'? 'flash material-symbols-outlined' : 'material-symbols-outlined redpoint'}>adjust</span>

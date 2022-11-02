@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AddAscentModal from '../../../../addascent/AddAscentModal';
-import { auth, addClimbToTodoList } from '../../../../firebase/Firebase';
+import { auth, addClimbToTodoList, getUserInfoByEmail } from '../../../../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import './Climb.css';
 
 const Climb = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const chosenClimb = location.state.chosenClimb;
 
@@ -27,6 +29,18 @@ const Climb = () => {
         }
     }
 
+    const seeProfile = (email) => {
+        const user = getUserInfoByEmail(email);
+        user.then((resolvedUser) => {
+            const userinfo = resolvedUser[0];
+            navigate('/visitUser', {
+                state: {
+                    otherUserInfo: userinfo,
+                }
+            })
+        })
+    }
+
     if (loading) {
         return (
           <div>
@@ -44,25 +58,56 @@ const Climb = () => {
     }
     
     return (
-        <div>
-            <h2>{chosenClimb.climb}</h2>
-            <p>{chosenClimb.crag? chosenClimb.crag : 'Crag Unknown' }, {chosenClimb.area? chosenClimb.area : 'Area Unknown' }, {chosenClimb.country? chosenClimb.country : 'Country Unknown' }</p>
-            <p>{chosenClimb.grade? chosenClimb.grade : 'Grade Unknown' }, {chosenClimb.type? chosenClimb.type : 'Type Unknown'}</p>
-            <p>Number of ascents: {chosenClimb.numberoflogs? chosenClimb.numberoflogs : 0}</p>
-            <p>Average rating: {chosenClimb.averagerating? chosenClimb.averagerating : 'No rating recorded'}</p>
-            <button onClick={() => showAddAscentModal(chosenClimb)}>+Tick!</button>
-            <button onClick={addToToDo}>+To-do!</button>
-            <div>
-                {chosenClimb.logs?.map((ascent, index) => {
-                    return <div key={index}>
-                            <p>{ascent.name}</p>
-                            <p>{ascent.date}</p>
-                            <p>{ascent.rp}</p> 
-                            <p>{ascent.grade}, {ascent.feel}</p>
-                            <p>{ascent.rating} stars</p>
-                            <p>{ascent.recommendation? 'Recommended':''}</p>
-                            <p>{ascent.comment}</p>
-                        </div>
+        <div className='climbBox'>
+            <div className='climbInfoBox'>
+                <div className='climbInfoSubBox mainInfoParticularities'>
+                    <h2 className='climbTitle'>{chosenClimb.climb}</h2>
+                    <h4 className='climbSubTitle'>{chosenClimb.crag? chosenClimb.crag : 'Crag Unknown' } - {chosenClimb.area? chosenClimb.area : 'Area Unknown' } - {chosenClimb.country? chosenClimb.country : 'Country Unknown' }</h4>
+                </div>
+                <div className='climbInfoSubBox secondaryInfoParticularities'>
+                    <h4 className='climbSubTitle'>{chosenClimb.grade? chosenClimb.grade : 'Grade Unknown'}</h4>
+                    <h5 className='climbSubSubTitle'>Grade</h5>
+                </div>
+                <div className='climbInfoSubBox secondaryInfoParticularities'>
+                    <h4 className='climbSubTitle'>{chosenClimb.type? chosenClimb.type : 'Type Unknown'}</h4>
+                    <h5 className='climbSubSubTitle'>Type</h5>
+                </div>
+                <div className='climbInfoSubBox secondaryInfoParticularities'>
+                    <h4 className='climbSubTitle'>{chosenClimb.numberoflogs? chosenClimb.numberoflogs : 0}</h4>
+                    <h5 className='climbSubSubTitle'>Ascents</h5>
+                </div>
+                <div className='climbInfoSubBox secondaryInfoParticularities'>
+                    <h4 className='climbSubTitle'>{chosenClimb.averagerating? chosenClimb.averagerating: 'No rating recorded'}</h4> 
+                    <h5 className='climbSubSubTitle'>Star Rating</h5>
+                </div>  
+                <div className='climbInfoSubBox secondaryInfoParticularities'>
+                    <button onClick={() => showAddAscentModal(chosenClimb)}>Tick it!</button>
+                    <button onClick={addToToDo}>To-do!</button>
+                </div>       
+            </div>
+            <div className='loggedAscentsBox'>
+                {chosenClimb.logs?.map((climb, index) => {
+                    return  <div key={index} className='recentAscentBox'>
+                                <div className='loggedClimbNameBox'>
+                                    <div className='loggedClimbTopInfo' onClick={() => seeProfile(climb.email)}>{climb.name}</div>
+                                </div>
+                                <div className='loggedClimbCommentBox'>
+                                    <div  className='loggedClimbBottomInfo'>{climb.comment}</div>
+                                </div>
+                                <div>
+                                    <span className={climb.rp==='onsight'? 'onsight material-symbols-outlined' : climb.rp === 'flash'? 'flash material-symbols-outlined' : 'material-symbols-outlined redpoint'}>adjust</span>
+                                </div>
+                                <div className='loggedClimbSubBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.grade} <span className='loggedClimbBottomInfo'>{climb.feel}</span></div>
+                                </div>
+                                <div className='loggedClimbSubBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.rating} stars</div>
+                                    <div className='loggedClimbBottomInfo'>{climb.recommendation? <span className="material-symbols-outlined redpoint">favorite</span>:''}</div>
+                                </div>
+                                <div className='loggedClimbSubBox'>
+                                    <div className='loggedClimbTopInfo'>{climb.date}</div>
+                                </div>
+                            </div>
                     })}
             </div>
             {displayModal===chosenClimb? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}

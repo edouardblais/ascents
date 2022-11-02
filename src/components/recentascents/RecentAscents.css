@@ -29,6 +29,7 @@
     font-size: 1.3rem;
     width:85vw;
     align-items: center;
+    min-height: 7vh;
 }
 
 .recentAscentsSubBox {
@@ -46,4 +47,10 @@
     justify-content: center;
     min-width:8vw;
     border-right:1px solid #1e293b;
+}
+
+.loggedClimbNameBox:hover {
+    background-color: #1e293b;
+    color: #fafaf9;
+    cursor: pointer;
 }
