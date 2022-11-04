@@ -4,19 +4,20 @@ import { addNewClimb, processCountry, processCrag, processClimb } from '../../fi
 import { capitalizeFirstLetter, trimSentence } from '../../operations/Operations';
 import './CreateNew.css';
 import AreasSearchModal from '../../areas/AreasSearchModal';
+import CragsSearchModal from '../../areas/crags/CragsSearchModal';
 
 const CreateNew = () => {
     const [country, setCountry] = useState('');
     const [areas, setAreas] = useState('');
-    const [crag, setCrag] = useState('');
+    const [crags, setCrags] = useState('');
     const [climb, setClimb] = useState('');
     const [type, setType] = useState('');
     const [grade, setGrade] = useState('');
 
-    const [searching, setSearching] = useState(false)
+    const [searchingAreas, setSearchingAreas] = useState(false);
+    const [searchingCrags, setSearchingCrags] = useState(false);
 ;
     const [countriesDisplayed, setCountriesDisplayed] = useState([]);
-    const [cragsDisplayed, setCragsDisplayed] = useState([]);
     const [climbsDisplayed, setClimbsDisplayed] = useState([]);
 
     const [errorMessage, setErrorMessage] = useState('');
@@ -29,16 +30,22 @@ const CreateNew = () => {
 
     const defineArea = (input) => {
         if (input !== '') {
-            setSearching(true);
+            setSearchingAreas(true);
             setAreas(input);
         } else {
-            setSearching(false)
+            setSearchingAreas(false)
             setAreas('');
         }
     }
 
-    const defineCrag = (cragvalue) => {
-        setCrag(cragvalue);
+    const defineCrag = (input) => {
+        if (input !== '') {
+            setSearchingCrags(true);
+            setCrags(input);
+        } else {
+            setSearchingCrags(false)
+            setCrags('');
+        }
     };
 
     const defineClimb = (climbvalue) => {
@@ -63,15 +70,6 @@ const CreateNew = () => {
     }, [country]);
 
     useEffect(() => {
-        const trimCrag = trimSentence(crag)
-        const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
-        const possibleCrags = processCrag(trimAndCapCrag);
-        possibleCrags.then((resolvedCrags) => {
-            setCragsDisplayed(resolvedCrags);
-        })
-    }, [crag]);
-
-    useEffect(() => {
         const trimClimb = trimSentence(climb)
         const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
         const possibleClimbs = processClimb(trimAndCapClimb);
@@ -92,10 +90,10 @@ const CreateNew = () => {
     
     useEffect(() => {
         if (errorStatus === false) {
-            addNewClimb(country, areas, crag, climb, grade, type);
+            addNewClimb(country, areas, crags, climb, grade, type);
             setCountry('');
             setAreas('');
-            setCrag('');
+            setCrags('');
             setClimb('');
             setGrade('');
             setType('');
@@ -128,18 +126,18 @@ const CreateNew = () => {
                                 <input type='text' id='area' name='area' value={areas} onChange={(e) => defineArea(e.target.value)} className='modalFormInput'/>
                             </div>
                             <div className='areasResultsBox'>
-                                {searching? <AreasSearchModal data={areas}/> : null}
+                                {searchingAreas? <AreasSearchModal data={areas}/> : null}
                             </div>
                         </div>
                     </div>
                     <div className='modalFormBox'>
-                        <div className='modalFormSubBox'>
-                            <label htmlFor='crag' className='modalFormTitles'>Crag</label>
-                            <input type='text' id='crag' name='crag' value={crag} onChange={(e) => defineCrag(e.target.value)} className='modalFormInput'/>
-                            <div>
-                                {cragsDisplayed?.map((crag, index) => {
-                                    return <div key={index} onClick={() => defineCrag(crag.crag)}>{crag.crag}</div>
-                                })}
+                        <div className = 'areasSearchBox'>
+                            <div className='modalFormSubBox'>
+                                <label htmlFor='crag' className='modalFormTitles'>Crag</label>
+                                <input type='text' id='crag' name='crag' value={crags} onChange={(e) => defineCrag(e.target.value)} className='modalFormInput'/>
+                            </div>
+                            <div className='areasResultsBox'>
+                                {searchingCrags? <CragsSearchModal data={crags} consideredArea={null}/> : null}
                             </div>
                         </div>
                         <div className='modalFormSubBox'>
@@ -195,7 +193,7 @@ const CreateNew = () => {
                         </div>
                     </div>
                     <div className='modalFormBox'>
-                        <button type='button' onClick={() => submitForm(country, areas, crag, climb, grade, type)}>Add New Climb</button>
+                        <button type='button' onClick={() => submitForm(country, areas, crags, climb, grade, type)}>Add New Climb</button>
                     </div>
                     <div className='modalFormBox'>
                         <div>{errorMessage}</div>

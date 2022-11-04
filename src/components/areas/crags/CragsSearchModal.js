@@ -17,8 +17,12 @@ const CragsSearchModal = ({data, consideredArea}) => {
             const trimAndCapCrags = capitalizeFirstLetter(trimCrags);
             processCrag(trimAndCapCrags)
                 .then((resolvedCrags) => {
-                    const filteredCrags = resolvedCrags.filter((crag) => (crag.area === consideredArea))
-                    setPossibleCrags(filteredCrags);
+                    if (consideredArea === null) {
+                        setPossibleCrags(resolvedCrags);
+                    } else {
+                        const filteredCrags = resolvedCrags.filter((crag) => (crag.area === consideredArea))
+                        setPossibleCrags(filteredCrags);
+                    }
                 });
         } else {
             setPossibleCrags([]);
