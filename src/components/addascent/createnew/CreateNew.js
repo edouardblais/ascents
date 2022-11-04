@@ -1,37 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { addNewClimb, processCountry } from '../../firebase/Firebase';
-import { capitalizeFirstLetter, trimSentence } from '../../operations/Operations';
+import { addNewClimb } from '../../firebase/Firebase';
+import { trimSentence, capitalizeFirstLetter } from '../../operations/Operations';
 import './CreateNew.css';
 import AreasSearchModal from '../../areas/AreasSearchModal';
 import CragsSearchModal from '../../areas/crags/CragsSearchModal';
 import ClimbsSearchModal from '../../areas/crags/crag/ClimbsSearchModal';
+import CountrySearchModal from './CountrySearchModal';
 
 const CreateNew = () => {
-    const [country, setCountry] = useState('');
+    const [countries, setCountries] = useState('');
     const [areas, setAreas] = useState('');
     const [crags, setCrags] = useState('');
     const [climbs, setClimbs] = useState('');
     const [type, setType] = useState('');
     const [grade, setGrade] = useState('');
 
+    const [searchingCountries, setSearchingCountries] = useState(false);
     const [searchingAreas, setSearchingAreas] = useState(false);
     const [searchingCrags, setSearchingCrags] = useState(false);
     const [searchingClimbs, setSearchingClimbs] = useState(false);
-;
-    const [countriesDisplayed, setCountriesDisplayed] = useState([]);
 
     const [errorMessage, setErrorMessage] = useState('');
 
     const [errorStatus, setErrorStatus] = useState(true);
 
-    const defineCountry = (countryvalue) => {
-        setCountry(countryvalue);
+    const defineCountry = (input) => {
+        if (input !== '') {
+            setSearchingCountries(true);
+            setSearchingAreas(false);
+            setSearchingCrags(false);
+            setSearchingClimbs(false);
+            setCountries(input);
+        } else {
+            setSearchingCountries(false)
+            setCountries('');
+        }
     };
 
     const defineArea = (input) => {
         if (input !== '') {
             setSearchingAreas(true);
+            setSearchingClimbs(false);
+            setSearchingCountries(false);
+            setSearchingCrags(false);
             setAreas(input);
         } else {
             setSearchingAreas(false)
@@ -42,6 +54,9 @@ const CreateNew = () => {
     const defineCrag = (input) => {
         if (input !== '') {
             setSearchingCrags(true);
+            setSearchingAreas(false);
+            setSearchingClimbs(false);
+            setSearchingCountries(false);
             setCrags(input);
         } else {
             setSearchingCrags(false)
@@ -52,6 +67,9 @@ const CreateNew = () => {
     const defineClimb = (input) => {
         if (input !== '') {
             setSearchingClimbs(true);
+            setSearchingCrags(false);
+            setSearchingAreas(false);
+            setSearchingCountries(false);
             setClimbs(input);
         } else {
             setSearchingClimbs(false)
@@ -67,15 +85,6 @@ const CreateNew = () => {
         setType(typevalue);
     };
 
-    useEffect(() => {
-        const trimCountry = trimSentence(country)
-        const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
-        const possibleCountries = processCountry(trimAndCapCountry);
-        possibleCountries.then((resolvedCountries) => {
-            setCountriesDisplayed(resolvedCountries);
-        })
-    }, [country]);
-
     const submitForm = (country, area, crag, climb, grade, type) => {
         if (country === '' || area === '' || crag === '' || climb === '' || grade === '' || type === '') {
             setErrorStatus(true);
@@ -88,8 +97,20 @@ const CreateNew = () => {
     
     useEffect(() => {
         if (errorStatus === false) {
-            addNewClimb(country, areas, crags, climbs, grade, type);
-            setCountry('');
+            const trimCountry = trimSentence(countries);
+            const trimAndCapCountry = capitalizeFirstLetter(trimCountry);
+
+            const trimArea = trimSentence(areas);
+            const trimAndCapArea = capitalizeFirstLetter(trimArea);
+
+            const trimCrag = trimSentence(crags)
+            const trimAndCapCrag = capitalizeFirstLetter(trimCrag);
+
+            const trimClimb = trimSentence(climbs);
+            const trimAndCapClimb = capitalizeFirstLetter(trimClimb);
+
+            addNewClimb(trimAndCapCountry, trimAndCapArea, trimAndCapCrag, trimAndCapClimb, grade, type);
+            setCountries('');
             setAreas('');
             setCrags('');
             setClimbs('');
@@ -104,18 +125,18 @@ const CreateNew = () => {
             <h2  className='climbTitle'> Create a new climb!</h2>
             <div className='warningBox'>
                 <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Please check first that the climb you are about to create does not already exists <Link to='../AddAscent' className='linkToComponent'>here!</Link></h4>
-                <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Existing countries, areas, crags and climbs will be suggested as you create your new climb. Click to check them out!</h4>
+                <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Existing countries, areas, crags and climbs will be suggested as you create your new climb. Please reuse them if appropriate!</h4>
             </div>
             <div className='createNewFormBox'>
                 <form className='createNewForm'>
                     <div className='modalFormBox'>
-                        <div className='modalFormSubBox'>
-                            <label htmlFor='country' className='modalFormTitles'>Country</label>
-                            <input type='text' id='country' name='country' value={country} onChange={(e) => defineCountry(e.target.value)} className='modalFormInput'/>
-                            <div>
-                                {countriesDisplayed?.map((country, index) => {
-                                    return <div key={index} onClick={() => defineCountry(country.country)}>{country.country}</div>
-                                })}
+                        <div className = 'areasSearchBox'>
+                            <div className='modalFormSubBox'>
+                                <label htmlFor='country' className='modalFormTitles'>Country</label>
+                                <input type='text' id='country' name='country' value={countries} onChange={(e) => defineCountry(e.target.value)} className='modalFormInput'/>
+                            </div>
+                            <div className='areasResultsBox'>
+                                {searchingCountries? <CountrySearchModal data={countries}/> : null}
                             </div>
                         </div>
                         <div className = 'areasSearchBox'>
@@ -191,7 +212,7 @@ const CreateNew = () => {
                         </div>
                     </div>
                     <div className='modalFormBox'>
-                        <button type='button' onClick={() => submitForm(country, areas, crags, climbs, grade, type)}>Add New Climb</button>
+                        <button type='button' onClick={() => submitForm(countries, areas, crags, climbs, grade, type)}>Add New Climb</button>
                     </div>
                     <div className='modalFormBox'>
                         <div>{errorMessage}</div>
