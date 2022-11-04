@@ -31,6 +31,9 @@ button {
     padding: .3vh;
     font-family: 'Oswald', sans-serif;
     white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 button:hover {

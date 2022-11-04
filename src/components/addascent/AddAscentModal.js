@@ -149,15 +149,15 @@ const AddAscentModal = ({climb, useremail}) => {
                 </div>
                 <div className='modalFormBox'>
                     <div>
-                        <button type='button' onClick={isRecommended}>Recommended?</button>
+                        <button type='button' onClick={isRecommended} className={recommendation? 'recommended' : null}>{recommendation? 'Recommended!' : 'Recommended?'}</button>
                     </div>
                     <div>
-                        <button type='button' onClick={addAscent}>Add Ascent</button>
+                        <button type='button' onClick={addAscent}>Add Ascent!</button>
                     </div>
                 </div>
             </form>
-            <div>
-                <button onClick={hideModal}>Close</button>
+            <div className='closeAddAscentModalBox'>
+                <button onClick={hideModal}><span className="material-symbols-outlined">close</span></button>
             </div>
         </div>
     )
