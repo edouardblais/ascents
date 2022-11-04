@@ -17,8 +17,12 @@ const ClimbsSearchModal = ({data, consideredCrag}) => {
             const trimAndCapClimbs = capitalizeFirstLetter(trimClimbs);
             processClimb(trimAndCapClimbs)
                 .then((resolvedClimbs) => {
-                    const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === consideredCrag))
-                    setPossibleClimbs(filteredClimbs);
+                    if (consideredCrag === null) {
+                        setPossibleClimbs(resolvedClimbs);
+                    } else {
+                        const filteredClimbs = resolvedClimbs.filter((climb) => (climb.crag === consideredCrag))
+                        setPossibleClimbs(filteredClimbs);
+                    }
                 });
         } else {
             setPossibleClimbs([]);
