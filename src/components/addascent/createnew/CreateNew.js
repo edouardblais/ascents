@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { addNewClimb, processCountry, processArea, processCrag, processClimb } from '../../firebase/Firebase';
+import { addNewClimb, processCountry, processCrag, processClimb } from '../../firebase/Firebase';
 import { capitalizeFirstLetter, trimSentence } from '../../operations/Operations';
 import './CreateNew.css';
+import AreasSearchModal from '../../areas/AreasSearchModal';
 
 const CreateNew = () => {
     const [country, setCountry] = useState('');
-    const [area, setArea] = useState('');
+    const [areas, setAreas] = useState('');
     const [crag, setCrag] = useState('');
     const [climb, setClimb] = useState('');
     const [type, setType] = useState('');
     const [grade, setGrade] = useState('');
 
+    const [searching, setSearching] = useState(false)
+;
     const [countriesDisplayed, setCountriesDisplayed] = useState([]);
-    const [areasDisplayed, setAreasDisplayed] = useState([]);
     const [cragsDisplayed, setCragsDisplayed] = useState([]);
     const [climbsDisplayed, setClimbsDisplayed] = useState([]);
 
@@ -25,9 +27,15 @@ const CreateNew = () => {
         setCountry(countryvalue);
     };
 
-    const defineArea = (areavalue) => {
-        setArea(areavalue);
-    };
+    const defineArea = (input) => {
+        if (input !== '') {
+            setSearching(true);
+            setAreas(input);
+        } else {
+            setSearching(false)
+            setAreas('');
+        }
+    }
 
     const defineCrag = (cragvalue) => {
         setCrag(cragvalue);
@@ -53,15 +61,6 @@ const CreateNew = () => {
             setCountriesDisplayed(resolvedCountries);
         })
     }, [country]);
-
-    useEffect(() => {
-        const trimArea = trimSentence(area)
-        const trimAndCapArea = capitalizeFirstLetter(trimArea);
-        const possibleAreas = processArea(trimAndCapArea);
-        possibleAreas.then((resolvedAreas) => {
-            setAreasDisplayed(resolvedAreas);
-        })
-    }, [area]);
 
     useEffect(() => {
         const trimCrag = trimSentence(crag)
@@ -93,9 +92,9 @@ const CreateNew = () => {
     
     useEffect(() => {
         if (errorStatus === false) {
-            addNewClimb(country, area, crag, climb, grade, type);
+            addNewClimb(country, areas, crag, climb, grade, type);
             setCountry('');
-            setArea('');
+            setAreas('');
             setCrag('');
             setClimb('');
             setGrade('');
@@ -109,7 +108,7 @@ const CreateNew = () => {
             <h2  className='climbTitle'> Create a new climb!</h2>
             <div className='warningBox'>
                 <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Please check first that the climb you are about to create does not already exists <Link to='../AddAscent' className='linkToComponent'>here!</Link></h4>
-                <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Existing countries, areas, crags and climbs will be suggested as you create your new climb</h4>
+                <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Existing countries, areas, crags and climbs will be suggested as you create your new climb. Click to check them out!</h4>
             </div>
             <div className='createNewFormBox'>
                 <form className='createNewForm'>
@@ -123,13 +122,13 @@ const CreateNew = () => {
                                 })}
                             </div>
                         </div>
-                        <div className='modalFormSubBox'>
-                            <label htmlFor='area' className='modalFormTitles'>Area</label>
-                            <input type='text' id='area' name='area' value={area} onChange={(e) => defineArea(e.target.value)} className='modalFormInput'/>
-                            <div>
-                                {areasDisplayed?.map((area, index) => {
-                                    return <div key={index} onClick={() => defineArea(area.area)}>{area.area}</div>
-                                })}
+                        <div className = 'areasSearchBox'>
+                            <div className='modalFormSubBox'>
+                                <label htmlFor='area' className='modalFormTitles'>Area</label>
+                                <input type='text' id='area' name='area' value={areas} onChange={(e) => defineArea(e.target.value)} className='modalFormInput'/>
+                            </div>
+                            <div className='areasResultsBox'>
+                                {searching? <AreasSearchModal data={areas}/> : null}
                             </div>
                         </div>
                     </div>
@@ -196,7 +195,7 @@ const CreateNew = () => {
                         </div>
                     </div>
                     <div className='modalFormBox'>
-                        <button type='button' onClick={() => submitForm(country, area, crag, climb, grade, type)}>Add New Climb</button>
+                        <button type='button' onClick={() => submitForm(country, areas, crag, climb, grade, type)}>Add New Climb</button>
                     </div>
                     <div className='modalFormBox'>
                         <div>{errorMessage}</div>
