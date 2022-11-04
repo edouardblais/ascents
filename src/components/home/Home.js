@@ -127,7 +127,7 @@ const Home = () => {
                             <option value='2'>2 stars</option>
                             <option value='3'>3 stars</option>
                         </select>
-                    <button className="filterClimbsButton" onClick={() => findClimbs(grade, type, minRating)}>Find Climbs</button>
+                    <button onClick={() => findClimbs(grade, type, minRating)}>Find Climbs</button>
                 </div>
             </div>
             <div className="awesomeClimbs">

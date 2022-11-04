@@ -4,6 +4,7 @@ import { capitalizeFirstLetter, trimSentence } from '../operations/Operations';
 import { fetchClimbCragAreaCountry, auth, addClimbToTodoList, fetchExactClimb } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import AddAscentModal from './AddAscentModal';
+import './AddAscent.css';
 
 const AddAscent = () => {
 
@@ -63,25 +64,39 @@ const AddAscent = () => {
 
     if (user) {
         return (
-            <div>
-                <h1>Add Ascent</h1>
-                <p>Search for a climb by it's name, crag, area or country:</p> 
-                <input type='text' id='climb' name='climb' value={userInput} onChange={(e) => defineInput(e.target.value)}/>
-                <div>
+            <div className='addAscentBox'>
+                <h2 className='climbTitle'>Add ascents to your logbook!</h2>
+                <div className = 'addAscentSearchBox'>
+                    <h4 className='climbSubTitle'>Search for a climb by it's name, crag, area or country</h4> 
+                    <div className="areasInputBox">
+                        <span className="material-symbols-sharp areasSearchSymbol">search</span>
+                        <input type='text' id='climb' name='climb' value={userInput} onChange={(e) => defineInput(e.target.value)} className="areasInput"/>
+                    </div>
+                    <h5 className='climbSubSubTitle'>Can't find the route you're looking for? Create a new climb <Link to='CreateNew' className='linkToComponent'>here!</Link></h5>
+                </div>
+                <div className='addAscentClimbsBox'>
                     {possibleClimbs?.map((possibility, index) => {
                             if (possibility.climb!=='') {
-                                return <div key={index}>
-                                            <div onClick={() => goToChosenClimb(possibility.climb)}>{possibility.climb}</div>
-                                            <div>{possibility.crag} {possibility.area} {possibility.country} {possibility.grade} {possibility.type}</div>
-                                            <button onClick={() => showAddAscentModal(possibility)}>+Tick!</button>
-                                            <button onClick={() => addClimbToTodoList(possibility, user.email)}>+To-do!</button>
+                                return <div key={index}  className='addAscentClimb'>
+                                            <div className="addAscentClimbInfo" onClick={() => goToChosenClimb(possibility.climb)}>
+                                                <div className="goodClimbTop">
+                                                    <div>{possibility.climb} - {possibility.grade}</div>
+                                                    <div>{possibility.averagerating} stars</div>
+                                                </div>
+                                                <div className="goodClimbBottom">
+                                                    <div>{possibility.crag} - {possibility.area} - {possibility.country}</div>
+                                                    <div>{possibility.numberoflogs} ascents</div>
+                                                </div >
+                                            </div>
+                                            <div className='addAscentButtonBox'>
+                                                <button onClick={() => showAddAscentModal(possibility)}>Tick it!</button>
+                                                <button onClick={() => addClimbToTodoList(possibility, user.email)}>To-do!</button>
+                                            </div>
                                             {modalToDisplay===possibility? <AddAscentModal climb={possibility} useremail={user.email}/> : null}
                                         </div>
                             };
                     })}
                 </div>
-
-                <p>Can't find the route you're looking for? Create a new climb <Link to='CreateNew'>here!</Link></p>
             </div>
         )
     }

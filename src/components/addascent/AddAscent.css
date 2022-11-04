@@ -1,0 +1,56 @@
+.addAscentBox {
+    display:flex;
+    flex-direction: column;
+    gap: 2vh;
+    background-color: #1e293b;
+    color:#cbd5e1;
+    border-radius: .25rem;
+    margin: 1vh 1vh 1vh 0;
+    padding:1vw;
+    grid-area:content;
+}
+
+.addAscentSearchBox {
+    display: flex;
+    flex-direction: column;
+    gap:.5vh;
+}
+
+.linkToComponent {
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.addAscentClimbsBox {
+    display: flex;
+    flex-direction: row;
+    gap:1vh;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.addAscentClimb {
+    border-radius: .25rem;
+    padding: .5vh 1.1vw .5vh 1.1vw;
+    width: 41vw;
+    border:1px solid #cbd5e1;
+    display: flex;
+    flex-direction: row;
+    gap:1vh;
+}
+
+.addAscentClimb:hover {
+    cursor: pointer;
+    background-color: #cbd5e1;
+    color: #1e293b;
+}
+
+.addAscentClimbInfo {
+    flex:1;
+}
+
+.addAscentButtonBox {
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+}

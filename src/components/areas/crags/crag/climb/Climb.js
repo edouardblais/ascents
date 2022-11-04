@@ -82,8 +82,10 @@ const Climb = () => {
                 </div>  
                 <div className='climbInfoSubBox secondaryInfoParticularities'>
                     <button onClick={() => showAddAscentModal(chosenClimb)}>Tick it!</button>
+                </div>   
+                <div className='climbInfoSubBox secondaryInfoParticularities'>
                     <button onClick={addToToDo}>To-do!</button>
-                </div>       
+                </div>    
             </div>
             <div className='loggedAscentsBox'>
                 {chosenClimb.logs?.map((climb, index) => {

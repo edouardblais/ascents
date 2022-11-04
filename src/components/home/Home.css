@@ -95,10 +95,7 @@
     align-items: center;
 }
 
-.filterClimbsButton {
-    font-size: 1.3rem;
-    font-weight: 700;
-}
+
 
 .carouselItem {
     display: flex;
@@ -151,6 +148,7 @@
     border-radius: .25rem;
     padding: .5vh 1.1vw .5vh 1.1vw;
     width: 41.5vw;
+    border:1px solid #cbd5e1;
 }
 
 .goodClimb:hover {
