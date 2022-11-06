@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { auth, sendPasswordReset } from '../firebase/Firebase';
+import './Authentification.css';
 
 const Reset = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const Reset = () => {
   }, [user, loading]);
 
   return (
-    <div className="reset">
+    <div className="authentificationBox">
       <div className="reset-container">
         <input
           type="text"

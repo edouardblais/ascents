@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  auth,
-  registerWithEmailAndPassword,
-} from "../firebase/Firebase";
+import { auth, registerWithEmailAndPassword } from "../firebase/Firebase";
+import './Authentification.css';
 
 const CreateUser = () => {
   const [email, setEmail] = useState('');
@@ -26,8 +24,8 @@ const CreateUser = () => {
   }, [user, loading]);
 
   return (
-    <div className='register'>
-      <form className='register-container'>
+    <div className='authentificationBox'>
+      <form className='authentificationFormBox'>
         <label htmlFor='name'>Full Name</label>
         <input
           type='text'

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, signIn, updateLastSignIn } from '../firebase/Firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import './Authentification.css';
 
 const SignIn = () => {
 
@@ -25,7 +26,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="signin">
+    <div className="authentificationBox">
       <form className="signin-container">
         <label htmlFor='email'>Enter Email</label>
         <input

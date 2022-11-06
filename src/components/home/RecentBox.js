@@ -137,7 +137,7 @@ const RecentBox = () => {
                     counter += 1;
                     if (counter <= 5) {
                         return  <div key={index}  className="recentascent">
-                                    <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb} {ascent.date}</div> 
+                                    <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb} - {ascent.grade}</div> 
                                     <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                 </div>
                      }
