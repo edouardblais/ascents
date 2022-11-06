@@ -27,43 +27,36 @@ const SignIn = () => {
 
   return (
     <div className="authentificationBox">
-      <form className="signin-container">
-        <label htmlFor='email'>Enter Email</label>
+      <h3 className='authentificationTitle'>Sign in your <b>Ascents</b> profile</h3>
+      <form className='authentificationFormBox'>
+        <label htmlFor='email'  className='authentificationLabel'>Enter Email</label>
         <input
           type="text"
           id='email'
           name='email'
-          className="signin-textbox"
           autoComplete='on'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email Address"
+          className='authentificationInput'
         />
-        <label htmlFor='password'>Enter Password</label>
+        <label htmlFor='password'  className='authentificationLabel'>Enter Password</label>
         <input
           type="password"
           id='password'
           name='password'
-          className="signin-textbox"
           autoComplete='on'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
+          className='authentificationInput'
         />
-        <button 
-          type='button'
-          className="signin-btn"
-          onClick={() => signInUser(email, password)}
-        >
-          Sign In
-        </button>
+        <button type='button' onClick={() => signInUser(email, password)}>Sign In</button>
       </form>
-      <div>
-          Forgot Password? Reset your password <Link to="/Reset">here</Link>
-        </div>
-        <div>
-          Don't have an account? Register <Link to="/CreateUser">here</Link>
-        </div>
+      <div className='authentificationLabel'>
+          Forgot Password? Reset your password <Link className='linkToComponent' to="/Reset">here</Link>!
+      </div>
+      <div className='authentificationLabel'>
+          Don't have an account? Register <Link className='linkToComponent' to="/CreateUser">here</Link>!
+      </div>
     </div>
   );
 }

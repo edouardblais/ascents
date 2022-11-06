@@ -191,7 +191,7 @@ const OtherUserProfile = () => {
         )
     }
 
-    if (user && displayBouldersLogged) {
+    if (displayBouldersLogged) {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
@@ -229,7 +229,7 @@ const OtherUserProfile = () => {
         )
     }
 
-    if (user && displayFollowers) {
+    if (displayFollowers) {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>
@@ -267,7 +267,7 @@ const OtherUserProfile = () => {
         )
     }
 
-    if (user && displayToDo) {
+    if (displayToDo) {
         return (
             <div className='profileBox'>
                 <div className='profileInfoBox'>

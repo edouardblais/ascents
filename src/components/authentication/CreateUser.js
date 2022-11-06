@@ -25,41 +25,39 @@ const CreateUser = () => {
 
   return (
     <div className='authentificationBox'>
+      <h3 className='authentificationTitle'>Register with <b>Ascents</b></h3>
       <form className='authentificationFormBox'>
-        <label htmlFor='name'>Full Name</label>
+        <label htmlFor='name' className='authentificationLabel'>Full Name</label>
         <input
           type='text'
-          className='register-textbox'
+          className='authentificationInput'
           id='name'
           name='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label>Email</label>
+        <label className='authentificationLabel' htmlFor='email'>Email</label>
         <input
           type='email'
-          className='register-textbox'
+          className='authentificationInput'
           name='email'
           id='email'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder='Email Address'
         />
+        <label className='authentificationLabel' htmlFor='password'>Password</label>
         <input
           type='password'
-          className='register-textbox'
+          className='authentificationInput'
           name='password'
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder='Password'
         />
-        <button type='button' className='register-btn' onClick={register}>
-          Register
-        </button>
+        <button type='button' onClick={register}>Register</button>
       </form>
-      <div>
-        Already have an account? <Link to="/SignIn">Login</Link> now.
+      <div className='authentificationLabel'>
+        Already have an account? <Link className='linkToComponent' to="/SignIn">Login</Link> now!
       </div>
     </div>
   );

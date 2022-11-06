@@ -102,8 +102,11 @@ const AddAscent = () => {
     }
 
     return (
-        <div>
-            Please <Link to='/SignIn'>sign in</Link> or <Link to='/CreateUser'>create a new user profile</Link> to add ascents!
+        <div className='authentificationBox'>
+            <h3 className='authentificationTitle'><b>Oops!</b></h3>
+            <div className='authentificationLabel'>
+                Please <Link className='linkToComponent' to='/SignIn' >sign in</Link> or <Link className='linkToComponent' to='/CreateUser'>register</Link> to add ascents!
+            </div>
         </div>
     )
 }

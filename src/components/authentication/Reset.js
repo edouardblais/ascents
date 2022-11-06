@@ -14,26 +14,31 @@ const Reset = () => {
   useEffect(() => {
     if (loading) return;
     if (user) navigate('/');
+    if (error) {
+      alert(error, error.message)
+    };
   }, [user, loading]);
+
+  const resetPassword = () => {
+    sendPasswordReset(email);
+    alert('Email sent to reset your password!')
+  }
 
   return (
     <div className="authentificationBox">
-      <div className="reset-container">
+      <h3 className='authentificationTitle'>Reset your <b>Ascents</b> password profile</h3>
+      <div className="authentificationFormBox">
+        <label htmlFor='email' className='authentificationLabel'>Email</label>
         <input
           type="text"
-          className="reset-textbox"
+          className='authentificationInput'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email Address"
+          name='email'
         />
-        <button
-          className="reset-btn"
-          onClick={() => sendPasswordReset(email)}
-        >
-          Send password reset email
-        </button>
-        <div>
-          Don't have an account? <Link to="/CreateUser">Register</Link> now.
+        <button type='button' onClick={resetPassword}>Reset Password</button>
+        <div className='authentificationLabel'>
+          Don't have an account? <Link to="/CreateUser" className='linkToComponent'>Register</Link> now!
         </div>
       </div>
     </div>

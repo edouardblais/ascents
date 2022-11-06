@@ -2,21 +2,35 @@
     grid-area:content;
     display: flex;
     flex-direction: column;
-    gap:2vh;
+    gap:3vh;
     margin:1vh 1vh 1vh 0vh;
-    padding:1vh;
+    padding:5vh;
     background-color: #1e293b;
     color:#f9fafb;
     border-radius: .25rem;
-    height: 86vh;
     align-items: center;
-    font-size: 2rem;
-    font-weight: 400;
 }
 
 .authentificationFormBox {
     display: flex;
     flex-direction: column;
-    gap:1vh;
+    gap:1.5vh;
     align-items: center;
+}
+
+.authentificationTitle {
+    font-size: 3rem;
+    margin:0;
+    font-weight: 200;
+}
+
+.authentificationLabel {
+    font-size:1.7rem;
+}
+
+.authentificationInput {
+    font-size: 1.3rem;
+    border: 1px solid #f9fafb;
+    outline: none;
+    border-radius: .25rem;
 }
