@@ -2,6 +2,8 @@
 
 Essentially, Ascents is a climbing web app to log and share your rock climbing ascents.
 
+See it live: https://ascents-88d37.web.app/
+
 As an analogy, it is the Goodreads or the Letterboxd of the rock climbing world. Rock climbers from all over the world can create a user profile to add climbing routes to the Ascents database,
 and then log them with specific details if they have made a successfull free climbing ascent of them.
 
