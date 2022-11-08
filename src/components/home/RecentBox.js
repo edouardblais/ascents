@@ -102,9 +102,9 @@ const RecentBox = () => {
                 <div className="recentascentsbox">
                     {recentFollowingAscents.map((ascent, index) => {
                         friendsCounter += 1;
-                        if (friendsCounter <= 5 && friendsCounter !== 0) {
+                        if (friendsCounter <= 4 && friendsCounter !== 0) {
                             return  <div key={index} className="recentascent">
-                                        <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb}-{ascent.grade}</div> 
+                                        <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb} - {ascent.grade}</div> 
                                         <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                     </div>
                         }
@@ -117,9 +117,9 @@ const RecentBox = () => {
                 <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
                     counter += 1;
-                    if (counter <= 5) {
+                    if (counter <= 4) {
                         return  <div key={index}  className="recentascent">
-                                    <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb}-{ascent.grade}</div> 
+                                    <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb} - {ascent.grade}</div> 
                                     <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                 </div>
                     }
@@ -135,7 +135,7 @@ const RecentBox = () => {
             <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
                     counter += 1;
-                    if (counter <= 5) {
+                    if (counter <= 4) {
                         return  <div key={index}  className="recentascent">
                                     <div onClick={() => seeClimb(ascent)} className="recentclimb">{ascent.climb} - {ascent.grade}</div> 
                                     <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>

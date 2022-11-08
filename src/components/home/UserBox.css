@@ -2,8 +2,8 @@
     grid-area:userbox;
     display:flex;
     flex-direction: column;
-    gap:2vh;
-    padding: 1vh;
+    justify-content: space-between;
+    padding: 1.5vh;
     background-color: #1e293b;
     color:#cbd5e1;
     margin: 1vh 1vh 0 1vh;
@@ -12,13 +12,15 @@
 }
 
 .userBoxTitle {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     padding-bottom: 1vh;
     border-bottom: 1px solid #cbd5e1;
     margin:0;
+    text-align: center;
 }
 
 .link {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 400;
+    text-align: center;
 }

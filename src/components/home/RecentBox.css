@@ -18,15 +18,17 @@
 }
 
 .recentBoxSubTitle {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin:0;
+    padding:.3vh;
 }
 
 .recentascentsbox {
     padding: .3vh;
     display: flex;
     flex-direction: column;
-    gap:.4vh;
+    justify-content: space-between;
+    flex:1;
 }
 
 .recentascent {
