@@ -42,7 +42,7 @@
 }
 
 .homeBoxTitle {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 400;
     margin:0;
     text-align: center;
@@ -154,8 +154,8 @@
 .goodClimb {
     border-radius: .25rem;
     padding: .5vh 1.1vw .5vh 1.1vw;
-    min-width: 30vw;
-    max-width: 42vw;
+    min-width: 27vw;
+    max-width: 40vw;
     border:1px solid #cbd5e1;
     flex:1;
 }
@@ -167,12 +167,12 @@
 }
 
 .goodClimbTop {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 400;
 }
 
 .goodClimbBottom {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .goodClimbTop, .goodClimbBottom {
