@@ -1,14 +1,22 @@
 @import-normalize;
 
-body {
+html {
+    font-size:12px;
     margin:0;
     padding:0;
     box-sizing: border-box;
-    width: 100vw;
-    min-height:100vh;
     font-family: 'Oswald', sans-serif;
     font-weight: 200;
+}
+
+body {
     background-color: #cbd5e1;
+    width: 100vw;
+    min-height:100vh;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+
 }
 
 #root {

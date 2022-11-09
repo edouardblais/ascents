@@ -84,6 +84,7 @@ const Home = () => {
             <div className="findClimbs">
                 <h2 className="homeBoxTitle">Explore <b>Ascents</b> To Find Your Dream Climbs</h2>
                 <div className="exploreClimbsBox">
+                    <div className="exploreClimbsSubBox">
                         <label htmlFor='type' className="homeBoxSubTitle">Type</label>
                         <select name='type' id='type' className='filterInputs' value={type} onChange={(e) => getSelectedType(e.target.value)}>
                             <option value=''></option>
@@ -91,6 +92,8 @@ const Home = () => {
                             <option value='Sport Climbing'>Sport Climbing</option>
                             <option value='Trad Climbing'>Trad Climbing</option>
                         </select> 
+                    </div>
+                    <div className="exploreClimbsSubBox">
                         <label htmlFor="grade" className="homeBoxSubTitle">Grade</label>
                         <select name='grade' id='grade' className='filterInputs' value={grade} onChange={(e) => getSelectedGrade(e.target.value)}>
                             <option value=''></option>
@@ -120,6 +123,8 @@ const Home = () => {
                             <option value='9c'>9c+</option>
                             <option value='9c+'>9c+</option>
                         </select>
+                    </div>
+                    <div className="exploreClimbsSubBox">
                         <label htmlFor="minrating" className="homeBoxSubTitle">Minimum Rating</label>
                         <select name='minrating' id='minrating' className='filterInputs' value={minRating} onChange={(e) => getSelectedMinimumRating(e.target.value)}>
                             <option value='0'></option>
@@ -127,6 +132,7 @@ const Home = () => {
                             <option value='2'>2 stars</option>
                             <option value='3'>3 stars</option>
                         </select>
+                    </div>
                     <button onClick={() => findClimbs(grade, type, minRating)}>Find Climbs</button>
                 </div>
             </div>

@@ -90,9 +90,16 @@
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
-    gap: 2vh;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex: 1;
+    padding:3vh;
+}
+
+.exploreClimbsSubBox {
+    display: flex;
+    flex-direction: column;
+    gap:2vh;
 }
 
 .carouselItem {
