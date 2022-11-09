@@ -46,7 +46,7 @@
     font-weight: 400;
     margin:0;
     text-align: center;
-    padding:1vh;
+    padding:.5vh;
     border-bottom: 1px solid #f9fafb;
 }
 
@@ -167,7 +167,7 @@
 }
 
 .goodClimbTop {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 400;
 }
 

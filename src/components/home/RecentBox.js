@@ -100,7 +100,8 @@ const RecentBox = () => {
                 <h3 className='recentBoxTitle'>Recent Ascents</h3>
                 <h4 className='recentBoxSubTitle'>Friends</h4>
                 <div className="recentascentsbox">
-                    {recentFollowingAscents.map((ascent, index) => {
+                    {recentFollowingAscents.length > 0?
+                     recentFollowingAscents.map((ascent, index) => {
                         friendsCounter += 1;
                         if (friendsCounter <= 4 && friendsCounter !== 0) {
                             return  <div key={index} className="recentascent">
@@ -108,10 +109,8 @@ const RecentBox = () => {
                                         <div onClick={() => seeProfile(ascent.email)} className="recentuser">{ascent.name}</div>
                                     </div>
                         }
-                        if (friendsCounter === 0) {
-                            return <p>No recent ascents by friends</p>
-                        }
-                    })}                    
+                    }):
+                    <div className="recentclimb">No recent ascents by friends</div>}                    
                 </div>
                 <h4 className='recentBoxSubTitle'>Global</h4>
                 <div className="recentascentsbox">
