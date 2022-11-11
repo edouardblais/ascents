@@ -158,12 +158,14 @@
     max-width: 40vw;
     border:1px solid #cbd5e1;
     flex:1;
+    background-color: #cbd5e1;
+    color: #1e293b;
 }
 
 .goodClimb:hover {
     cursor: pointer;
-    background-color: #cbd5e1;
-    color: #1e293b;
+    background-color:#ef4444;
+    color: #f9fafb;
 }
 
 .goodClimbTop {

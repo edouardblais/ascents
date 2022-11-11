@@ -1,26 +1,48 @@
 .searchResultsBox {
-    padding: 1vh;
+    padding: 3vh;
     background-color: #1e293b;
     color:#cbd5e1;
     display: flex;
     flex-direction: column;
-    gap:1vh;
-    margin-top:1vh;
-    margin-bottom: 1vh;
-    margin-right: 1vh;
+    gap:1.5vh;
+    margin:1vh 1vh 1vh 0;
     border-radius: .25rem;
-    min-height: 86vh;
+    grid-area: content;
+    overflow-y: auto;
+    align-items: center;
 }
 
-.searchResult {
-    width: 88vw;
+.searchResultBox {
     background-color: #cbd5e1;
     color: #1e293b;
     border-radius: .25rem;
     display: flex;
     align-items: center;
-    padding: .5vh;
+    padding: 1vh 2vw 1vh 2vw;
+    max-width: 70vw;
+    min-width: 60vw;
+    flex-direction: row;
+    gap:5vw;
+}
+
+.searchResultBox:hover {
+    cursor: pointer;
+    color:#fafaf9;
+    background-color: #ef4444;
+}
+
+.searchResultSubBox {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    flex-direction: row;
+    flex:1;
+}
+
+.searchResultImportantInfoPart {
+    display: flex;
+    flex-direction: column;
+    min-width: 20vw;
 }
 
 .searchResultSubPart {
@@ -41,7 +63,7 @@
 
 .searchResultsButtonContainer {
     display: flex;
-    gap:.5vw;
+    gap:2vw;
 }
 
 .searchResultsButton {

@@ -38,10 +38,12 @@
     flex-direction: column;
     border: 1px solid #cbd5e1;
     margin:1vh;
+    color: #1e293b;
+    background-color: #cbd5e1;
 }
 
 .cragClimb:hover {
     cursor: pointer;
-    background-color: #cbd5e1;
-    color: #1e293b;
+    background-color: #ef4444;
+    color: #f9fafb;
 }
