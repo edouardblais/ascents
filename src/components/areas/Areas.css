@@ -8,7 +8,6 @@
     background-color: #1e293b;
     color:#f9fafb;
     border-radius: .25rem;
-    height: 86vh;
 }
 
 .areasTitle {
@@ -29,18 +28,21 @@
     border-radius: .25rem;
     background-color: #f9fafb;
     justify-content: flex-start;
-    max-width: 20vw;
+    max-width: 25vw;
 }
 
 .areasInput {
     border:none;
     outline:none;
     flex:1;
+    min-width: 0;
 }
 
 .areasSearchBox {
     display: flex;
     flex-direction: column;
+    min-width: 10vw;
+    max-width: 25vw;
 }
 
 .areasResultsBox {

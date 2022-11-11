@@ -12,6 +12,7 @@
     border: 1px solid #fafaf9;
     font-size: 1.3rem;
     font-weight: 400;
+    margin:auto;
 }
 
 .followingNavChoiceActive:hover {
@@ -27,6 +28,7 @@
     font-size: 1.3rem;
     font-weight: 400;
     color: #1e293b;
+    margin:auto;
 }
 
 .followingBox {
