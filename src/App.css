@@ -15,8 +15,6 @@ body {
     min-height:100vh;
     margin:0;
     padding:0;
-    box-sizing: border-box;
-
 }
 
 #root {
@@ -47,4 +45,14 @@ button {
 button:hover {
     color:#f9fafb;
     cursor: pointer;
+}
+
+@media (max-width:600px) {
+    #root {
+        grid-template-columns: 100vw;
+        grid-template-rows: 10vh 90vh;
+        grid-template-areas: 
+            "topnav"
+            "content";
+    }
 }
