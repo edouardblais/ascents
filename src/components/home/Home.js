@@ -141,7 +141,7 @@ const Home = () => {
                 <div className="goodClimbsBox">
                     {goodClimbs.map((climb, index) => {
                         increment();
-                        if (counter <= 8) { 
+                        if (counter <= 6) { 
                             return  <div key={index} onClick={() => goToGoodClimb(climb)} className="goodClimb">
                                         <div className="goodClimbTop">
                                             <div>{climb.climb} - {climb.grade}</div>

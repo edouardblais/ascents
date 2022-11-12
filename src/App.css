@@ -22,13 +22,13 @@ body {
 
 #root {
     display:grid;
-    grid-template-rows: 10vh 20vh 70vh;
+    grid-template-rows: 10% 20% 70%;
     grid-template-columns: 13vw 87vw;
     grid-template-areas: 
         "topnav topnav"
         "userbox content"
         "recentbox content";
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100%;
 }
 
 button {
@@ -54,7 +54,7 @@ button:hover {
 @media (max-width:600px) {
     #root {
         grid-template-columns: 100vw;
-        grid-template-rows: 10vh 90vh;
+        grid-template-rows: 10% 90%;
         grid-template-areas: 
             "topnav"
             "content";

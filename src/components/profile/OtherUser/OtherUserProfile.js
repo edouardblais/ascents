@@ -359,7 +359,7 @@ const OtherUserProfile = () => {
                         <div className='recommendedClimbsBox'>
                             {recommendedClimbs.map((climb, index) => {
                                 increment();
-                                if (counter <= 10) { 
+                                if (counter <= 8) { 
                                     return  <div key={index} onClick={() => goToRecommendedClimb(climb)} className="recommendedClimb">
                                                 <div className="goodClimbTop">
                                                     <div>{climb.climb} - {climb.grade}</div>
