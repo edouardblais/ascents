@@ -1,5 +1,3 @@
-@import-normalize;
-
 html {
     font-size:12px;
     margin:0;
@@ -8,19 +6,18 @@ html {
     font-family: 'Oswald', sans-serif;
     font-weight: 200;
     overflow-x: hidden;
+    height: 100%;
     overflow-y: hidden;
-    height: -webkit-fill-available;
 }
 
 body {
     background-color: #cbd5e1;
     width: 100vw;
+    height: 100%;
     margin:0;
     padding:0;
     overflow-x: hidden;
     overflow-y: hidden;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
 }
 
 #root {
@@ -30,7 +27,8 @@ body {
     grid-template-areas: 
         "topnav topnav"
         "userbox content"
-        "recentbox content"
+        "recentbox content";
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 button {
