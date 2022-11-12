@@ -7,7 +7,7 @@
         "homePictures findClimbs"
         "awesomeClimbs awesomeClimbs";
     gap:1vh;
-    padding: 1vh 1vh 1vh 0vh;
+    margin: 1vh 1vh 1vh 0vh;
 }
 
 @media (max-width:600px) {
@@ -19,6 +19,7 @@
             "homePictures"
             "findClimbs"
             "awesomeClimbs";
+        margin: 1vh 0 0 0;
     }
 }
 
@@ -102,10 +103,10 @@
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    gap:2vh;
     align-items: center;
     flex: 1;
-    padding:3vh;
 }
 
 .exploreClimbsSubBox {
@@ -166,7 +167,7 @@
 .goodClimb {
     border-radius: .25rem;
     padding: .5vh 1.1vw .5vh 1.1vw;
-    min-width: 27vw;
+    min-width: 30vw;
     max-width: 40vw;
     border:1px solid #cbd5e1;
     flex:1;
@@ -187,10 +188,12 @@
 
 .goodClimbBottom {
     font-size: 1rem;
+
 }
 
 .goodClimbTop, .goodClimbBottom {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: nowrap;
 }

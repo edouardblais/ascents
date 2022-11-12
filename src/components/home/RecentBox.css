@@ -10,6 +10,12 @@
     border-radius: .25rem;
 }
 
+@media (max-width:600px) {
+    .recentBox {
+        visibility: hidden;
+    }
+}
+
 .recentBoxTitle {
     font-size: 1.6rem;
     padding-bottom: 1vh;

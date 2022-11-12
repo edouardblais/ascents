@@ -12,7 +12,21 @@
     background-color: #1e293b;
     color:#f9fafb;
     border-radius: .25rem;
-    height: 86vh;
+}
+
+@media (max-width: 600px) {
+    .profileBox {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 9fr;
+        grid-template-areas: 
+            "profileNav"
+            "profileContent";
+        margin: 1vh 0 0 0;
+    }
+
+    .profileInfoBox {
+        visibility: hidden;
+    }
 }
 
 .profileInfoBox {
@@ -110,8 +124,7 @@
     flex-direction: row;
     gap:25vw;
     border-bottom: 1px solid #cbd5e180;
-    padding-bottom: 5vh;
-    padding-left: 4vw;
+    padding: 1vh 4vw 5vh 1vh;
 }
 
 .contentInfoSubSubBox {

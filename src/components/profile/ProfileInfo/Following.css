@@ -12,7 +12,10 @@
     border: 1px solid #fafaf9;
     font-size: 1.3rem;
     font-weight: 400;
-    margin:auto;
+    margin:0;
+    display: flex;
+    justify-items: center;
+    align-items: center;
 }
 
 .followingNavChoiceActive:hover {
@@ -28,13 +31,18 @@
     font-size: 1.3rem;
     font-weight: 400;
     color: #1e293b;
-    margin:auto;
+    margin:0;
+    display: flex;
+    justify-items: center;
+    align-items: center;
 }
 
 .followingBox {
     display: flex;
     flex-direction: column;
     gap:1vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .followingSubBox {
@@ -47,6 +55,8 @@
     padding: 1vh 2vw 1vh 2vw;
     align-items: center;
     justify-content: space-between;
+    max-width: 50vw;
+    min-width: 40vw;
 }
 
 .followingNameBox:hover {
