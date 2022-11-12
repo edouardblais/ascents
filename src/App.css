@@ -55,4 +55,8 @@ button:hover {
             "topnav"
             "content";
     }
+
+    html {
+        font-size: 8px;
+    }
 }

@@ -10,6 +10,18 @@
     padding: 1vh 1vh 1vh 0vh;
 }
 
+@media (max-width:600px) {
+    .homeBox {
+        display:grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: 
+            "homePictures"
+            "findClimbs"
+            "awesomeClimbs";
+    }
+}
+
 .homePictures {
     grid-area: homePictures;
     flex-wrap: nowrap;
