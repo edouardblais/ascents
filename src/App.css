@@ -7,15 +7,17 @@ html {
     box-sizing: border-box;
     font-family: 'Oswald', sans-serif;
     font-weight: 200;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 body {
     background-color: #cbd5e1;
     width: 100vw;
-    min-height:100vh;
     margin:0;
     padding:0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 #root {
@@ -59,5 +61,10 @@ button:hover {
 
     html {
         font-size: 8px;
+    }
+
+    body {
+        height: calc(100vh - calc(100vh - 100%));
+        width: calc(100vw - calc(100vw - 100%))
     }
 }

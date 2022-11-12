@@ -27,6 +27,10 @@
     .profileInfoBox {
         visibility: hidden;
     }
+
+    .material-symbols-outlined {
+        font-size: 1.2rem;
+    }
 }
 
 .profileInfoBox {
@@ -64,7 +68,7 @@
 .profileButton {
     background-color: #1e293b;
     border:none;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 400;
     white-space: nowrap;
     max-width: none;
@@ -82,7 +86,7 @@
     border-right: thick solid  #cbd5e1;
     border-left: thick solid #cbd5e1;
     padding: 1vh;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 400;
     border-radius: .25rem;
 }
@@ -92,7 +96,7 @@
     display: flex;
     flex-direction: column;
     gap:2vh;
-    padding: 2vh 2vw 2vh 2vw;
+    padding: 1vh;
 }
 
 .profileName {
@@ -142,8 +146,8 @@
 
 .profileEditButton {
     position:absolute;
-    top:.1vw;
-    right:.1vw;
+    top:1vw;
+    right:1vw;
     display: flex;
     justify-content: center;
     align-items: center;
