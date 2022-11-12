@@ -55,7 +55,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap:2vw;
+    gap:1vw;
     margin:0 5vh 0 5vh;
     padding:1vh;
     border-bottom: 1px solid #cbd5e180;
@@ -64,7 +64,7 @@
 .profileButton {
     background-color: #1e293b;
     border:none;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 400;
     white-space: nowrap;
     max-width: none;
@@ -122,7 +122,8 @@
     position:relative;
     display: flex;
     flex-direction: row;
-    gap:25vw;
+    justify-content: center;
+    gap:20vw;
     border-bottom: 1px solid #cbd5e180;
     padding: 1vh 4vw 5vh 1vh;
 }
@@ -166,20 +167,27 @@
 .recommendedClimbsBox {
     display: flex;
     flex-direction: row;
-    gap:1.2vh;
+    gap:1vh;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 
 .recommendedClimb {
     border-radius: .25rem;
     padding: .5vh 1.1vw .5vh 1.1vw;
-    width: 30vw;
+    min-width: 30vw;
+    max-width: 40vw;
+    border:1px solid #cbd5e1;
+    flex:1;
+    background-color: #cbd5e1;
+    color: #1e293b;
 }
 
 .recommendedClimb:hover {
     cursor: pointer;
-    background-color: #cbd5e1;
-    color: #1e293b;
+    background-color:#ef4444;
+    color: #f9fafb;
 }
 

@@ -10,6 +10,12 @@
     grid-area:content;
 }
 
+@media (max-width:600px) {
+    .addAscentBox {
+        margin: 1vh 0 0 0;
+    }
+}
+
 .addAscentSearchBox {
     display: flex;
     flex-direction: column;

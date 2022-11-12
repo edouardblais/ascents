@@ -10,6 +10,12 @@
     border-radius: .25rem;
 }
 
+@media (max-width:600px) {
+    .areasBox {
+        margin: 1vh 0 0 0;
+    }
+}
+
 .areasTitle {
     font-size: 3rem;
     font-weight: 400;

@@ -11,6 +11,12 @@
     gap:3vh;
 }
 
+@media (max-width:600px) {
+    .recentAscentsBox {
+        margin: 1vh 0 0 0;
+    }
+}
+
 .recentAscentsTitle {
     font-size: 3rem;
     font-weight: 400;

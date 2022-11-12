@@ -209,10 +209,12 @@ const Profile = () => {
                                     if (counter <= 10) { 
                                         return  <div key={index} onClick={() => goToRecommendedClimb(climb)} className="recommendedClimb">
                                                     <div className="goodClimbTop">
-                                                        <div>{climb.climb} - {climb.grade}</div>
+                                                        <div>{climb.climb}</div>
+                                                        <div>{climb.grade}</div>
                                                     </div>
                                                     <div className="goodClimbBottom">
                                                         <div>{climb.crag} - {climb.area} - {climb.country}</div>
+                                                        <div>{climb.rating} stars</div>
                                                     </div>
                                                 </div>
                                     } 
@@ -299,10 +301,12 @@ const Profile = () => {
                                     if (counter <= 10) { 
                                         return  <div key={index} onClick={() => goToRecommendedClimb(climb)} className="recommendedClimb">
                                                     <div className="goodClimbTop">
-                                                        <div>{climb.climb} - {climb.grade}</div>
+                                                        <div>{climb.climb}</div>
+                                                        <div>{climb.grade}</div>
                                                     </div>
                                                     <div className="goodClimbBottom">
                                                         <div>{climb.crag} - {climb.area} - {climb.country}</div>
+                                                        <div>{climb.rating} stars</div>
                                                     </div>
                                                 </div>
                                     } 

@@ -12,6 +12,12 @@
     align-items: center;
 }
 
+@media (max-width:600px) {
+    .searchResultsBox {
+        margin: 1vh 0 0 0;
+    }
+}
+
 .searchResultBox {
     background-color: #cbd5e1;
     color: #1e293b;
