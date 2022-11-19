@@ -516,18 +516,27 @@ const fetchClimbCragAreaCountry = async (input) => {
     const allAreas = await fetchArea(input);
     const allCountries = await fetchCountry(input);
 
-    allClimbs.map((eachData) => {
-      allDataList.push(eachData);
+    allClimbs.forEach((eachData) => {
+      if (!allDataList.includes(eachData)) {
+        allDataList.push(eachData);
+      }
     });
-    allCrags.map((eachData) => {
-      allDataList.push(eachData);
+    allCrags.forEach((eachData) => {
+      if (!allDataList.includes(eachData)) {
+        allDataList.push(eachData);
+      }
     });
-    allAreas.map((eachData) => {
-      allDataList.push(eachData);
+    allAreas.forEach((eachData) => {
+      if (!allDataList.includes(eachData)) {
+        allDataList.push(eachData);
+      }
     });
-    allCountries.map((eachData) => {
-      allDataList.push(eachData);
+    allCountries.forEach((eachData) => {
+      if (!allDataList.includes(eachData)) {
+        allDataList.push(eachData);
+      }
     });
+
     return allDataList;
   }
 }

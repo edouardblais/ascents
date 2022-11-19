@@ -78,10 +78,18 @@ const CreateNew = () => {
     };
 
     const getSelectedGrade = (gradevalue) => {
+        setSearchingClimbs(false);
+        setSearchingCrags(false);
+        setSearchingAreas(false);
+        setSearchingCountries(false);
         setGrade(gradevalue);
     };
 
     const getSelectedType = (typevalue) => {
+        setSearchingClimbs(false);
+        setSearchingCrags(false);
+        setSearchingAreas(false);
+        setSearchingCountries(false);
         setType(typevalue);
     };
 
