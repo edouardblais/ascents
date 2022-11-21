@@ -198,7 +198,7 @@ const Profile = () => {
                                 <p>Favorite areas: <b>{favoriteAreas}</b></p>
                                 <p>Other interests: <b>{otherInterests}</b></p>
                             </div>
-                            <button type='button' className='profileEditButton' onClick={() => editInfo()}><span className="material-symbols-outlined">settings</span></button>
+                            <button type='button' className='profileEditButton' aria-label='edit personal info button' onClick={() => editInfo()}><span className="material-symbols-outlined">settings</span></button>
                         </div>
                     </div>
                     <div className='recommendedBox'>
@@ -290,7 +290,7 @@ const Profile = () => {
                                         <input name='other' type='text' onChange={(e) => setOtherInterests(e.target.value)} value={otherInterests}/>
                                     </div>
                                 </div>
-                                <button type='button' className='profileEditButton' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save</button>
+                                <button type='button' className='profileEditButton' aria-label='save edits button' onClick={() => saveEdits(name, age, country, startedClimbing, favoriteAreas, otherInterests, userInfo.email)}>Save</button>
                             </div>
                         </form>
                         <div className='recommendedBox'>

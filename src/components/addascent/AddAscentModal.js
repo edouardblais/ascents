@@ -157,7 +157,7 @@ const AddAscentModal = ({climb, useremail}) => {
                 </div>
             </form>
             <div className='closeAddAscentModalBox'>
-                <button onClick={hideModal}><span className="material-symbols-outlined">close</span></button>
+                <button onClick={hideModal} aria-label='close modal button'><span className="material-symbols-outlined">close</span></button>
             </div>
         </div>
     )

@@ -72,7 +72,7 @@ const TopNav = () => {
     }
 
     return (
-        <nav className="topNavMainBox">
+        <nav className="topNavMainBox" aria-label='main navigation'>
             <h1 onClick={goToHome}>Ascents</h1>
             <ul className="topNavLinks">
                 <Link to=''>
