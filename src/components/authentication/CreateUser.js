@@ -24,7 +24,7 @@ const CreateUser = () => {
   }, [user, loading]);
 
   return (
-    <div className='authentificationBox'>
+    <main className='authentificationBox'>
       <h3 className='authentificationTitle'>Register with <b>Ascents</b></h3>
       <form className='authentificationFormBox'>
         <label htmlFor='name' className='authentificationLabel'>Full Name</label>
@@ -59,7 +59,7 @@ const CreateUser = () => {
       <div className='authentificationLabel'>
         Already have an account? <Link className='linkToComponent' to="/SignIn">Login</Link> now!
       </div>
-    </div>
+    </main>
   );
 }
 export default CreateUser;

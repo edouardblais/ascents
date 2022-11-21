@@ -50,7 +50,7 @@ const Crags = () => {
     }, [])
 
     return (
-        <div className='areasBox'>
+        <main className='areasBox'>
             <h2 className='areasTitle'>{chosenArea}</h2>
             <div className = 'areasSearchBox'>
                 <div className="areasInputBox">
@@ -69,7 +69,7 @@ const Crags = () => {
                                 </div>
                 })}
             </div>
-        </div>
+        </main>
     )
 }
 

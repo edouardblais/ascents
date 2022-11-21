@@ -37,15 +37,15 @@ const UserBox = () => {
   
   if (user) {
     return (
-        <div className="userBox">
+        <aside className="userBox">
             <h3 className="userBoxTitle">{userInfo.name}</h3>
             <Link className="link" to='/Profile'>My Profile</Link>
             <button onClick={logout}>Log Out</button>
-        </div>
+        </aside>
     )
   }
   return (
-        <div className="userBox">
+        <aside className="userBox">
           <h3 className="userBoxTitle">Welcome!</h3>
           <Link className="link" to='/SignIn'>
               Sign In
@@ -53,7 +53,7 @@ const UserBox = () => {
           <Link className="link" to='/CreateUser'>
               Create New User
           </Link>
-        </div>
+        </aside>
   )
 }
 

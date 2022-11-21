@@ -64,7 +64,7 @@ const AddAscent = () => {
 
     if (user) {
         return (
-            <div className='addAscentBox'>
+            <main className='addAscentBox'>
                 <h2 className='climbTitle'>Add ascents to your logbook!</h2>
                 <div className = 'addAscentSearchBox'>
                     <h4 className='climbSubTitle'>Search for a climb by it's name, crag, area or country</h4> 
@@ -97,17 +97,17 @@ const AddAscent = () => {
                             };
                     })}
                 </div>
-            </div>
+            </main>
         )
     }
 
     return (
-        <div className='authentificationBox'>
+        <main className='authentificationBox'>
             <h3 className='authentificationTitle'><b>Oops!</b></h3>
             <div className='authentificationLabel'>
                 Please <Link className='linkToComponent' to='/SignIn' >sign in</Link> or <Link className='linkToComponent' to='/CreateUser'>register</Link> to add ascents!
             </div>
-        </div>
+        </main>
     )
 }
 

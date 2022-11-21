@@ -155,7 +155,7 @@ const OtherUserProfile = () => {
 
     if (displayRoutesLogged) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{otherUser.name}</h3>
@@ -187,13 +187,13 @@ const OtherUserProfile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <RoutesLogged userInfo={otherUser}/>
-            </div>
+            </main>
         )
     }
 
     if (displayBouldersLogged) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{otherUser.name}</h3>
@@ -225,13 +225,13 @@ const OtherUserProfile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <BouldersLogged userInfo={otherUser}/>
-            </div>
+            </main>
         )
     }
 
     if (displayFollowers) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{otherUser.name}</h3>
@@ -263,13 +263,13 @@ const OtherUserProfile = () => {
                     <div className='activeToggle'>Following/Followers</div>
                 </div>
                 <Following userInfo={otherUser}/>
-            </div>
+            </main>
         )
     }
 
     if (displayToDo) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{otherUser.name}</h3>
@@ -301,13 +301,13 @@ const OtherUserProfile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <ToDo userInfo={otherUser}/>
-            </div>
+            </main>
         )
     }
 
     if (displayInfo) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{otherUser.name}</h3>
@@ -373,7 +373,7 @@ const OtherUserProfile = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         )
     }
 }

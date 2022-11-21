@@ -25,7 +25,7 @@ const Reset = () => {
   }
 
   return (
-    <div className="authentificationBox">
+    <main className="authentificationBox">
       <h3 className='authentificationTitle'>Reset your <b>Ascents</b> password profile</h3>
       <div className="authentificationFormBox">
         <label htmlFor='email' className='authentificationLabel'>Email</label>
@@ -41,7 +41,7 @@ const Reset = () => {
           Don't have an account? <Link to="/CreateUser" className='linkToComponent'>Register</Link> now!
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 export default Reset;

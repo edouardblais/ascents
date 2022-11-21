@@ -51,7 +51,7 @@ const Areas = () => {
     }
 
     return (
-        <div className='areasBox'>
+        <main className='areasBox'>
             <h2 className='areasTitle'>Areas</h2>
             <div className = 'areasSearchBox'>
                 <div className="areasInputBox">
@@ -73,7 +73,7 @@ const Areas = () => {
                         }
                 })}
             </div>
-        </div>
+        </main>
     )
 }
 

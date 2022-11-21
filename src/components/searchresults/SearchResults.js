@@ -54,7 +54,7 @@ const SearchResults = () => {
     }
 
     return (
-        <div className='searchResultsBox'>
+        <main className='searchResultsBox'>
             {searchResults.map((climb, index) => {
                 return  <div key={index} className='searchResultBox' onClick={() => seeClimb(climb)}>
                             <div className='searchResultSubBox'>
@@ -78,7 +78,7 @@ const SearchResults = () => {
                             {displayModal===climb? <AddAscentModal climb={climb} useremail={user.email}/> : null}
                         </div>
             })}
-        </div>
+        </main>
     )
 }
 

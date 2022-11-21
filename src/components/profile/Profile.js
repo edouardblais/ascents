@@ -154,7 +154,7 @@ const Profile = () => {
     
     if (user && displayInfo && !isEditing) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{name}</h3>
@@ -222,13 +222,13 @@ const Profile = () => {
                             </div>
                     </div>
                 </div>
-            </div>
+            </main>
         )
     }
 
     if (user && displayInfo && isEditing) {
         return (
-                <div className='profileBox'>
+                <main className='profileBox'>
                     <div className='profileInfoBox'>
                         <div className='profileInfoSubBox'>
                             <h3 className='profileName'>{name}</h3>
@@ -314,13 +314,13 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </main>
         )
     }
 
     if (user && displayRoutesLogged) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{name}</h3>
@@ -352,13 +352,13 @@ const Profile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <RoutesLogged userInfo={userInfo}/>
-            </div>
+            </main>
         )
     }
 
     if (user && displayBouldersLogged) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{name}</h3>
@@ -390,13 +390,13 @@ const Profile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <BouldersLogged userInfo={userInfo}/>
-            </div>
+            </main>
         )
     }
 
     if (user && displayFollowers) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{name}</h3>
@@ -428,13 +428,13 @@ const Profile = () => {
                     <div className='activeToggle'>Following/Followers</div>
                 </div>
                 <Following userInfo={userInfo}/>
-            </div>
+            </main>
         )
     }
 
     if (user && displayToDo) {
         return (
-            <div className='profileBox'>
+            <main className='profileBox'>
                 <div className='profileInfoBox'>
                     <div className='profileInfoSubBox'>
                         <h3 className='profileName'>{name}</h3>
@@ -466,17 +466,17 @@ const Profile = () => {
                     <button onClick={seeFollowing} className='profileButton'>Following/Followers</button>
                 </div>
                 <ToDo userInfo={userInfo}/>
-            </div>
+            </main>
         )
     }
 
     return (
-        <div className='authentificationBox'>
+        <main className='authentificationBox'>
             <h3 className='authentificationTitle'><b>Oops!</b></h3>
             <div className='authentificationLabel'>
                 Please <Link className='linkToComponent' to='/SignIn' >sign in</Link> or <Link className='linkToComponent' to='/CreateUser'>register</Link> to add ascents!
             </div>
-        </div>
+        </main>
     )
 }
 

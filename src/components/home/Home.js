@@ -79,7 +79,7 @@ const Home = () => {
     }
 
     return (
-        <div className="homeBox">
+        <main className="homeBox">
             <Carousel/>
             <div className="findClimbs">
                 <h2 className="homeBoxTitle">Explore <b>Ascents</b> To Find Your Dream Climbs</h2>
@@ -156,7 +156,7 @@ const Home = () => {
                     })}
                 </div>
             </div>
-        </div>
+        </main>
     )
 }
 

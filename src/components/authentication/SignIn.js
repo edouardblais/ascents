@@ -26,7 +26,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="authentificationBox">
+    <main className="authentificationBox">
       <h3 className='authentificationTitle'>Sign in your <b>Ascents</b> profile</h3>
       <form className='authentificationFormBox'>
         <label htmlFor='email'  className='authentificationLabel'>Enter Email</label>
@@ -57,7 +57,7 @@ const SignIn = () => {
       <div className='authentificationLabel'>
           Don't have an account? Register <Link className='linkToComponent' to="/CreateUser">here</Link>!
       </div>
-    </div>
+    </main>
   );
 }
 export default SignIn;

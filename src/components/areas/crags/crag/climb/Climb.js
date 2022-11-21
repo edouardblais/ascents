@@ -58,7 +58,7 @@ const Climb = () => {
     }
     
     return (
-        <div className='climbBox'>
+        <main className='climbBox'>
             <div className='climbInfoBox'>
                 <div className='climbInfoSubBox mainInfoParticularities'>
                     <h2 className='climbTitle'>{chosenClimb.climb}</h2>
@@ -113,7 +113,7 @@ const Climb = () => {
                     })}
             </div>
             {displayModal===chosenClimb? <AddAscentModal climb={chosenClimb} useremail={user.email}/> : null}
-        </div>
+        </main>
     )
 }
 

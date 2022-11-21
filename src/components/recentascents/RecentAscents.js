@@ -107,7 +107,7 @@ const RecentAscents = () => {
 
     if (friendsOnly) {
         return (
-            <div className='recentAscentsBox'>
+            <main className='recentAscentsBox'>
                 <h1 className='recentAscentsTitle'>Recent Ascents</h1>
                 <div className='followingNav'>
                     <p onClick={seeAllAscents} className='followingNavChoiceActive'>All Ascents</p>
@@ -143,12 +143,12 @@ const RecentAscents = () => {
                                 </div>
                     })}
                 </div>
-            </div>
+            </main>
         )
     }
     
     return (
-        <div className='recentAscentsBox'>
+        <main className='recentAscentsBox'>
             <h1 className='recentAscentsTitle'>Recent Ascents</h1>
             <div className='followingNav'>
                 <p className='followingNavChoiceInactive'>All Ascents</p>
@@ -185,7 +185,7 @@ const RecentAscents = () => {
                             </div>
                 })}
             </div>
-        </div>
+        </main>
     )
 }
 

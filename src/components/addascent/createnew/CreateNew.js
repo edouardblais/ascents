@@ -129,7 +129,7 @@ const CreateNew = () => {
     }, [errorStatus]);
     
     return (
-        <div className='addAscentBox'>
+        <main className='addAscentBox'>
             <h2  className='climbTitle'> Create a new climb!</h2>
             <div className='warningBox'>
                 <h4 className='createNewSubTitle'><span className="material-symbols-outlined">warning</span>Please check first that the climb you are about to create does not already exists <Link to='../AddAscent' className='linkToComponent'>here!</Link></h4>
@@ -227,7 +227,7 @@ const CreateNew = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </main>
     )
 }
 

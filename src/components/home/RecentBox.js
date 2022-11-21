@@ -96,7 +96,7 @@ const RecentBox = () => {
 
     if (user) {
         return (
-            <div className="recentBox">
+            <aside className="recentBox">
                 <h3 className='recentBoxTitle'>Recent Ascents</h3>
                 <h4 className='recentBoxSubTitle'>Friends</h4>
                 <div className="recentascentsbox">
@@ -123,13 +123,13 @@ const RecentBox = () => {
                                 </div>
                     }
                 })}
-            </div>
-            </div>
+                </div>
+            </aside>
         )
     }
     
     return (
-        <div className="recentBox">
+        <aside className="recentBox">
             <h3 className='recentBoxTitle'>Recent Ascents</h3>
             <div className="recentascentsbox">
                 {recentAscents.map((ascent, index) => {
@@ -142,7 +142,7 @@ const RecentBox = () => {
                      }
                 })}
             </div>
-        </div>
+        </aside>
     )
 }
 
