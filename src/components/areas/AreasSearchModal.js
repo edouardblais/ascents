@@ -22,14 +22,14 @@ const AreasSearchModal = ({data}) => {
         } else {
             setPossibleAreas([]);
         }
-    }, [])
+    }, [data])
 
     const goToChosenArea = (result) => {
                     navigate('/SearchAreas/SearchCrags', {
                         state: {
                             chosenArea: result.area,
                         }
-                })
+                    })
     }
 
     const increment = () => {
@@ -51,7 +51,7 @@ const AreasSearchModal = ({data}) => {
                                                                 <p>{result.country}</p>
                                                             </div>
                                                         </div> 
-                                        : "Oops! No results found"}</div>
+                                        : <div>Oops! No results found</div>}</div>
                         } 
                     })}
                 </div>

@@ -27,7 +27,7 @@ const ClimbsSearchModal = ({data, consideredCrag}) => {
         } else {
             setPossibleClimbs([]);
         }
-    }, [])
+    }, [data, consideredCrag])
 
     const goToChosenClimb = (result) => {
                     navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
