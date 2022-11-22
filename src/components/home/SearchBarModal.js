@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { fetchClimbInfo, fetchAllConcernedUsers, getCragInfo, getAreaInfo, fetchExactClimb } from '../firebase/Firebase';
+import { fetchClimbInfo, fetchAllConcernedUsers, fetchExactClimb } from '../firebase/Firebase';
 import { trimSentence, capitalizeFirstLetter } from "../operations/Operations";
 import { useNavigate } from 'react-router-dom';
 import './SearchBarModal.css';
 
-const SearchBarModal = ({data}) => {
+const SearchBarModal = ({data, deactivateSearchModal}) => {
     let navigate = useNavigate();
 
     const [allData, setAllData] = useState([]);
@@ -31,7 +31,7 @@ const SearchBarModal = ({data}) => {
         } else {
             setAllData([]);
         }
-    }, [])
+    }, [data])
 
     const goToChosenData = (result) => {
         if (result.name) {
@@ -51,7 +51,7 @@ const SearchBarModal = ({data}) => {
                         state: {
                             chosenCrag: result.crag,
                         }
-                })
+                    })
         } else if (result.climb) {
             fetchExactClimb(result.climb)
                 .then((resolvedclimb) => {
@@ -62,6 +62,7 @@ const SearchBarModal = ({data}) => {
                     })
                 })
         }
+        deactivateSearchModal();
     }
 
     const increment = () => {

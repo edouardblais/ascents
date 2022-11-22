@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import './TopNav.css';
 import SearchBarModal from './SearchBarModal';
@@ -11,20 +11,29 @@ const TopNav = () => {
 
     const [input, setInput] = useState('');
 
+    const inputRef = useRef();
+
     const [homeFocus, setHomeFocus] = useState(true);
     const [profileFocus, setProfileFocus] = useState(false);
     const [recentAscentsFocus, setRecentAscentsFocus] = useState(false);
     const [areasFocus, setAreasFocus] = useState(false);
     const [addAscentFocus , setAddAscentFocus] = useState(false);
 
-    const activateSearchModal = (e) => {
-        if (e.target.value !== '') {
+    const activateSearchModal = (inputvalue) => {
+        if (inputvalue !== '') {
             setSearching(true);
-            setInput(e.target.value)
+            setInput(inputvalue)
         } else {
             setSearching(false)
             setInput('');
+            
         }
+    }
+
+    const deactivateSearchModal = () => {
+        setSearching(false);
+        setInput('');
+        inputRef.current.value = '';
     }
 
     const goToHome = () => {
@@ -94,10 +103,10 @@ const TopNav = () => {
             <div className="topNavSearchResultBox">
                 <div className="topNavInputBox">
                     <span className="material-symbols-sharp">search</span>
-                    <input type='text' onChange={(e) => activateSearchModal(e)} className="topNavInput"/>
+                    <input type='text' onChange={() => activateSearchModal(inputRef.current.value)} className="topNavInput" ref={inputRef}/>
                 </div>
                 <div>
-                    {searching? <SearchBarModal data={input}/> : null}
+                    {searching? <SearchBarModal data={input} deactivateSearchModal={deactivateSearchModal}/> : null}
                 </div>
             </div>
         </nav>
