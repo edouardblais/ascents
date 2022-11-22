@@ -47,7 +47,7 @@ const Crags = () => {
                 setCrags(cragsToDisplay);
                 }
             })
-    }, [])
+    }, [chosenArea])
 
     return (
         <main className='areasBox'>

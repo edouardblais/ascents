@@ -46,7 +46,7 @@ const Crag = () => {
                 });
                 setClimbs(sortedClimbsByAscents);
             })
-    }, [])
+    }, [chosenCrag])
 
     const sortByAscentsDecreasing = () => {
         const sortedClimbsByAscents = climbs.sort((ascent1 ,ascent2) => {
