@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { updateLogbook } from '../../firebase/Firebase';
 import '../Profile.css';
@@ -8,6 +8,14 @@ const BouldersLogged = ({userInfo}) => {
     const navigate = useNavigate();
 
     const [bouldersLogged, setBouldersLogged] = useState(userInfo.logbook);
+    const [sortedBoulders, setSortedBoulders] = useState([]);
+
+    useEffect(() => {
+        const sortedAscentsByDate = bouldersLogged.sort((ascent1 ,ascent2) => {
+            return new Date(ascent2.date) - new Date(ascent1.date);
+        });
+        setSortedBoulders(sortedAscentsByDate);
+    }, [bouldersLogged])
 
     const seeClimb = (climb) => {
         navigate('/SearchAreas/SearchCrags/SearchClimbs/Climb', {
@@ -26,7 +34,7 @@ const BouldersLogged = ({userInfo}) => {
     return (
         <div className='profileContent'>
             <div className='logbookBox'>
-                {bouldersLogged.map((climb, index) => {
+                {sortedBoulders.map((climb, index) => {
                     if (climb.type === 'Bouldering') {
                         return  <div key={index} className='loggedClimbBox'>
                                     <div>
@@ -43,10 +51,12 @@ const BouldersLogged = ({userInfo}) => {
                                         <div className='loggedClimbTopInfo'>{climb.grade} <span className='loggedClimbBottomInfo'>{climb.feel}</span></div>
                                         <div className='loggedClimbBottomInfo'>{climb.type}</div>
                                     </div>
-                                    
                                     <div className='loggedClimbSubBox'>
                                         <div className='loggedClimbTopInfo'>{climb.rating} stars</div>
                                         <div className='loggedClimbBottomInfo'>{climb.recommendation? <span className="material-symbols-outlined redpoint">favorite</span>:''}</div>
+                                    </div>
+                                    <div className='loggedClimbSubBox'>
+                                        <div className='loggedClimbTopInfo'>{climb.date}</div>
                                     </div>
                                     <div className='loggedClimbSubBox'>
                                         <button onClick={() => removeFromLogbook(climb)} className='deleteButton'><span className="material-symbols-outlined">delete</span></button>
