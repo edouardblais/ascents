@@ -137,7 +137,7 @@ const Home = () => {
                 </div>
             </div>
             <div className="awesomeClimbs">
-                <h2 className="homeBoxTitle">Featured Awesome Climbs Based On <b>Ascents</b> Users Ticks!</h2>
+                <h2 className="homeBoxTitle"><b>Ascents</b> Users Favorite Climbs!</h2>
                 <div className="goodClimbsBox">
                     {goodClimbs.map((climb, index) => {
                         increment();
