@@ -141,7 +141,7 @@ const CreateNew = () => {
                         <div className = 'areasSearchBox'>
                             <div className='modalFormSubBox'>
                                 <label htmlFor='country' className='modalFormTitles'>Country</label>
-                                <input type='text' id='country' name='country' value={countries} onChange={(e) => defineCountry(e.target.value)} className='modalFormInput'/>
+                                <input type='text' id='country' name='country' value={countries} onChange={(e) => defineCountry(e.target.value)} className='modalFormInput' required/>
                             </div>
                             <div className='areasResultsBox'>
                                 {searchingCountries? <CountrySearchModal data={countries}/> : null}
@@ -150,7 +150,7 @@ const CreateNew = () => {
                         <div className = 'areasSearchBox'>
                             <div className='modalFormSubBox'>
                                 <label htmlFor='area' className='modalFormTitles'>Area</label>
-                                <input type='text' id='area' name='area' value={areas} onChange={(e) => defineArea(e.target.value)} className='modalFormInput'/>
+                                <input type='text' id='area' name='area' value={areas} onChange={(e) => defineArea(e.target.value)} className='modalFormInput' required/>
                             </div>
                             <div className='areasResultsBox'>
                                 {searchingAreas? <AreasSearchModal data={areas}/> : null}
@@ -161,7 +161,7 @@ const CreateNew = () => {
                         <div className = 'areasSearchBox'>
                             <div className='modalFormSubBox'>
                                 <label htmlFor='crag' className='modalFormTitles'>Crag</label>
-                                <input type='text' id='crag' name='crag' value={crags} onChange={(e) => defineCrag(e.target.value)} className='modalFormInput'/>
+                                <input type='text' id='crag' name='crag' value={crags} onChange={(e) => defineCrag(e.target.value)} className='modalFormInput' required/>
                             </div>
                             <div className='areasResultsBox'>
                                 {searchingCrags? <CragsSearchModal data={crags} consideredArea={null}/> : null}
@@ -170,7 +170,7 @@ const CreateNew = () => {
                         <div className = 'areasSearchBox'>
                             <div className='modalFormSubBox'>
                                 <label htmlFor='climb' className='modalFormTitles'>Climb</label>
-                                <input type='text' id='climb' name='climb' value={climbs} onChange={(e) => defineClimb(e.target.value)} className='modalFormInput'/>
+                                <input type='text' id='climb' name='climb' value={climbs} onChange={(e) => defineClimb(e.target.value)} className='modalFormInput' required/>
                             </div>
                             <div className='areasResultsBox'>
                                 {searchingClimbs? <ClimbsSearchModal data={climbs} consideredCrag={null}/> : null}
@@ -180,7 +180,7 @@ const CreateNew = () => {
                     <div className='modalFormBox'>
                         <div className='modalFormSubBox'>
                             <label htmlFor='grade' className='modalFormTitles'>Grade</label>
-                            <select name='grade' id='grade' value={grade} onChange={(e) => getSelectedGrade(e.target.value)} className='modalFormInput'>
+                            <select name='grade' id='grade' value={grade} onChange={(e) => getSelectedGrade(e.target.value)} className='modalFormInput' required>
                                 <option value=''></option>
                                 <option value='5'>5</option>
                                 <option value='6a'>6a</option>
@@ -211,7 +211,7 @@ const CreateNew = () => {
                         </div>
                         <div className='modalFormSubBox'>
                             <label htmlFor='type' className='modalFormTitles'>Type of climbing</label>
-                            <select name='type' id='type' value={type} onChange={(e) => getSelectedType(e.target.value)} className='modalFormInput'>
+                            <select name='type' id='type' value={type} onChange={(e) => getSelectedType(e.target.value)} className='modalFormInput' required>
                                 <option value=''></option>
                                 <option value='Bouldering'>Bouldering</option>
                                 <option value='Sport Climbing'>Sport Climbing</option>
